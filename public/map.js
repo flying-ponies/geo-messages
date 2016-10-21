@@ -1,8 +1,12 @@
+console.log('initMap declaration...');
+
 function initMap() {
-  var myLatlng = {lat: 49.2827, lng: 123.1207};
+  console.log( 'initializing the map...' );
+
+  var myLatlng = {lat: 49.2827, lng: -123.1207};
 
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
+    zoom: 8,
     center: myLatlng
   });
 
@@ -20,8 +24,13 @@ function initMap() {
     }, 3000);
   });
 
+  var GeoMarker = new GeolocationMarker(map);
+
+
   marker.addListener('click', function() {
-    map.setZoom(8);
+    map.setZoom(17);
     map.setCenter(marker.getPosition());
   });
 }
+
+
