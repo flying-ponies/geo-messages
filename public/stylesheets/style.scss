@@ -1,6 +1,163 @@
-body {
-    min-height: 2000px;
-    padding-top: 70px;
+$color_primary: #212121;
+// $color_secondary: #437c90;
+// $color_accent: #F9BF2A;
+$color_bg: #333;
+$color_bg_inverse: lightgrey;
+$font_primary: #fff;
+$font_secondary: #000;
+
+// $font_main: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
+$font_main: 'Dosis', sans-serif;
+$font_headers: 'Dosis', sans-serif;
+
+/*
+ * Globals
+ */
+
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: $font_primary;
 }
 
+/* Custom default button */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: $font_primary;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: $color_bg;
+  border: 0px;
+}
+
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+  font-family: $font_main;
+  padding-top: 40px;
+  height: 100%;
+  background-color: $color_bg;
+}
+body {
+  color: #fff;
+  text-align: center;
+  // text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font_headers;
+}
+
+.modal-content {
+  color: $font_secondary;
+  background-color: $color_bg_inverse;
+}
+
+.modal-footer h6 {
+  margin-top: 0px;
+  text-align: center;
+}
+
+
+/* Padding for spacing */
+.inner {
+  padding: 15px;
+}
+
+/*
+ * Header
+ */
+.navbar {
+  background-color: $color_primary;
+  border-bottom: 1px solid black;
+}
+
+.masthead {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.masthead-brand {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.masthead-nav > li {
+  display: inline-block;
+}
+.masthead-nav > li + li {
+  margin-left: 20px;
+}
+.masthead-nav > li > a {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: $font_primary; /* IE8 proofing */
+  color: rgba(255,255,255,.75);
+  border-bottom: 2px solid transparent;
+}
+.masthead-nav > li > a:hover,
+.masthead-nav > li > a:focus {
+  background-color: transparent;
+  color: $font_primary;
+  // border-bottom-color: #a9a9a9;
+  // border-bottom-color: rgba(255,255,255,.25);
+}
+.masthead-nav > .active > a,
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus {
+  color: $font_primary;
+  border-bottom-color: $font_primary;
+}
+
+@media (min-width: 768px) {
+  .masthead-brand {
+    float: left;
+  }
+  .masthead-nav {
+    float: right;
+  }
+}
+
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+  .masthead {
+    width: 768px;
+  }
+}
+
+
+.form-login {
+  max-width: 330px;
+  padding: 0px;
+  margin: 0 auto;
+  background-color: $color_bg_inverse;
+  border-radius: 5px;
+  color: $font_secondary;
+  // border: 1px solid $color_primary;
+  label {
+    float: left;
+  }
+}
+
+.form-login-heading {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+form {
+  label {
+    float: left;
+  }
+
+}
 
