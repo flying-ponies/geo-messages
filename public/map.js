@@ -1,5 +1,8 @@
+console.log('initMap declaration...')
 function initMap() {
-  var myLatlng = {lat: 49.2827, lng: 123.1207};
+  console.log( 'initializing the map...' );
+
+  var myLatlng = {lat: 49.2827, lng: -123.1207};
 
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,
