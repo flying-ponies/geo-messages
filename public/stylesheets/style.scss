@@ -1,5 +1,5 @@
 $color_primary: #212121;
-// $color_secondary: #437c90;
+$color_secondary: #4A4A4A;
 // $color_accent: #F9BF2A;
 $color_bg: #333;
 $color_bg_inverse: lightgrey;
@@ -15,14 +15,14 @@ $font_headers: 'Dosis', sans-serif;
  */
 
 
-/* Links */
+// LINKS
 a,
 a:focus,
 a:hover {
   color: $font_primary;
 }
 
-/* Custom default button */
+// BUTTONS
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {
@@ -32,11 +32,7 @@ a:hover {
   border: 0px;
 }
 
-
-/*
- * Base structure
- */
-
+// BASE
 html,
 body {
   font-family: $font_main;
@@ -46,13 +42,31 @@ body {
 }
 body {
   color: #fff;
-  text-align: center;
+  text-align: left;
+  min-height: 2000px;
   // text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: $font_headers;
 }
 
+footer {
+  // position: absolute;
+  // bottom: 0;
+  // width: 100%;
+  height: 30px;
+  border-top: 1px solid black;
+  padding: 5px 0;
+  background-color: $color_primary;
+  color: $font_primary;
+  p {
+    margin: 0;
+    text-align: center;
+    opacity: .50;
+  }
+}
+
+// MODAL
 .modal-content {
   color: $font_secondary;
   background-color: $color_bg_inverse;
@@ -64,17 +78,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-/* Padding for spacing */
+// NAVBAR PADDING
 .inner {
   padding: 15px;
 }
 
-/*
- * Header
- */
+// NAVBAR
 .navbar {
   background-color: $color_primary;
   border-bottom: 1px solid black;
+  text-align: center;
 }
 
 .masthead {
@@ -125,18 +138,21 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/*
- * Affix and center
- */
-
+// NAVBAR AFFIXED CENTER
 @media (min-width: 768px) {
   .masthead {
     width: 768px;
   }
 }
 
+@media (min-width: 768px) {
+  .container {
+      width: 768px;
+  }
+}
 
-.form-login {
+// FORMS
+.form-login, .form-signup {
   max-width: 330px;
   padding: 0px;
   margin: 0 auto;
@@ -149,7 +165,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.form-login-heading {
+.form-login-heading,
+.form-signin-heading {
   margin-top: 0px;
   margin-bottom: 0px;
 }
@@ -158,6 +175,37 @@ form {
   label {
     float: left;
   }
+  textarea {
+    resize: vertical;
+  }
 
 }
+
+// TABS
+.nav-tabs {
+  li.active a,
+  li.active a:focus,
+  li.active a:hover {
+    color: $font_primary;
+    background-color: $color_bg;
+    padding-bottom: 10px;
+  }
+}
+
+.nav-tabs {
+  li a:focus,
+  li a:hover {
+    text-decoration: none;
+    background-color: $color_secondary;
+    border: 1px solid transparent;
+    padding-bottom: 9px;
+
+  }
+}
+
+.message {
+  margin-bottom: 30px;
+}
+
+
 
