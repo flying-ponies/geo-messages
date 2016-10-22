@@ -26,11 +26,12 @@ function initMap() {
 
   var GeoMarker = new GeolocationMarker(map);
 
-
   marker.addListener('click', function() {
     map.setZoom(17);
     map.setCenter(marker.getPosition());
   });
+
+  dropMessagesStub(myLatlng, map);
 }
 
 
