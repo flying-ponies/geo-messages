@@ -1,35 +1,56 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+<div id="navbar">
+  <div class="navbar navbar-fixed-top">
+    <div class="masthead">
+      <div class="inner">
+        <a href="/">
+          <h3 class="masthead-brand hidden-xs text-uppercase">
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+            Geo-Messages
+          </h3>
+        </a>
+        <nav>
+          <ul class="nav masthead-nav">
+            <!-- <li class="active"><a href="#">Home</a></li> -->
+            <li><a href="/profile">Profile</a></li>
+            <li data-toggle="modal" data-target=".bd-example-modal-sm"><a href="#">New Message</a></li>
+            <!-- <script type="text/javascript" src="/javascripts/create-message.js"></script> -->
 
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-
-          </ul>
-        </div><!--/.nav-collapse -->
+        </nav>
       </div>
-    </nav>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h2 class="modal-title">New Geo-Message</h2>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Message Title:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+
+          <label for="message-text" class="form-control-label">Message:</label>
+          <textarea class="form-control" id="message-text" rows=8></textarea>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default">Post Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
