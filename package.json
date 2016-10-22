@@ -19,9 +19,11 @@
     "ejs": "~2.4.1",
     "express": "~4.13.4",
     "knex": "^0.12.6",
+    "knex-postgis": "^0.2.0",
     "morgan": "~1.7.0",
     "node-sass": "^3.10.1",
     "node-sass-middleware": "0.8.0",
+    "pg": "^6.1.0",
     "serve-favicon": "~2.3.0"
   }
 }
