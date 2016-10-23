@@ -3,6 +3,7 @@
   <%- include('partials/head') %>
   <body>
     <%- include('partials/top_nav') %>
+    <%- include('partials/view-message-modal') %>
 
     <div id="map"></div>
     <script>
@@ -10,6 +11,7 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script type="text/javascript" src="/geolocation-marker.js"></script>
+    <script type="text/javascript" src="/javascripts/postion-to-city-name.js"></script>
     <script type="text/javascript" src="/drop-messages-stub.js"></script>
     <script src="/map.js" type="text/javascript"> </script>
     <script type="text/javascript" async defer
@@ -19,6 +21,7 @@
     <script>
     console.log('Script Section ends.');
     </script>
+
 
     <%- include('partials/footer') %>
   </body>

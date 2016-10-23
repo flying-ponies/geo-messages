@@ -87,6 +87,16 @@ footer {
   text-align: center;
 }
 
+// VIEW MESSAGE MODAL
+#view-message-modal {
+  .modal-header {
+    h6 {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+  }
+}
+
 
 // NAVBAR PADDING
 .inner {
@@ -176,7 +186,7 @@ footer {
 }
 
 .form-login-heading,
-.form-signin-heading {
+.form-signup-heading {
   margin-top: 0px;
   margin-bottom: 0px;
 }
@@ -213,8 +223,14 @@ form {
   }
 }
 
-.message {
-  margin-bottom: 30px;
+.message-container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba($font_primary, 0.25);
+}
+
+.message-container:last-child{
+  border-bottom: none;
 }
 
 
