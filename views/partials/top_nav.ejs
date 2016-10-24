@@ -12,7 +12,7 @@
           <ul class="nav masthead-nav">
             <!-- <li class="active"><a href="#">Home</a></li> -->
             <li><a href="/profile">Profile</a></li>
-            <li data-toggle="modal" data-target=".bd-example-modal-sm"><a href="#">New Message</a></li>
+            <li data-toggle="modal" data-target=".new-message-modal"><a href="#">New Message</a></li>
             <!-- <script type="text/javascript" src="/javascripts/create-message.js"></script> -->
 
           </ul>
@@ -22,9 +22,9 @@
 
   </div>
 </div>
-
-<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+<!-- NEW MESSAGE MODAL -->
+<div class="modal fade new-message-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -40,7 +40,7 @@
           </div>
 
           <label for="message-text" class="form-control-label">Message:</label>
-          <textarea class="form-control" id="message-text" rows=8></textarea>
+          <textarea class="form-control" id="message-text" rows=4></textarea>
 
         </form>
       </div>

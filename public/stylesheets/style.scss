@@ -36,7 +36,7 @@ a:hover {
 html,
 body {
   font-family: $font_main;
-  padding-top: 40px;
+  padding-top: 50px;
   height: 100%;
   background-color: $color_bg;
 }
@@ -44,7 +44,7 @@ body {
 body {
   color: #fff;
   text-align: left;
-  min-height: 2000px;
+  // min-height: 2000px;
   // text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 
@@ -85,6 +85,16 @@ footer {
 .modal-footer h6 {
   margin-top: 0px;
   text-align: center;
+}
+
+// VIEW MESSAGE MODAL
+#view-message-modal {
+  .modal-header {
+    h6 {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+  }
 }
 
 
@@ -176,7 +186,7 @@ footer {
 }
 
 .form-login-heading,
-.form-signin-heading {
+.form-signup-heading {
   margin-top: 0px;
   margin-bottom: 0px;
 }
@@ -213,8 +223,15 @@ form {
   }
 }
 
-.message {
-  margin-bottom: 30px;
+.message-container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba($font_primary, 0.25);
+}
+
+.message-container:last-child {
+  border-bottom: none;
+  margin-bottom: 50px;
 }
 
 
