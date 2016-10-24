@@ -47,7 +47,6 @@ function dropMessagesStub( centralLatLng, map ){
         $('#view-message-modal').modal({
           show: 'true'
         });
-
       });
     })(i);
   }
