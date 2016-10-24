@@ -20,7 +20,7 @@ a:hover {
 html,
 body {
   font-family: "Dosis", sans-serif;
-  padding-top: 40px;
+  padding-top: 50px;
   height: 100%;
   background-color: #333;
 }
@@ -28,7 +28,6 @@ body {
 body {
   color: #fff;
   text-align: left;
-  min-height: 2000px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -196,4 +195,5 @@ form textarea {
 
 .message-container:last-child {
   border-bottom: none;
+  margin-bottom: 50px;
 }

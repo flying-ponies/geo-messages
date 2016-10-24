@@ -36,7 +36,7 @@ a:hover {
 html,
 body {
   font-family: $font_main;
-  padding-top: 40px;
+  padding-top: 50px;
   height: 100%;
   background-color: $color_bg;
 }
@@ -44,7 +44,7 @@ body {
 body {
   color: #fff;
   text-align: left;
-  min-height: 2000px;
+  // min-height: 2000px;
   // text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 
@@ -229,8 +229,9 @@ form {
   border-bottom: 1px solid rgba($font_primary, 0.25);
 }
 
-.message-container:last-child{
+.message-container:last-child {
   border-bottom: none;
+  margin-bottom: 50px;
 }
 
 

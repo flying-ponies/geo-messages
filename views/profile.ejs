@@ -4,7 +4,8 @@
   <body>
     <%- include('partials/top_nav') %>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <script type="text/javascript" src="/javascripts/postion-to-city-name.js"></script>
+    <script type="text/javascript" src="/javascripts/position-to-city-name.js"></script>
+    <script type="text/javascript" src="/javascripts/render-city-name-on-message-container.js"></script>
 
 
     <div class="container">
@@ -26,9 +27,9 @@
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade active in" role="tabpanel" id="your-messages" aria-labelledby="your-messages-tab">
 
-          <% yourMessages.forEach(function(message, i) { %>
+          <% yourMessages.forEach(function(message) { %>
 
-            <div class="message-container _<%= i %>">
+            <div class="message-container">
               <h4 class="message-title">
                 <%= message.title %>
               </h4>
@@ -60,9 +61,9 @@
         </div>
         <div class="tab-pane fade" role="tabpanel" id="read-messages" aria-labelledby="read-messages-tab">
 
-          <% readMessages.forEach(function(message, i) { %>
+          <% readMessages.forEach(function(message) { %>
 
-            <div class="message-container _<%= i %>">
+            <div class="message-container">
               <h4 class="message-title">
                 <%= message.title %>
               </h4>
@@ -91,45 +92,10 @@
 
           <% }); %>
 
-
         </div>
       </div>
 
-
-
     </div> <!-- /container -->
-
-    <script type="text/javascript">
-      $(document).ready(function() {
-
-        var yourMessageCount = $('#your-messages .message-container').length;
-        for(var i = 0; i < yourMessageCount; i += 1) {
-          (function(i) {
-            var container = '#your-messages .message-container._' + i;
-            var lat = $(container + ' .lat').text();
-            var lng = $(container + ' .lng').text();
-            positionToCityName(lat, lng, function(city) {
-              console.log(city);
-              $(container + ' .city').text(city);
-            });
-          })(i);
-        }
-
-        var readMessageCount = $('#read-messages .message-container').length;
-        for(var i = 0; i < readMessageCount; i += 1) {
-          (function(i) {
-            var container = '#read-messages .message-container._' + i;
-            var lat = $(container + ' .lat').text();
-            var lng = $(container + ' .lng').text();
-            positionToCityName(lat, lng, function(city) {
-              console.log(city);
-              $(container + ' .city').text(city);
-            });
-          })(i);
-        }
-
-      });
-    </script>
 
     <%- include('partials/footer') %>
   </body>
