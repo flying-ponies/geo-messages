@@ -61,9 +61,13 @@ var readMessages = [
   },
 ];
 
-var templateVars = {
+var currentUser = {
   "username": "JChow417",
   "email": "JChow417@gmail.com",
+};
+
+var templateVars = {
+  'currentUser': currentUser,
   'yourMessages': YourMessages,
   'readMessages': readMessages
 };
