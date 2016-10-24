@@ -31,6 +31,7 @@ function dropMessagesStub( centralLatLng, map ){
       title: 'Click to view message'
     });
 
+    // Hack to lexically scope index into messages array correctly
     function myListener(j){
         marker.addListener('click', function() {
         console.log( messages[j] );

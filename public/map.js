@@ -25,6 +25,51 @@ function initMap() {
   });
 
   var GeoMarker = new GeolocationMarker(map);
+  GeoMarker.setCircleOptions(
+    new google.maps.Circle({
+            strokeColor: '#DD0000',
+            strokeOpacity: 0.0,
+            strokeWeight: 2,
+            fillColor: '#DD0000',
+            fillOpacity: 0.0,
+            map: map,
+            center: GeoMarker.center,
+            radius: 40
+    })
+  );
+
+  var options, id, coord;
+
+  function success(pos){
+
+    coord = { lat: pos.coords.latitude, lng: pos.coords.longitude } ;
+    var mapCircle = new google.maps.Circle({
+            strokeColor: '#DD0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#DD0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: coord,
+            radius: 400.0
+    });
+
+    console.log("success; ", coord );
+  }
+
+  function error(err){
+    console.log("Error in geolocation: ", err);
+  }
+
+  options = {
+    enableHighAccuracy: false,
+    timeout: 5000,
+    maximumAge: 0
+  };
+
+  id = navigator.geolocation.watchPosition(success, error, options);
+  //GeoMarker.set("minimum_accuracy", 40);
+  //GeoMarker.set("maximum_accuracy", 40);
 
   marker.addListener('click', function() {
     map.setZoom(17);
