@@ -1,7 +1,11 @@
 <footer class="navbar-fixed-bottom">
   <div class="container">
     <p>
-      Please login to see full Geo-Messages.
+      <% if (currentUser) { %>
+        Please click on the markers to see full Geo-Messages.
+      <% } else { %>
+        Please login to see full Geo-Messages.
+      <% } %>
     </p>
   </div>
 </footer>

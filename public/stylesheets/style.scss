@@ -10,6 +10,9 @@ $font_secondary: #000;
 $font_main: 'Dosis', sans-serif;
 $font_headers: 'Dosis', sans-serif;
 
+$top_padding: 50px;
+$bottom_padding: 30px;
+
 /*
  * Globals
  */
@@ -33,15 +36,12 @@ a:hover {
 }
 
 // BASE
-html,
 body {
   font-family: $font_main;
-  padding-top: 50px;
-  height: 100%;
+  padding-top: $top_padding;
+  padding-bottom: $bottom_padding;
+  height: auto;
   background-color: $color_bg;
-}
-
-body {
   color: #fff;
   text-align: left;
   // min-height: 2000px;
@@ -54,9 +54,9 @@ h1, h2, h3, h4, h5, h6 {
 
 #map {
   position: absolute;
-  top: 0;
+  top: $top_padding;
   left: 0;
-  height: 100%;
+  height: calc(100% - #{$top_padding + $bottom_padding});
   width: 100%;
 }
 
@@ -97,17 +97,12 @@ footer {
   }
 }
 
-
-// NAVBAR PADDING
-.inner {
-  padding: 15px;
-}
-
 // NAVBAR
 .navbar {
   background-color: $color_primary;
   border-bottom: 1px solid black;
   text-align: center;
+  height: 50px;
 }
 
 .masthead {
@@ -119,7 +114,6 @@ footer {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
 .masthead-nav > li {
   display: inline-block;
 }
@@ -127,6 +121,7 @@ footer {
   margin-left: 20px;
 }
 .masthead-nav > li > a {
+  padding-bottom: 5px;
   padding-right: 0;
   padding-left: 0;
   font-size: 16px;
@@ -231,7 +226,6 @@ form {
 
 .message-container:last-child {
   border-bottom: none;
-  margin-bottom: 50px;
 }
 
 

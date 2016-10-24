@@ -1,25 +1,35 @@
 <div id="navbar">
+  <script type="text/javascript" src="/javascripts/active-nav-buttons.js"></script>
   <div class="navbar navbar-fixed-top">
     <div class="masthead">
-      <div class="inner">
-        <a href="/">
-          <h3 class="masthead-brand hidden-xs text-uppercase">
-            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-            Geo-Messages
-          </h3>
-        </a>
-        <nav>
-          <ul class="nav masthead-nav">
+      <a href="/">
+        <h3 class="masthead-brand hidden-xs text-uppercase">
+          <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+          Geo-Messages
+        </h3>
+      </a>
+      <nav>
+        <ul class="nav masthead-nav">
+
+          <% if (currentUser) { %>
+
             <!-- <li class="active"><a href="#">Home</a></li> -->
+            <li><a href="/">Map</a></li>
             <li><a href="/profile">Profile</a></li>
             <li data-toggle="modal" data-target=".new-message-modal"><a href="#">New Message</a></li>
-            <!-- <script type="text/javascript" src="/javascripts/create-message.js"></script> -->
+            <li><a href="/logout">Logout</a></li>
 
-          </ul>
-        </nav>
-      </div>
+          <% } else { %>
+
+            <li><a href="/login">login</a></li>
+            <li><a href="/signup">Sign up</a></li>
+
+          <% } %>
+
+        </ul>
+      </nav>
+
     </div>
-
   </div>
 </div>
 <!-- NEW MESSAGE MODAL -->

@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
 
 // TEMP
 
@@ -73,13 +69,18 @@ var templateVars = {
 };
 
 router.get('/login', function(req, res, next) {
-  res.render('login');
+  res.render('login', {currentUser: currentUser = null});
 });
 router.get('/signup', function(req, res, next) {
-  res.render('signup');
+  res.render('signup', {currentUser: currentUser = null});
 });
 router.get('/profile', function(req, res, next) {
   res.render('profile', templateVars);
+});
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', templateVars);
 });
 
 module.exports = router;

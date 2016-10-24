@@ -17,15 +17,12 @@ a:hover {
   border: 0px;
 }
 
-html,
 body {
   font-family: "Dosis", sans-serif;
   padding-top: 50px;
-  height: 100%;
+  padding-bottom: 30px;
+  height: auto;
   background-color: #333;
-}
-
-body {
   color: #fff;
   text-align: left;
 }
@@ -36,9 +33,9 @@ h1, h2, h3, h4, h5, h6 {
 
 #map {
   position: absolute;
-  top: 0;
+  top: 50px;
   left: 0;
-  height: 100%;
+  height: calc(100% - 80px);
   width: 100%;
 }
 
@@ -71,14 +68,11 @@ footer p {
   margin-bottom: 0px;
 }
 
-.inner {
-  padding: 15px;
-}
-
 .navbar {
   background-color: #212121;
   border-bottom: 1px solid black;
   text-align: center;
+  height: 50px;
 }
 
 .masthead {
@@ -100,6 +94,7 @@ footer p {
 }
 
 .masthead-nav > li > a {
+  padding-bottom: 5px;
   padding-right: 0;
   padding-left: 0;
   font-size: 16px;
@@ -195,5 +190,4 @@ form textarea {
 
 .message-container:last-child {
   border-bottom: none;
-  margin-bottom: 50px;
 }
