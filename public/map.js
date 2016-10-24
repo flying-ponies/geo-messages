@@ -6,7 +6,7 @@ function initMap() {
   var myLatlng = {lat: 49.2827, lng: -123.1207};
 
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 8,
+    zoom: 16,
     center: myLatlng
   });
 
@@ -44,10 +44,10 @@ function initMap() {
 
     coord = { lat: pos.coords.latitude, lng: pos.coords.longitude } ;
     var mapCircle = new google.maps.Circle({
-            strokeColor: '#DD0000',
+            strokeColor: '#0000DD',
             strokeOpacity: 0.8,
             strokeWeight: 2,
-            fillColor: '#DD0000',
+            fillColor: '#0000DD',
             fillOpacity: 0.35,
             map: map,
             center: coord,
@@ -68,8 +68,7 @@ function initMap() {
   };
 
   id = navigator.geolocation.watchPosition(success, error, options);
-  //GeoMarker.set("minimum_accuracy", 40);
-  //GeoMarker.set("maximum_accuracy", 40);
+
 
   marker.addListener('click', function() {
     map.setZoom(17);
