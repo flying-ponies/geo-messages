@@ -31,12 +31,14 @@ function dropMessagesStub( centralLatLng, map ){
       title: 'Click to view message'
     });
 
-    (function(j, myMarker, centralPosn ) {
-      marker.addListener('click', function() {
+    (function(j, myMarker ) {
+      myMarker.addListener('click', function() {
         markerLatLng = new google.maps.LatLng(  myMarker.position.lat(),
                                                 myMarker.position.lng() );
-        centralPosnLatLng = new google.maps.LatLng( centralPosn.lat, centralPosn.lng );
+        centralPosnLatLng = new google.maps.LatLng( coord.lat, coord.lng );
+
         var distance = google.maps.geometry.spherical.computeDistanceBetween( markerLatLng, centralPosnLatLng );
+
         if( distance < 400 ){
           $('#view-message-modal .modal-title').html("GEO-MESSAGE TITLE");
           $('#view-message-modal .author').html("by " + "USERNAME");
@@ -53,6 +55,6 @@ function dropMessagesStub( centralLatLng, map ){
           });
         }
       });
-    })(i, marker, centralLatLng);
+    })(i, marker);
   }
 }
