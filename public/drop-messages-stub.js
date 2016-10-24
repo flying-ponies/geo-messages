@@ -31,23 +31,28 @@ function dropMessagesStub( centralLatLng, map ){
       title: 'Click to view message'
     });
 
-    (function(j) {
+    (function(j, myMarker, centralPosn ) {
       marker.addListener('click', function() {
+        markerLatLng = new google.maps.LatLng(  myMarker.position.lat(),
+                                                myMarker.position.lng() );
+        centralPosnLatLng = new google.maps.LatLng( centralPosn.lat, centralPosn.lng );
+        var distance = google.maps.geometry.spherical.computeDistanceBetween( markerLatLng, centralPosnLatLng );
+        if( distance < 400 ){
+          $('#view-message-modal .modal-title').html("GEO-MESSAGE TITLE");
+          $('#view-message-modal .author').html("by " + "USERNAME");
+          $('#view-message-modal .date').html("on " + "DATE");
+          $('#view-message-modal .modal-body .message').html(messages[j]);
+          $('#view-message-modal .modal-body .likes .like').html("LIKES");
+          $('#view-message-modal .modal-body .likes .dislike').html("DISLIKES");
+          positionToCityName(myMarker.position.lat(),myMarker.position.lng(), function(city) {
+            $('#view-message-modal .modal-body .location .city').html(city);
+          });
 
-        $('#view-message-modal .modal-title').html("GEO-MESSAGE TITLE");
-        $('#view-message-modal .author').html("by " + "USERNAME");
-        $('#view-message-modal .date').html("on " + "DATE");
-        $('#view-message-modal .modal-body .message').html(messages[j]);
-        $('#view-message-modal .modal-body .likes .like').html("LIKES");
-        $('#view-message-modal .modal-body .likes .dislike').html("DISLIKES");
-        positionToCityName(marker.position.lat(),marker.position.lng(), function(city) {
-          $('#view-message-modal .modal-body .location .city').html(city);
-        });
-
-        $('#view-message-modal').modal({
-          show: 'true'
-        });
+          $('#view-message-modal').modal({
+            show: 'true'
+          });
+        }
       });
-    })(i);
+    })(i, marker, centralLatLng);
   }
 }
