@@ -30,6 +30,13 @@ exports.seed = function(knex, Promise) {
           content: 'My name is Alex. This is a message. Hopefully it is messageful.',
           user_id: rows[2].id,
           location: st.geomFromText('Point(-123.1237 49.2917)', 4326)
+        }),
+        knex('messages').insert({
+          id: 4,
+          title: 'A Message From the Ocean',
+          content: 'This message is in the ocean. This would be hard to find.',
+          user_id: rows[2].id,
+          location: st.geomFromText('Point(-124.050 49.2820)', 4326)
         })
       ]);
     });
