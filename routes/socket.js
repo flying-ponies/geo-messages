@@ -2,7 +2,7 @@ const app = require('../app');
 const Message = require('../lib/messages');
 
 const io = require('socket.io')(app.server);
-io.on('connection', function(socket) {
+io.on('connection', (socket) => {
   console.log('A user connected');
 
   socket.on('update position', (coord) => {
