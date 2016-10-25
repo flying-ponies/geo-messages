@@ -54,11 +54,11 @@ function initMap() {
   id = navigator.geolocation.watchPosition(success, error, options);
 
 
-  var marker = new google.maps.Marker({
-    position: myLatlng,
-    map: map,
-    title: 'Click to zoom'
-  });
+  // var marker = new google.maps.Marker({
+  //   position: myLatlng,
+  //   map: map,
+  //   title: 'Click to zoom'
+  // });
 
   // map.addListener('center_changed', function() {
   //   // 3 seconds after the center of the map has changed, pan back to the
@@ -83,10 +83,10 @@ function initMap() {
   );
 
 
-  marker.addListener('click', function() {
-    map.setZoom(17);
-    map.setCenter(marker.getPosition());
-  });
+  // marker.addListener('click', function() {
+  //   map.setZoom(17);
+  //   map.setCenter(marker.getPosition());
+  // });
 
 }
 
