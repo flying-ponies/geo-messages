@@ -12,7 +12,7 @@ function renderMarkers(map) {
 
         var distance = google.maps.geometry.spherical.computeDistanceBetween( marker.getPosition(), centralPosnLatLng );
 
-        if( distance < 400 ){
+        if( distance < VISIBILITY_RADIUS ){
           $('#view-message-modal .modal-title').html(markerInfo.title);
           $('#view-message-modal .author').html("by " + "USERNAME");
           $('#view-message-modal .date').html("on " + "DATE");
