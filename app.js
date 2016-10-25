@@ -5,10 +5,23 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+// socket.io
+var http = require('http');
+app.server = http.createServer(app);
+// var io = require('socket.io')(app.server);
+// io.on('connection', function(socket) {
+//   console.log('A user connected');
+//   socket.on('disconnect', function() {
+//     console.log('A user disconnected');
+//   });
+// });
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

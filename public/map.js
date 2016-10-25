@@ -1,6 +1,7 @@
 console.log('initMap declaration...');
 
 var coord;
+var centralPosnLatLng;
 
 function initMap() {
   console.log( 'initializing the map...' );
@@ -20,8 +21,11 @@ function initMap() {
   function success(pos){
 
     coord = { lat: pos.coords.latitude, lng: pos.coords.longitude } ;
+    centralPosnLatLng = new google.maps.LatLng( coord.lat, coord.lng );
 
-    console.log("success; ", coord );
+    socket.emit('update position', coord);
+
+    console.log("success, current coord: ; ", coord );
 
     if( firstCall ){
       mapCircle = new google.maps.Circle({
@@ -34,10 +38,10 @@ function initMap() {
               center: coord,
               radius: 400.0
       });
-      dropMessagesStub( coord, map );//myLatlng, map);
+      renderMarkers( map );//myLatlng, map);
       map.panTo( coord );
     }
-    mapCircle.setCenter( new google.maps.LatLng(coord.lat, coord.lng) );
+    mapCircle.setCenter( centralPosnLatLng );
     firstCall = false;
   }
 
@@ -89,5 +93,3 @@ function initMap() {
   // });
 
 }
-
-
