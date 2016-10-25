@@ -3,8 +3,37 @@ console.log('initMap declaration...');
 var coord;
 var centralPosnLatLng;
 var VISIBILITY_RADIUS = 400;
+var followPosn = true;
 
 $( document ).ready( function() {
+
+  function PosnLockControl(controlDiv, map) {
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    $(controlUI).addClass('posn-lock-control-UI');
+    controlUI.title = 'Click to lock on your position';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    $(controlText).addClass('control-text active');
+    controlText.innerHTML = '<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>';
+    controlUI.appendChild(controlText);
+
+    // Setup the event listeners
+    controlUI.addEventListener('click', function() {
+      followPosn = true;
+      map.panTo(centralPosnLatLng);
+      $(controlText).addClass('active');
+    });
+
+    map.addListener('drag', function() {
+      followPosn = false;
+      $(controlText).removeClass('active');
+    });
+
+  }
+
   function initMap() {
     console.log( 'initializing the map...' );
 
@@ -20,10 +49,19 @@ $( document ).ready( function() {
 
     var firstCall =  true;
 
+    var posnLockControlDiv = document.createElement('div');
+    var posnLockControl = new PosnLockControl(posnLockControlDiv, map);
+    posnLockControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(posnLockControlDiv);
+
     function success(pos){
 
       coord = { lat: pos.coords.latitude, lng: pos.coords.longitude } ;
       centralPosnLatLng = new google.maps.LatLng( coord.lat, coord.lng );
+
+      if (followPosn) {
+        map.panTo(centralPosnLatLng);
+      }
 
       if( firstCall ) {
         originalCoord = new google.maps.LatLng( centralPosnLatLng.lat(), centralPosnLatLng.lng() );
@@ -78,6 +116,8 @@ $( document ).ready( function() {
     //   map: map,
     //   title: 'Click to zoom'
     // });
+
+
 
     // map.addListener('center_changed', function() {
     //   // 3 seconds after the center of the map has changed, pan back to the

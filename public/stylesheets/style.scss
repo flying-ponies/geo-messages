@@ -228,5 +228,26 @@ form {
   border-bottom: none;
 }
 
+.posn-lock-control-UI {
+  background-color: #fff;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.3);
+  cursor: pointer;
+  text-align: center;
+  margin-left: 10px;
+
+  .control-text {
+    color: grey;
+    font-size: 16px;
+    padding: 5px 5px 3px 5px;
+  }
+
+  .control-text:hover,
+  .control-text:focus,
+  .active {
+    color: $font_secondary;
+  }
+}
 
 
