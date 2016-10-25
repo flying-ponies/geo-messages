@@ -12,7 +12,46 @@ $( document ).ready( function() {
 
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 16,
-      center: myLatlng
+      center: myLatlng,
+      style:
+        [
+          {
+            "featureType": "administrative",
+            "elementType": "geometry.fill",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.land_parcel",
+            "elementType": "labels",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.locality",
+            "elementType": "labels",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "labels.text",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          }
+        ]
     });
 
     var options, id, originalCoord = {};
