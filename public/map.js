@@ -21,6 +21,8 @@ function initMap() {
 
     coord = { lat: pos.coords.latitude, lng: pos.coords.longitude } ;
 
+    socket.emit('update position', coord);
+
     console.log("success; ", coord );
 
     if( firstCall ){
@@ -89,5 +91,3 @@ function initMap() {
   });
 
 }
-
-
