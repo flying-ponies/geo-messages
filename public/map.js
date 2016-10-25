@@ -13,6 +13,10 @@ $( document ).ready( function() {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 16,
       center: myLatlng,
+      streetViewControl: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      zoomControl: false,
       style:
         [
           {
