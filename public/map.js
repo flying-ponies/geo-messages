@@ -17,7 +17,7 @@ $( document ).ready( function() {
     // Set CSS for the control interior.
     var controlText = document.createElement('div');
     $(controlText).addClass('control-text active');
-    controlText.innerHTML = '<span class="glyphicon glyphicon-lock" aria-hidden="true"></span><h6 class="pull-right\">Lock to your position</h6>';
+    controlText.innerHTML = '<span class="glyphicon glyphicon-lock" aria-hidden="true"></span><h6 class="pull-right">Lock to your position</h6>';
     controlUI.appendChild(controlText);
 
     // Setup the event listeners

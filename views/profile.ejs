@@ -9,94 +9,98 @@
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
 
     <div class="container">
-      <div>
-        <h3 class="username"><%= currentUser.username %></h3>
-        <p class="email"><%= currentUser.email %></p>
-
-      </div>
-
-      <ul class="nav nav-tabs" id="myTabs" role="tablist">
-        <li role="presentation" class="active">
-          <a href="#your-messages" id="your-messages-tab" role="tab" data-toggle="tab" aria-controls="your-messages" aria-expanded="true">Your Messages</a>
-        </li>
-        <li role="presentation" class="">
-          <a href="#read-messages" role="tab" id="read-messages-tab" data-toggle="tab" aria-controls="read-messages" aria-expanded="false">Read Messages</a>
-        </li>
-
-      </ul>
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade active in" role="tabpanel" id="your-messages" aria-labelledby="your-messages-tab">
-
-          <% yourMessages.forEach(function(message) { %>
-
-            <div class="message-container">
-              <h4 class="message-title">
-                <%= message.title %>
-              </h4>
-              <h6 class="date">
-                <%= message.createdOn %>
-                <span class="views pull-right"><%= message.views %> views</span>
-              </h6>
-              <p class="message">
-                <%= message.content %>
-              </p>
-              <div class="footer">
-                <span class="location">
-                  <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                  <span class="lat hidden"><%= message.lat %></span>
-                  <span class="lng hidden"><%= message.lng %></span>
-                  <span class="city"></span>
-                </span>
-                <span class="likes pull-right">
-                  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                  <span class="like"><%= message.likes %></span>
-                  <span>/</span>
-                  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                  <span class="dislike"><%= message.dislikes %></span>
-                </span>
-              </div>
-            </div>
-
-          <% }); %>
-
+      <div class="text-box">
+        <div>
+          <h3 class="username"><%= currentUser.username %></h3>
+          <p class="email small"><%= currentUser.email %></p>
         </div>
-        <div class="tab-pane fade" role="tabpanel" id="read-messages" aria-labelledby="read-messages-tab">
 
-          <% readMessages.forEach(function(message) { %>
+        <ul class="nav nav-tabs row" id="myTabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#your-messages" id="your-messages-tab" role="tab" data-toggle="tab" aria-controls="your-messages" aria-expanded="true">Your Messages</a>
+          </li>
+          <li role="presentation" class="">
+            <a href="#read-messages" role="tab" id="read-messages-tab" data-toggle="tab" aria-controls="read-messages" aria-expanded="false">Read Messages</a>
+          </li>
 
-            <div class="message-container">
-              <h4 class="message-title">
-                <%= message.title %>
-              </h4>
-              <h6>
-                By <%= message.username %> on <%= message.createdOn %>
-                <span class="views pull-right"><%= message.views %> views</span>
-              </h6>
-              <p class="message">
-                <%= message.content %>
-              </p>
-              <div class="footer">
-                <span class="location">
-                  <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                  <span class="lat hidden"><%= message.lat %></span>
-                  <span class="lng hidden"><%= message.lng %></span>
-                  <span class="city"></span>
-                </span>
-                <span class="likes pull-right">
-                  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                  <span class="like"><%= message.likes %></span>
-                  <span>/</span>
-                  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                  <span class="dislike"><%= message.dislikes %></span>
-                </span>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade active in" role="tabpanel" id="your-messages" aria-labelledby="your-messages-tab">
+
+            <% yourMessages.forEach(function(message) { %>
+
+              <div class="message-container">
+                <div class="header">
+                  <h4 class="message-title">
+                    <%= message.title %>
+                  </h4>
+                  <div class="info">
+                    <span class="date"><%= message.createdOn %></span>
+                    <span class="views pull-right"><%= message.views %> views</span>
+                  </div>
+                </div>
+                <p class="message">
+                  <%= message.content %>
+                </p>
+                <div class="footer">
+                  <span class="location">
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    <span class="lat hidden"><%= message.lat %></span>
+                    <span class="lng hidden"><%= message.lng %></span>
+                    <span class="city"></span>
+                  </span>
+                  <span class="likes pull-right">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <span class="like"><%= message.likes %></span>
+                    <span>/</span>
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                    <span class="dislike"><%= message.dislikes %></span>
+                  </span>
+                </div>
               </div>
-            </div>
 
-          <% }); %>
+            <% }); %>
 
+          </div>
+          <div class="tab-pane fade" role="tabpanel" id="read-messages" aria-labelledby="read-messages-tab">
+
+            <% readMessages.forEach(function(message) { %>
+
+              <div class="message-container">
+                <div class="header">
+                  <h4 class="message-title">
+                    <%= message.title %>
+                  </h4>
+                  <div class="info">
+                    By <%= message.username %> on <%= message.createdOn %>
+                    <span class="views pull-right"><%= message.views %> views</span>
+                  </div>
+                </div>
+                <p class="message">
+                  <%= message.content %>
+                </p>
+                <div class="footer">
+                  <span class="location">
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    <span class="lat hidden"><%= message.lat %></span>
+                    <span class="lng hidden"><%= message.lng %></span>
+                    <span class="city"></span>
+                  </span>
+                  <span class="likes pull-right">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <span class="like"><%= message.likes %></span>
+                    <span>/</span>
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                    <span class="dislike"><%= message.dislikes %></span>
+                  </span>
+                </div>
+              </div>
+
+            <% }); %>
+
+          </div>
         </div>
       </div>
-
     </div> <!-- /container -->
 
     <%- include('partials/footer') %>
