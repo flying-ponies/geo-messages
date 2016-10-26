@@ -4,37 +4,33 @@
   <body>
     <%- include('partials/top_nav') %>
 
-    <div class="container">
-
-      <form class="form-login">
-        <div class="modal-header">
-          <h2 class="form-login-heading">Login</h2>
+    <form class="form-login">
+      <div class="modal-header">
+        <h2 class="form-login-heading">Login</h2>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="example@example.com" required autofocus>
         </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="example@example.com" required autofocus>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+        <!-- <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
           </div>
-          <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" class="form-control" required>
-          </div>
-          <!-- <div class="form-group">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="remember-me"> Remember me
-              </label>
-            </div>
-          </div> -->
-          <button class="btn btn-md btn-default btn-block" type="submit">Login</button>
-        </div>
-        <div class="modal-footer">
-          <h6>New to Geo-Messages?</h6>
-          <a href="/signup" class="btn  btn-md btn-default btn-block">Sign up</a>
-        </div>
-      </form>
-
-    </div> <!-- /container -->
+        </div> -->
+        <button class="btn btn-md btn-default btn-block" type="submit">Login</button>
+      </div>
+      <div class="modal-footer">
+        <h6>New to Geo-Messages?</h6>
+        <a href="/signup" class="btn  btn-md btn-default btn-block">Sign up</a>
+      </div>
+    </form>
 
     <%- include('partials/footer') %>
   </body>

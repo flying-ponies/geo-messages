@@ -1,17 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+$brand-color-light: #e7e9f4;
+$brand-color-light-mid: #b1bcd2;
+$brand-color-mid: #7281a1;
+$brand-color-dark-mid: #586181;
+$brand-color-dark: #282933;
+
 $color_primary: #212121;
 $color_secondary: #4A4A4A;
 // $color_accent: #F9BF2A;
-$color_bg: #333;
-$color_bg_inverse: lightgrey;
-$font_primary: #fff;
-$font_secondary: #000;
+$color_bg_light: $brand-color-light;
+$color_bg_dark: $brand-color-dark-mid;
+$font_primary: white;
+$font_secondary: $brand-color-dark;
 
 // $font_main: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
-$font_main: 'Rubik', sans-serif;
-$font_headers: 'Rubik', sans-serif;
+$font_main: 'Open Sans', sans-serif;
+$font_headers: 'Open Sans', sans-serif;
 
 $top_padding: 50px;
-$bottom_padding: 30px;
+$bottom_padding: 25px;
+
+$base-font-size: 15px;
+$base-line-height: 1.5 * $base-font-size;
 
 /*
  * Globals
@@ -31,26 +42,50 @@ a:hover {
 .btn-default:focus {
   color: $font_primary;
   text-shadow: none; /* Prevent inheritance from `body` */
-  background-color: $color_bg;
+  background-color: lighten($brand-color-dark, 15%);
+  border: 0px;
+}
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: $font_primary;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: lighten($brand-color-dark, 15%);
   border: 0px;
 }
 
 // BASE
 body {
   font-family: $font_main;
-  padding-top: $top_padding;
-  padding-bottom: $bottom_padding;
+  background-color: $color_bg_dark;
+  color: $brand-color-dark;
+  padding-top: #{$top_padding + 15};
+  padding-bottom: #{$bottom_padding + 15};
   height: auto;
-  background-color: $color_bg;
-  color: #fff;
   text-align: left;
-  // font-size: 16px;
-  // min-height: 2000px;
-  // text-shadow: 0 1px 3px rgba(0,0,0,.5);
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  // font-weight: light;
+}
+img {
+  max-width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font_headers;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.text-box {
+  background-color: $brand-color-light;
+  border-radius: 5px;
+  padding: 20px;
+  .row {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
 }
 
 #map {
@@ -61,15 +96,23 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
+.username {
+  margin-bottom: 0px;
+}
+
+.email.small {
+  color: $brand-color-dark-mid
+}
+
 footer {
   // position: absolute;
   // bottom: 0;
   // width: 100%;
-  height: 30px;
+  height: $bottom_padding;
   border-top: 1px solid black;
-  padding: 5px 0;
-  background-color: $color_primary;
-  color: $font_primary;
+  // padding: 0;
+  background-color: $brand-color-dark;
+  color: $brand-color-light-mid;
   p {
     margin: 0;
     text-align: center;
@@ -80,12 +123,24 @@ footer {
 // MODAL
 .modal-content {
   color: $font_secondary;
-  background-color: $color_bg_inverse;
+  background-color: $color_bg_light;
+  .footer {
+    color: $brand-color-dark-mid;
+  }
 }
-
-.modal-footer h6 {
-  margin-top: 0px;
-  text-align: center;
+.modal-header {
+  border-bottom: 1px solid $brand-color-light-mid;
+  .info {
+    text-transform: uppercase;
+    font-size: #{$base-font-size * 0.75};
+  }
+}
+.modal-footer {
+  border-top: 1px solid $brand-color-light-mid;
+  h6 {
+    margin-bottom: 15px;
+    text-align: center;
+  }
 }
 
 // VIEW MESSAGE MODAL
@@ -100,8 +155,9 @@ footer {
 
 // NAVBAR
 .navbar {
-  background-color: $color_primary;
+  background-color: $brand-color-dark;
   border-bottom: 1px solid black;
+  font-family: $font_headers;
   text-align: center;
   height: 50px;
 }
@@ -126,7 +182,7 @@ footer {
   padding-right: 0;
   padding-left: 0;
   font-size: 16px;
-  font-weight: bold;
+  // font-weight: bold;
   color: $font_primary; /* IE8 proofing */
   color: rgba(255,255,255,.75);
   border-bottom: 2px solid transparent;
@@ -168,11 +224,12 @@ footer {
 }
 
 // FORMS
-.form-login, .form-signup {
+.form-login,
+.form-signup {
   max-width: 330px;
   padding: 0px;
   margin: 0 auto;
-  background-color: $color_bg_inverse;
+  background-color: $brand-color-light;
   border-radius: 5px;
   color: $font_secondary;
   // border: 1px solid $color_primary;
@@ -199,20 +256,29 @@ form {
 
 // TABS
 .nav-tabs {
+  border-bottom: 1px solid $brand-color-light-mid;
   li.active a,
   li.active a:focus,
   li.active a:hover {
-    color: $font_primary;
-    background-color: $color_bg;
+    color: $brand-color-dark;
+    background-color: $color_bg_light;
+    border-color: $brand-color-light-mid;
+    border-bottom: 1px solid transparent;
     padding-bottom: 10px;
   }
 }
 
 .nav-tabs {
+  li:first-child a {
+    margin-left: 20px;
+  }
+  li a {
+    color: $brand-color-dark;
+  }
   li a:focus,
   li a:hover {
     text-decoration: none;
-    background-color: $color_secondary;
+    background-color: $brand-color-light-mid;
     border: 1px solid transparent;
     padding-bottom: 9px;
 
@@ -222,7 +288,17 @@ form {
 .message-container {
   padding-top: 15px;
   padding-bottom: 15px;
-  border-bottom: 1px solid rgba($font_primary, 0.25);
+  border-bottom: 1px solid $brand-color-light-mid;
+  .header {
+    .info {
+      text-transform: uppercase;
+      font-size: #{$base-font-size * 0.75};
+      margin-bottom: 10px;
+    }
+  }
+  .footer {
+    color: $brand-color-dark-mid;
+  }
 }
 
 .message-container:last-child {
@@ -230,8 +306,8 @@ form {
 }
 
 .posn-lock-control-UI {
-  background-color: #fff;
-  border: 2px solid #fff;
+  background-color: $color_bg_light;
+  border: 2px solid $color_bg_light;
   border-radius: 3px;
   box-shadow: 0 2px 6px rgba(0,0,0,.3);
   cursor: pointer;
@@ -246,6 +322,7 @@ form {
   h6 {
     margin: 5px 0px;
     margin-left: 5px;
+    font-weight: normal;
   }
   .control-text:hover,
   .control-text:focus,
