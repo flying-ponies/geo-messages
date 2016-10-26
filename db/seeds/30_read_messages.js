@@ -10,27 +10,32 @@ exports.seed = function(knex, Promise) {
       return Promise.all([
         // Inserts seed entries
         knex('read_messages').insert({
-          rating: -1,
+          liked: 0,
+          disliked: 1,
           user_id: devinID,
           message_id: 3
         }),
         knex('read_messages').insert({
-          rating: -1,
+          liked: 0,
+          disliked: 1,
           user_id: devinID,
           message_id: 2
         }),
         knex('read_messages').insert({
-          rating: 1,
+          liked: 1,
+          disliked: 0,
           user_id: johnID,
           message_id: 3
         }),
         knex('read_messages').insert({
-          rating: 0,
+          liked: 0,
+          disliked: 0,
           user_id: johnID,
           message_id: 1
         }),
         knex('read_messages').insert({
-          rating: 1,
+          liked: 1,
+          disliked: 0,
           user_id: alexID,
           message_id: 2
         })
