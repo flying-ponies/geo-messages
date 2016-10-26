@@ -83,6 +83,14 @@ $( document ).ready( function() {
                 "visibility": "off"
               }
             ]
+          },
+          {
+            "featureType": "poi.business",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
           }
         ]
     });
