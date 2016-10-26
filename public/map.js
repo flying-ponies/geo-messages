@@ -17,7 +17,7 @@ $( document ).ready( function() {
     // Set CSS for the control interior.
     var controlText = document.createElement('div');
     $(controlText).addClass('control-text active');
-    controlText.innerHTML = '<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>';
+    controlText.innerHTML = '<span class="glyphicon glyphicon-lock" aria-hidden="true"></span><h6 class="pull-right\">Lock to your position</h6>';
     controlUI.appendChild(controlText);
 
     // Setup the event listeners
@@ -123,20 +123,33 @@ $( document ).ready( function() {
       console.log("success, current coord: ", coord );
 
       if( firstCall ){
-        mapCircle = new google.maps.Circle({
-                strokeColor: '#0000DD',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#0000DD',
-                fillOpacity: 0.35,
-                map: map,
-                center: coord,
-                radius: VISIBILITY_RADIUS
+        mapCircle = new InvertedCircle({
+          center: centralPosnLatLng,
+          map: map,
+          radius: 400,
+          editable: true,
+          stroke_weight: 1,
+          always_fit_to_map: false,
+          resize_updown: '',
+          resize_leftright: '',
+          editable: false
         });
+
+        // mapCircle = new google.maps.Circle({
+        //         strokeColor: '#0000DD',
+        //         strokeOpacity: 0.8,
+        //         strokeWeight: 2,
+        //         fillColor: '#0000DD',
+        //         fillOpacity: 0.35,
+        //         map: map,
+        //         center: coord,
+        //         radius: VISIBILITY_RADIUS
+        // });
         socket.emit('update position', coord);
         renderMarkers( map );//myLatlng, map);
         map.panTo( coord );
       }
+      // mapCircle.setCenter( centralPosnLatLng );
       mapCircle.setCenter( centralPosnLatLng );
       firstCall = false;
     }
