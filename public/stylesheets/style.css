@@ -209,7 +209,8 @@ form textarea {
 }
 
 .posn-lock-control-UI h6 {
-  margin: 3px;
+  margin: 5px 0px;
+  margin-left: 5px;
 }
 
 .posn-lock-control-UI .control-text:hover,
