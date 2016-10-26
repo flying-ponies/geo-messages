@@ -6,6 +6,7 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script type="text/javascript" src="/javascripts/position-to-city-name.js"></script>
     <script type="text/javascript" src="/javascripts/render-city-name-on-message-container.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
 
     <div class="container">
       <div>
@@ -34,6 +35,7 @@
               </h4>
               <h6 class="date">
                 <%= message.createdOn %>
+                <span class="views pull-right"><%= message.views %> views</span>
               </h6>
               <p class="message">
                 <%= message.content %>
@@ -68,6 +70,7 @@
               </h4>
               <h6>
                 By <%= message.username %> on <%= message.createdOn %>
+                <span class="views pull-right"><%= message.views %> views</span>
               </h6>
               <p class="message">
                 <%= message.content %>

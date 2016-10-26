@@ -7,8 +7,8 @@ $font_primary: #fff;
 $font_secondary: #000;
 
 // $font_main: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
-$font_main: 'Dosis', sans-serif;
-$font_headers: 'Dosis', sans-serif;
+$font_main: 'Rubik', sans-serif;
+$font_headers: 'Rubik', sans-serif;
 
 $top_padding: 50px;
 $bottom_padding: 30px;
@@ -44,6 +44,7 @@ body {
   background-color: $color_bg;
   color: #fff;
   text-align: left;
+  // font-size: 16px;
   // min-height: 2000px;
   // text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
@@ -242,7 +243,9 @@ form {
     font-size: 16px;
     padding: 5px 5px 3px 5px;
   }
-
+  h6 {
+    margin: 3px;
+  }
   .control-text:hover,
   .control-text:focus,
   .active {
