@@ -86,6 +86,28 @@ router.get('/login', function(req, res, next) {
 router.get('/signup', function(req, res, next) {
   res.render('signup', {currentUser: currentUser = null});
 });
+router.post('/signup', function(req, res, next) {
+  console.log(req.body);
+
+  let newUser = new User({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    passwordConfirmation: req.body.passwordConfirmation
+  });
+
+  newUser.save()
+    .then(info => {
+      console.log(info);
+      res.redirect('/', {currentUser: currentUser = null});
+    })
+    .catch(error => {
+      console.error(error);
+      console.log(newUser.errors);
+      res.render('signup', {currentUser: currentUser = null});
+    });
+
+});
 router.get('/profile', function(req, res, next) {
   res.render('profile', templateVars);
 });
