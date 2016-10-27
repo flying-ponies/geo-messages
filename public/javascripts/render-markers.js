@@ -1,4 +1,4 @@
-function renderMarkers(map) {
+function renderFullMarkers(map) {
   socket.on('nearby messages', function(rows){
     rows.map(function(markerInfo){
 

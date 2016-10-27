@@ -322,6 +322,7 @@ console.log('initMap declaration...');
 
 var coord;
 var centralPosnLatLng;
+var mapCenterCoord;
 var VISIBILITY_RADIUS = 400;
 var followPosn = true;
 
@@ -371,10 +372,11 @@ $( document ).ready( function() {
       styles: mapStyleArr
     });
 
-    var options, id, originalCoord = {};
+    var options, id, originalCoord, originalMapCenterCoord = {};
     var mapCircle;
 
     var firstCall =  true;
+    var firstDrag =  true;
 
     var posnLockControlDiv = document.createElement('div');
     var posnLockControl = new PosnLockControl(posnLockControlDiv, map);
@@ -385,6 +387,7 @@ $( document ).ready( function() {
 
       coord = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       centralPosnLatLng = new google.maps.LatLng( coord.lat, coord.lng );
+
 
       if (followPosn) {
         map.panTo(centralPosnLatLng);
@@ -400,9 +403,31 @@ $( document ).ready( function() {
       if( distanceTraveled > VISIBILITY_RADIUS/40 ){
         console.log( "Distance Traveled triggered" );
         originalCoord =  new google.maps.LatLng( centralPosnLatLng.lat(), centralPosnLatLng.lng() );
-        socket.emit('update position', coord);
-        renderMarkers( map );
+        socket.emit('get full messages', coord);
+        renderFullMarkers( map );
       }
+
+      map.addListener('drag', function() {
+        // console.log(map.getCenter().lat() + " " + map.getCenter().lng());
+
+        if( firstDrag ) {
+          originalMapCenterCoord = map.getCenter();
+        }
+
+        var distanceScrolled = google.maps.geometry.spherical.computeDistanceBetween(
+          map.getCenter(), originalMapCenterCoord );
+
+        if( distanceScrolled > VISIBILITY_RADIUS ){
+          console.log( "Distance Scrolled triggered" );
+          originalMapCenterCoord =  map.getCenter();
+          socket.emit('get partial messages', coord);
+          renderPartialMarkers( map );
+        }
+
+        firstDrag = false;
+
+      });
+
 
       console.log("success, current coord: ", coord );
 
@@ -429,8 +454,8 @@ $( document ).ready( function() {
         //         center: coord,
         //         radius: VISIBILITY_RADIUS
         // });
-        socket.emit('update position', coord);
-        renderMarkers( map );//myLatlng, map);
+        socket.emit('get full messages', coord);
+        renderFullMarkers( map );//myLatlng, map);
         map.panTo( coord );
       }
       // mapCircle.setCenter( centralPosnLatLng );
