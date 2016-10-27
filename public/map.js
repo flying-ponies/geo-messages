@@ -381,7 +381,7 @@ $( document ).ready( function() {
 
     function success(pos){
 
-      coord = { lat: pos.coords.latitude, lng: pos.coords.longitude } ;
+      coord = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       centralPosnLatLng = new google.maps.LatLng( coord.lat, coord.lng );
 
       if (followPosn) {
