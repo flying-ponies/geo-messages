@@ -5,7 +5,7 @@ const io = require('socket.io')(app.server);
 io.on('connection', (socket) => {
   console.log('A user connected');
 
-  socket.on('get full messages', (coord) => {
+  socket.on('update position', (coord) => {
     let pos = `Point(${coord.lng} ${coord.lat})`;
     Message.findInRange(pos, 1000)
       .then((rows) => {
@@ -17,13 +17,15 @@ io.on('connection', (socket) => {
   });
 
   socket.on('post message', (messageObj) => {
-    console.log(messageObj);
-    // INSERT TO DB
-    // SUCCESS
-      socket.emit("post message response", "success");
-      // BROADCAST TO USERS IN RANGE
-    // FAIL
-      // socket.emit("post mesage response", "fail")
+    let newMessage = new Message(messageObj);
+    newMessage.save()
+      .then(() => {
+        socket.emit('post message response', 'success');
+      })
+      .catch((error) => {
+        console.error(error);
+        socket.emit('post message response', 'fail');
+      })
   });
 
   socket.on('disconnect', function() {
