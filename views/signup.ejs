@@ -9,6 +9,21 @@
         <h2 class="form-signup-heading">Sign up</h2>
       </div>
       <div class="modal-body">
+
+        <% if (errors) { %>
+          <div class="alert alert-danger fade in small">
+            <!-- <a href="#" class="close" data-dismiss="alert">&times;</a> -->
+            <strong>The following errors prevented sign up:</strong>
+            <ul>
+            <% errors.forEach(function(error) { %>
+              <li>
+                <%= error %>
+              </li>
+            <% }) %>
+            </ul>
+          </div>
+        <% } %>
+
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" class="form-control" required autofocus>

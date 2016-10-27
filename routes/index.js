@@ -85,7 +85,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/signup', function(req, res, next) {
-  res.render('signup', {currentUser: currentUser = null});
+  res.render('signup', {currentUser: currentUser = null, errors: errors = null});
 });
 
 router.post('/signup', function(req, res, next) {
@@ -105,8 +105,7 @@ router.post('/signup', function(req, res, next) {
     })
     .catch(error => {
       console.error(error);
-      console.log(newUser.errors);
-      res.render('signup', {currentUser: currentUser = null});
+      res.render('signup', {currentUser: currentUser = null, errors: newUser.errors});
     });
 
 });
