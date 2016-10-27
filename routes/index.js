@@ -83,9 +83,11 @@ var templateVars = {
 router.get('/login', function(req, res, next) {
   res.render('login', {currentUser: currentUser = null});
 });
+
 router.get('/signup', function(req, res, next) {
   res.render('signup', {currentUser: currentUser = null});
 });
+
 router.post('/signup', function(req, res, next) {
   console.log(req.body);
 
@@ -108,6 +110,12 @@ router.post('/signup', function(req, res, next) {
     });
 
 });
+
+router.post('/message', function(req, res, next) {
+  console.log(req.body);
+  res.json(req.body);
+});
+
 router.get('/profile', function(req, res, next) {
   res.render('profile', templateVars);
 });

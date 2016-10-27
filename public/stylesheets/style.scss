@@ -78,6 +78,10 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0px;
 }
 
+.lead {
+  margin: 0px;
+}
+
 .text-box {
   background-color: $brand-color-light;
   border-radius: 5px;
@@ -328,6 +332,12 @@ form {
   .control-text:focus,
   .active {
     color: $font_secondary;
+  }
+}
+
+.new-message-modal {
+  .display-none {
+    display: none;
   }
 }
 

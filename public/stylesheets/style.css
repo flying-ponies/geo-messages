@@ -50,6 +50,10 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0px;
 }
 
+.lead {
+  margin: 0px;
+}
+
 .text-box {
   background-color: #e7e9f4;
   border-radius: 5px;
@@ -298,4 +302,8 @@ form textarea {
 .posn-lock-control-UI .control-text:focus,
 .posn-lock-control-UI .active {
   color: #282933;
+}
+
+.new-message-modal .display-none {
+  display: none;
 }
