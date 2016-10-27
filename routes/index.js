@@ -110,10 +110,10 @@ router.post('/signup', function(req, res, next) {
 
 });
 
-router.post('/message', function(req, res, next) {
-  console.log(req.body);
-  res.json(req.body);
-});
+// router.post('/message', function(req, res, next) {
+//   console.log(req.body);
+//   res.json(req.body);
+// });
 
 router.get('/profile', function(req, res, next) {
   res.render('profile', templateVars);

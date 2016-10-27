@@ -1,7 +1,6 @@
 function renderMarkers(map) {
   socket.on('nearby messages', function(rows){
     rows.map(function(markerInfo){
-      console.log(markerInfo);
 
       var marker = new google.maps.Marker({
         position: markerInfo.coordinates,

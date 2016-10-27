@@ -7,13 +7,16 @@ $(document).ready(function() {
 
   $('.new-message-modal form').on('submit', function(event) {
     event.preventDefault();
-    var data = $(this).serialize();
+    var data = {};
+    $.each($(this).serializeArray(), function() {
+      data[this.name] = this.value;
+    });
+    data = Object.assign(data, coord);
     var $form = $(this);
-    $.ajax({
-      type: 'POST',
-      data: data,
-      url: '/message',
-      success: function(data) {
+    socket.emit('post message', data);
+    socket.on('post message responce', function (response) {
+
+      if (response === 'success') {
         $form.get(0).reset();
         $form.find('.response').removeClass('display-none').html(`
           <div class="alert alert-success fade in">
@@ -21,9 +24,8 @@ $(document).ready(function() {
             <strong>Success!</strong> Your Geo-Message has been posted successfully.
           </div>
         `);
-        // $('.new-message-modal').modal('toggle');
-      },
-      fail: function(data) {
+      } else {
+
         $form.find('.response').removeClass('display-none').html(`
           <div class="alert alert-danger fade in">
               <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -32,6 +34,7 @@ $(document).ready(function() {
         `);
       }
     });
-  })
+
+  });
 
 });
