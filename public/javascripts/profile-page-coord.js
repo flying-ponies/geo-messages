@@ -16,8 +16,11 @@ $( document ).ready( function() {
       timeout: 5000,
       maximumAge: 0
     };
+
     navigator.geolocation.watchPosition(success, error, options);
+
   }
+
   initMap();
 
 });

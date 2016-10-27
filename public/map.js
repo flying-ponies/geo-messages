@@ -361,6 +361,8 @@ $( document ).ready( function() {
 
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 16,
+      minZoom: 14,
+      maxZoom: 18,
       center: myLatlng,
       streetViewControl: false,
       mapTypeControl: false,
