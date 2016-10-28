@@ -135,7 +135,21 @@ router.post('/signup', function(req, res, next) {
 // });
 
 router.get('/profile', function(req, res, next) {
-  res.render('profile', templateVars);
+  Message.findBy({user_id: req.session.currentUser.id})
+    .then((messages) => {
+      templateVars.yourMessages = messages;
+      let newUser = new User(req.session.currentUser);
+      return newUser.readMessages();
+    })
+    .then((messages) => {
+      templateVars.readMessages = messages;
+      console.log(templateVars);
+      res.render('profile', templateVars);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.render('profile', templateVars);
+    })
 });
 
 /* GET home page. */

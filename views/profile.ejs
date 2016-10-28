@@ -6,6 +6,7 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script type="text/javascript" src="/javascripts/position-to-city-name.js"></script>
     <script type="text/javascript" src="/javascripts/render-city-name-on-message-container.js"></script>
+    <script type="text/javascript" src="/javascripts/rating.js"></script>
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
     <script type="text/javascript" src="/javascripts/profile-page-coord.js"></script>
 
@@ -51,12 +52,10 @@
                     <span class="city"></span>
                   </span>
                   <span class="likes pull-right">
-                    <button class="glyphicon glyphicon-thumbs-up" on-click="clickedThumbsUp(" +
-                    <%= message.id %> + ")" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-thumbs-up" data-message-id="<%=message.id%>" aria-hidden="true"></span>
                     <span class="like"><%= message.likes %></span>
                     <span>/</span>
-                    <button class="glyphicon glyphicon-thumbs-down" on-click="clickedThumbsDown(" +
-                    <%= message.id %> + ")" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-thumbs-down" data-message-id="<%=message.id%>" aria-hidden="true"></span>
                     <span class="dislike"><%= message.dislikes %></span>
                   </span>
                 </div>
@@ -75,7 +74,7 @@
                     <%= message.title %>
                   </h4>
                   <div class="info">
-                    By <%= message.username %> on <%= message.createdOn %>
+                    By <%= message.username %> on <%= message.created_at %>
                     <span class="views pull-right"><%= message.views %> views</span>
                   </div>
                 </div>
@@ -90,10 +89,10 @@
                     <span class="city"></span>
                   </span>
                   <span class="likes pull-right">
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" data-message-id="<%=message.id%>"></span>
                     <span class="like"><%= message.likes %></span>
                     <span>/</span>
-                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" data-message-id="<%=message.id%>"></span>
                     <span class="dislike"><%= message.dislikes %></span>
                   </span>
                 </div>

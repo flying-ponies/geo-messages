@@ -1,5 +1,6 @@
 const app = require('../app');
 const Message = require('../lib/messages');
+const User = require('../lib/users');
 
 const io = require('socket.io')(app.server);
 
@@ -52,27 +53,27 @@ io.on('connection', (socket) => {
   socket.on('message liked', (messageId) => {
     console.log('message liked: message ID: ', messageId);
 
-    let user = new User({user_id: 1});
-    user.likeMessage( messageId );
-    .then((rows) => {
-      console.log('Liked message', rows);
-    })
-    .catch((error) => {
-      console.error(error)
-    });
+    let user = new User( socket.handshake.session.currentUser );
+    user.likeMessage( messageId )
+      .then((rows) => {
+        console.log('Liked message', rows);
+      })
+      .catch((error) => {
+        console.error(error)
+      });
   });
 
   socket.on('message disliked', (messageId) => {
     console.log('message disliked: message ID: ', messageId);
 
-    let user = new User({user_id: 1});
-    user.dislikeMessage( messageId );
-    .then((rows) => {
-      console.log('Disliked message', rows);
-    })
-    .catch((error) => {
-      console.error(error)
-    });
+    let user = new User( socket.handshake.session.currentUser );
+    user.dislikeMessage( messageId )
+      .then((rows) => {
+        console.log('Disliked message', rows);
+      })
+      .catch((error) => {
+        console.error(error)
+      });
   });
 
   socket.on('disconnect', function() {
