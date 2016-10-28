@@ -12,6 +12,7 @@ socket.on('nearby full messages', function(rows) {
   cachedMessages = [];
 
   rows.map(function(markerInfo) {
+    console.log(markerInfo);
 
     var marker = new google.maps.Marker({
       position: markerInfo.coordinates,
@@ -32,8 +33,8 @@ socket.on('nearby full messages', function(rows) {
         $('#view-message-modal .date').html("on " + date);
         $('#view-message-modal .views').html(markerInfo.views + ' views');
         $('#view-message-modal .modal-body .message').html(markerInfo.content);
-        $('#view-message-modal .modal-body .likes .like').html(markerInfo.liked);
-        $('#view-message-modal .modal-body .likes .dislike').html(markerInfo.disliked);
+        $('#view-message-modal .modal-body .likes .like').html(markerInfo.likes);
+        $('#view-message-modal .modal-body .likes .dislike').html(markerInfo.dislikes);
         positionToCityName(marker.position.lat(),marker.position.lng(), function(city) {
           $('#view-message-modal .modal-body .location .city').html(city);
         });
@@ -41,6 +42,8 @@ socket.on('nearby full messages', function(rows) {
         $('#view-message-modal').modal({
           show: 'true'
         });
+
+        socket.emit('message viewed', markerInfo.id);
       }
 
     });
