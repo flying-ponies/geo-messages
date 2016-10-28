@@ -188,6 +188,8 @@ footer p {
 @media (min-width: 768px) {
   .masthead {
     width: 768px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
@@ -237,7 +239,11 @@ form textarea {
   background-color: #e7e9f4;
   border-color: #b1bcd2;
   border-bottom: 1px solid transparent;
-  padding-bottom: 10px;
+  padding-bottom: 7px;
+}
+
+.nav-tabs li {
+  margin-right: 4px;
 }
 
 .nav-tabs li:first-child a {
@@ -246,6 +252,7 @@ form textarea {
 
 .nav-tabs li a {
   color: #282933;
+  padding: 7px;
 }
 
 .nav-tabs li a:focus,
@@ -253,7 +260,7 @@ form textarea {
   text-decoration: none;
   background-color: #b1bcd2;
   border: 1px solid transparent;
-  padding-bottom: 9px;
+  padding-bottom: 6px;
 }
 
 .message-container {

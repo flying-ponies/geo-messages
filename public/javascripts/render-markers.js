@@ -3,7 +3,7 @@ socket.on('new message', function() {
 });
 
 socket.on('nearby full messages', function(rows) {
-  console.log('RENDER MARKERS');
+  console.log('Rendering markers');
 
   for (i in cachedMessages) {
     cachedMessages[i].setMap(null);
@@ -20,7 +20,6 @@ socket.on('nearby full messages', function(rows) {
     });
 
     cachedMessages.push(marker);
-
 
     marker.addListener('click', function() {
 
