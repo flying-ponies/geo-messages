@@ -55,7 +55,16 @@ $( document ).ready( function() {
     });
 
     var options, id, originalCoord, originalMapCenterCoord = {};
-    var mapCircle;
+    var mapCircle = new InvertedCircle({
+          map: map,
+          radius: 400,
+          editable: true,
+          stroke_weight: 1,
+          always_fit_to_map: false,
+          resize_updown: '',
+          resize_leftright: '',
+          editable: false
+        });
 
     var firstCall =  true;
     var firstDrag =  true;
@@ -92,10 +101,13 @@ $( document ).ready( function() {
         map.panTo(centralPosnLatLng);
       }
 
-      // UPDATES MAP ON WALKING AND LOCK ON CURRENT POSITION
       if( firstCall ) {
+        map.setCenter( coord );
+        socket.emit('get full messages', map.getCenter());
         originalCoord = centralPosnLatLng;
       }
+
+      // UPDATES MAP ON WALKING AND LOCK ON CURRENT POSITION
       var distanceTraveled = google.
         maps.
         geometry.
@@ -109,22 +121,6 @@ $( document ).ready( function() {
 
       console.log("success, current coord: ", coord );
 
-      if( firstCall ){
-        mapCircle = new InvertedCircle({
-          center: centralPosnLatLng,
-          map: map,
-          radius: 400,
-          editable: true,
-          stroke_weight: 1,
-          always_fit_to_map: false,
-          resize_updown: '',
-          resize_leftright: '',
-          editable: false
-        });
-
-        socket.emit('get full messages', map.getCenter());
-        map.panTo( coord );
-      }
       mapCircle.setCenter( centralPosnLatLng );
       firstCall = false;
     }
@@ -140,15 +136,6 @@ $( document ).ready( function() {
     };
 
     id = navigator.geolocation.watchPosition(success, error, options);
-
-
-    // var marker = new google.maps.Marker({
-    //   position: myLatlng,
-    //   map: map,
-    //   title: 'Click to zoom'
-    // });
-
-
 
     // map.addListener('center_changed', function() {
     //   // 3 seconds after the center of the map has changed, pan back to the
@@ -171,11 +158,6 @@ $( document ).ready( function() {
               radius: 40
       })
     );
-
-    // marker.addListener('click', function() {
-    //   map.setZoom(17);
-    //   map.setCenter(marker.getPosition());
-    // });
 
   }
   initMap();
