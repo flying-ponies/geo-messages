@@ -7,7 +7,7 @@ io.on('connection', (socket) => {
 
   socket.on('get full messages', (coord) => {
     let pos = `Point(${coord.lng} ${coord.lat})`;
-    Message.findInRange(pos, 1000)
+    Message.findInRange(pos, 10000)
       .then((rows) => {
         socket.emit('nearby full messages', rows);
       })

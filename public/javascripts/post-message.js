@@ -16,6 +16,7 @@ $(document).ready(function() {
       user_id: 2 // Remove this when we add sessions
     });
     var $form = $(this);
+    console.log('DATEA', data);
     socket.emit('post message', data);
     socket.on('post message response', function (response) {
 
