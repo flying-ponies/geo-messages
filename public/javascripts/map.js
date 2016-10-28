@@ -67,18 +67,16 @@ $( document ).ready( function() {
         });
 
     var firstCall =  true;
-    var firstDrag =  true;
 
+    // POSITION LOCK DIV ELEMENT
     var posnLockControlDiv = document.createElement('div');
     var posnLockControl = new PosnLockControl(posnLockControlDiv, map);
     posnLockControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(posnLockControlDiv);
 
     // UPDATES MAP ON DRAG
+    originalMapCenterCoord = map.getCenter();
     map.addListener('drag', function() {
-      if( firstDrag ) {
-        originalMapCenterCoord = map.getCenter();
-      }
       var distanceScrolled = google.
         maps.
         geometry.
@@ -89,7 +87,6 @@ $( document ).ready( function() {
         originalMapCenterCoord =  map.getCenter();
         socket.emit('get full messages', map.getCenter());
       }
-      firstDrag = false;
     });
 
     function success(pos){
