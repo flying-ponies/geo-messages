@@ -4,6 +4,13 @@ var router = express.Router();
 
 // TEMP
 
+const Message = require('../lib/messages');
+const User = require('../lib/users');
+
+User.find(1).then(rows => console.log(rows)).catch(error => console.error(error));
+
+Message.findBy({ user_id: 1 }).then(rows => console.log(rows));
+
 var YourMessages = [
   {
     createdOn: "Oct 20, 2016",
@@ -13,6 +20,7 @@ var YourMessages = [
     lng: -0.127758,
     likes: 10,
     dislikes: 40,
+    views: 100,
   },
   {
     createdOn: "Nov 23, 2014",
@@ -22,6 +30,7 @@ var YourMessages = [
     lng: 139.691706,
     likes: 100,
     dislikes: 2,
+    views: 102,
   },
   {
     createdOn: "Jan 14, 2015",
@@ -31,6 +40,7 @@ var YourMessages = [
     lng: -122.980510,
     likes: 13,
     dislikes: 6,
+    views: 1023,
   },
 ];
 
@@ -44,6 +54,7 @@ var readMessages = [
     lng: 116.407395,
     likes: 0,
     dislikes: 1000,
+    views: 10022,
   },
   {
     username: "James Bond",
@@ -54,6 +65,7 @@ var readMessages = [
     lng: -74.005941,
     likes: 14,
     dislikes: 5,
+    views: 1002,
   },
 ];
 
@@ -71,15 +83,45 @@ var templateVars = {
 router.get('/login', function(req, res, next) {
   res.render('login', {currentUser: currentUser = null});
 });
+
 router.post('/login', function(req, res, next) {
   req.session.currentUser = {
 
   };
   res.render('login', {currentUser: currentUser = null});
 });
+
 router.get('/signup', function(req, res, next) {
-  res.render('signup', {currentUser: currentUser = null});
+  res.render('signup', {currentUser: currentUser = null, errors: errors = null});
 });
+
+router.post('/signup', function(req, res, next) {
+  console.log(req.body);
+
+  let newUser = new User({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    passwordConfirmation: req.body.passwordConfirmation
+  });
+
+  newUser.save()
+    .then(info => {
+      console.log(info);
+      res.redirect('/', {currentUser: currentUser = null});
+    })
+    .catch(error => {
+      console.error(error);
+      res.render('signup', {currentUser: currentUser = null, errors: newUser.errors});
+    });
+
+});
+
+// router.post('/message', function(req, res, next) {
+//   console.log(req.body);
+//   res.json(req.body);
+// });
+
 router.get('/profile', function(req, res, next) {
   res.render('profile', templateVars);
 });

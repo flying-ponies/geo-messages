@@ -16,6 +16,18 @@ io.on('connection', (socket) => {
       });
   });
 
+  socket.on('post message', (messageObj) => {
+    let newMessage = new Message(messageObj);
+    newMessage.save()
+      .then(() => {
+        socket.emit('post message response', 'success');
+      })
+      .catch((error) => {
+        console.error(error);
+        socket.emit('post message response', 'fail');
+      })
+  });
+
   socket.on('disconnect', function() {
     console.log('A user disconnected');
   });

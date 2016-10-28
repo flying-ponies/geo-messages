@@ -1,50 +1,91 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
 /*
  * Globals
  */
 a,
 a:focus,
 a:hover {
-  color: #fff;
+  color: white;
 }
 
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {
-  color: #fff;
+  color: white;
   text-shadow: none;
   /* Prevent inheritance from `body` */
-  background-color: #333;
+  background-color: #4a4b5e;
+  border: 0px;
+}
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: white;
+  text-shadow: none;
+  /* Prevent inheritance from `body` */
+  background-color: #4a4b5e;
   border: 0px;
 }
 
 body {
-  font-family: "Dosis", sans-serif;
-  padding-top: 50px;
-  padding-bottom: 30px;
+  font-family: "Open Sans", sans-serif;
+  background-color: #586181;
+  color: #282933;
+  padding-top: 65px;
+  padding-bottom: 40px;
   height: auto;
-  background-color: #333;
-  color: #fff;
   text-align: left;
+  font-size: 15px;
+  line-height: 22.5px;
+}
+
+img {
+  max-width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Dosis", sans-serif;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.lead {
+  margin: 0px;
+}
+
+.text-box {
+  background-color: #e7e9f4;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.text-box .row {
+  margin-left: -20px;
+  margin-right: -20px;
 }
 
 #map {
   position: absolute;
   top: 50px;
   left: 0;
-  height: calc(100% - 80px);
+  height: calc(100% - 75px);
   width: 100%;
 }
 
+.username {
+  margin-bottom: 0px;
+}
+
+.email.small {
+  color: #586181;
+}
+
 footer {
-  height: 30px;
+  height: 25px;
   border-top: 1px solid black;
-  padding: 5px 0;
-  background-color: #212121;
-  color: #fff;
+  background-color: #282933;
+  color: #b1bcd2;
 }
 
 footer p {
@@ -54,12 +95,29 @@ footer p {
 }
 
 .modal-content {
-  color: #000;
-  background-color: lightgrey;
+  color: #282933;
+  background-color: #e7e9f4;
+}
+
+.modal-content .footer {
+  color: #586181;
+}
+
+.modal-header {
+  border-bottom: 1px solid #b1bcd2;
+}
+
+.modal-header .info {
+  text-transform: uppercase;
+  font-size: 11.25px;
+}
+
+.modal-footer {
+  border-top: 1px solid #b1bcd2;
 }
 
 .modal-footer h6 {
-  margin-top: 0px;
+  margin-bottom: 15px;
   text-align: center;
 }
 
@@ -69,8 +127,9 @@ footer p {
 }
 
 .navbar {
-  background-color: #212121;
+  background-color: #282933;
   border-bottom: 1px solid black;
+  font-family: "Open Sans", sans-serif;
   text-align: center;
   height: 50px;
 }
@@ -98,8 +157,7 @@ footer p {
   padding-right: 0;
   padding-left: 0;
   font-size: 16px;
-  font-weight: bold;
-  color: #fff;
+  color: white;
   /* IE8 proofing */
   color: rgba(255, 255, 255, 0.75);
   border-bottom: 2px solid transparent;
@@ -108,14 +166,14 @@ footer p {
 .masthead-nav > li > a:hover,
 .masthead-nav > li > a:focus {
   background-color: transparent;
-  color: #fff;
+  color: white;
 }
 
 .masthead-nav > .active > a,
 .masthead-nav > .active > a:hover,
 .masthead-nav > .active > a:focus {
-  color: #fff;
-  border-bottom-color: #fff;
+  color: white;
+  border-bottom-color: white;
 }
 
 @media (min-width: 768px) {
@@ -139,16 +197,18 @@ footer p {
   }
 }
 
-.form-login, .form-signup {
+.form-login,
+.form-signup {
   max-width: 330px;
   padding: 0px;
   margin: 0 auto;
-  background-color: lightgrey;
+  background-color: #e7e9f4;
   border-radius: 5px;
-  color: #000;
+  color: #282933;
 }
 
-.form-login label, .form-signup label {
+.form-login label,
+.form-signup label {
   float: left;
 }
 
@@ -166,18 +226,32 @@ form textarea {
   resize: vertical;
 }
 
+.nav-tabs {
+  border-bottom: 1px solid #b1bcd2;
+}
+
 .nav-tabs li.active a,
 .nav-tabs li.active a:focus,
 .nav-tabs li.active a:hover {
-  color: #fff;
-  background-color: #333;
+  color: #282933;
+  background-color: #e7e9f4;
+  border-color: #b1bcd2;
+  border-bottom: 1px solid transparent;
   padding-bottom: 10px;
+}
+
+.nav-tabs li:first-child a {
+  margin-left: 20px;
+}
+
+.nav-tabs li a {
+  color: #282933;
 }
 
 .nav-tabs li a:focus,
 .nav-tabs li a:hover {
   text-decoration: none;
-  background-color: #4A4A4A;
+  background-color: #b1bcd2;
   border: 1px solid transparent;
   padding-bottom: 9px;
 }
@@ -185,7 +259,17 @@ form textarea {
 .message-container {
   padding-top: 15px;
   padding-bottom: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid #b1bcd2;
+}
+
+.message-container .header .info {
+  text-transform: uppercase;
+  font-size: 11.25px;
+  margin-bottom: 10px;
+}
+
+.message-container .footer {
+  color: #586181;
 }
 
 .message-container:last-child {
@@ -193,8 +277,8 @@ form textarea {
 }
 
 .posn-lock-control-UI {
-  background-color: #fff;
-  border: 2px solid #fff;
+  background-color: #e7e9f4;
+  border: 2px solid #e7e9f4;
   border-radius: 3px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   cursor: pointer;
@@ -208,8 +292,18 @@ form textarea {
   padding: 5px 5px 3px 5px;
 }
 
+.posn-lock-control-UI h6 {
+  margin: 5px 0px;
+  margin-left: 5px;
+  font-weight: normal;
+}
+
 .posn-lock-control-UI .control-text:hover,
 .posn-lock-control-UI .control-text:focus,
 .posn-lock-control-UI .active {
-  color: #000;
+  color: #282933;
+}
+
+.new-message-modal .display-none {
+  display: none;
 }
