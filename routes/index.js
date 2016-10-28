@@ -135,10 +135,12 @@ router.post('/signup', function(req, res, next) {
 // });
 
 router.get('/profile', function(req, res, next) {
+  console.log('Message Before:', Message);
   Message.findBy({user_id: req.session.currentUser.id})
     .then((messages) => {
       templateVars.yourMessages = messages;
       let newUser = new User(req.session.currentUser);
+      console.log(newUser.fields);
       return newUser.readMessages();
     })
     .then((messages) => {
