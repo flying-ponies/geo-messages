@@ -71,6 +71,12 @@ var templateVars = {
 router.get('/login', function(req, res, next) {
   res.render('login', {currentUser: currentUser = null});
 });
+router.post('/login', function(req, res, next) {
+  req.session.currentUser = {
+
+  };
+  res.render('login', {currentUser: currentUser = null});
+});
 router.get('/signup', function(req, res, next) {
   res.render('signup', {currentUser: currentUser = null});
 });
