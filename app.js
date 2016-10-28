@@ -4,13 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session')
+
+var app = express()
 
 
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express();
 // socket.io
 var http = require('http');
 app.server = http.createServer(app);
@@ -22,6 +24,22 @@ app.server = http.createServer(app);
 //   });
 // });
 
+app.use(session({
+  secret: 'th3 qu1ck br0wn f0x jump3d ov3r the l@zy d0g',
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(function (req, res, next) {
+
+  console.log( "Current User: ", req.session.currentUser );
+  //check email and password as digest in DB
+
+  //if check fails, re-render with error messages
+
+
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

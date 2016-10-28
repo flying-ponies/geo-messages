@@ -17,13 +17,15 @@ io.on('connection', (socket) => {
   });
 
   socket.on('post message', (messageObj) => {
-    console.log(messageObj);
-    // INSERT TO DB
-    // SUCCESS
-      socket.emit("post message response", "success");
-      // BROADCAST TO USERS IN RANGE
-    // FAIL
-      // socket.emit("post mesage response", "fail")
+    let newMessage = new Message(messageObj);
+    newMessage.save()
+      .then(() => {
+        socket.emit('post message response', 'success');
+      })
+      .catch((error) => {
+        console.error(error);
+        socket.emit('post message response', 'fail');
+      })
   });
 
   socket.on('disconnect', function() {

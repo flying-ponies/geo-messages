@@ -11,10 +11,13 @@ $(document).ready(function() {
     $.each($(this).serializeArray(), function() {
       data[this.name] = this.value;
     });
-    data = Object.assign(data, coord);
+    data = Object.assign(data, {
+      location: `Point(${coord.lng} ${coord.lat})`,
+      user_id: 2 // Remove this when we add sessions
+    });
     var $form = $(this);
     socket.emit('post message', data);
-    socket.on('post message responce', function (response) {
+    socket.on('post message response', function (response) {
 
       if (response === 'success') {
         $form.get(0).reset();
@@ -29,7 +32,7 @@ $(document).ready(function() {
         $form.find('.response').removeClass('display-none').html(`
           <div class="alert alert-danger fade in">
               <a href="#" class="close" data-dismiss="alert">&times;</a>
-              <strong>Error!</strong> A problem has been occurred while submitting your Geo-Message.
+              <strong>Error!</strong> A problem has occurred while submitting your Geo-Message.
           </div>
         `);
       }

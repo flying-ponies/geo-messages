@@ -7,9 +7,6 @@ var router = express.Router();
 const Message = require('../lib/messages');
 const User = require('../lib/users');
 
-User.find(1).then(rows => console.log(rows)).catch(error => console.error(error));
-
-Message.findBy({ user_id: 1 }).then(rows => console.log(rows));
 
 var YourMessages = [
   {
@@ -84,6 +81,28 @@ router.get('/login', function(req, res, next) {
   res.render('login', {currentUser: currentUser = null});
 });
 
+router.post('/login', function(req, res, next) {
+  // req.session.currentUser = {
+
+  // };
+  User.authenticateUser( req.body.email, req.body.password ).then(function(userResults){
+
+    req.session.currentUser = userResults;
+    res.redirect( "/" );
+
+  }).catch( function(error){
+
+    res.render('login', {currentUser: currentUser = null});
+
+  });
+});
+
+router.get('/logout', function(req, res, next){
+  req.session.currentUser = null;
+
+  res.redirect('/');
+});
+
 router.get('/signup', function(req, res, next) {
   res.render('signup', {currentUser: currentUser = null, errors: errors = null});
 });
@@ -101,7 +120,7 @@ router.post('/signup', function(req, res, next) {
   newUser.save()
     .then(info => {
       console.log(info);
-      res.redirect('/', {currentUser: currentUser = null});
+      res.redirect('/', {currentUser: currentUser = req.session.currentUser});
     })
     .catch(error => {
       console.error(error);
@@ -121,7 +140,13 @@ router.get('/profile', function(req, res, next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', templateVars);
+  if( req.session.currentUser ){
+    res.render('index', { currentUser: req.session.currentUser });
+  }
+  else {
+    res.redirect('/login');
+  }
+
 });
 
 module.exports = router;
