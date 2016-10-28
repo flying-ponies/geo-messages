@@ -51,10 +51,12 @@
                     <span class="city"></span>
                   </span>
                   <span class="likes pull-right">
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <button class="glyphicon glyphicon-thumbs-up" on-click="clickedThumbsUp(" +
+                    <%= message.id %> + ")" aria-hidden="true"></span>
                     <span class="like"><%= message.likes %></span>
                     <span>/</span>
-                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                    <button class="glyphicon glyphicon-thumbs-down" on-click="clickedThumbsDown(" +
+                    <%= message.id %> + ")" aria-hidden="true"></span>
                     <span class="dislike"><%= message.dislikes %></span>
                   </span>
                 </div>
