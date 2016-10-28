@@ -1,6 +1,8 @@
 function renderFullMarkers(map) {
-  socket.on('nearby messages', function(rows){
-    rows.map(function(markerInfo){
+  var cachedMessages = [];
+  socket.on('nearby full messages', function(rows) {
+    console.log(rows);
+    rows.map(function(markerInfo) {
 
       var marker = new google.maps.Marker({
         position: markerInfo.coordinates,
@@ -31,7 +33,7 @@ function renderFullMarkers(map) {
         }
 
       });
-
     });
+
   });
 }

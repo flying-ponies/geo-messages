@@ -394,7 +394,7 @@ $( document ).ready( function() {
       }
 
       if( firstCall ) {
-        originalCoord = new google.maps.LatLng( centralPosnLatLng.lat(), centralPosnLatLng.lng() );
+        originalCoord = centralPosnLatLng;
       }
 
       var distanceTraveled = google.maps.geometry.spherical.computeDistanceBetween(
@@ -408,7 +408,6 @@ $( document ).ready( function() {
       }
 
       map.addListener('drag', function() {
-        // console.log(map.getCenter().lat() + " " + map.getCenter().lng());
 
         if( firstDrag ) {
           originalMapCenterCoord = map.getCenter();
@@ -420,8 +419,8 @@ $( document ).ready( function() {
         if( distanceScrolled > VISIBILITY_RADIUS ){
           console.log( "Distance Scrolled triggered" );
           originalMapCenterCoord =  map.getCenter();
-          socket.emit('get partial messages', coord);
-          renderPartialMarkers( map );
+          socket.emit('get full messages', map.getCenter());
+          renderFullMarkers( map );
         }
 
         firstDrag = false;

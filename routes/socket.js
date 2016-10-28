@@ -5,11 +5,11 @@ const io = require('socket.io')(app.server);
 io.on('connection', (socket) => {
   console.log('A user connected');
 
-  socket.on('update position', (coord) => {
+  socket.on('get full messages', (coord) => {
     let pos = `Point(${coord.lng} ${coord.lat})`;
     Message.findInRange(pos, 1000)
       .then((rows) => {
-        socket.emit('nearby messages', rows);
+        socket.emit('nearby full messages', rows);
       })
       .catch((error) => {
         console.error(error);
