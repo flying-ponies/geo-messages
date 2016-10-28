@@ -218,6 +218,8 @@ footer {
 @media (min-width: 768px) {
   .masthead {
     width: 768px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
@@ -268,23 +270,27 @@ form {
     background-color: $color_bg_light;
     border-color: $brand-color-light-mid;
     border-bottom: 1px solid transparent;
-    padding-bottom: 10px;
+    padding-bottom: 7px;
   }
 }
 
 .nav-tabs {
+  li {
+    margin-right: 4px;
+  }
   li:first-child a {
     margin-left: 20px;
   }
   li a {
     color: $brand-color-dark;
+    padding: 7px;
   }
   li a:focus,
   li a:hover {
     text-decoration: none;
     background-color: $brand-color-light-mid;
     border: 1px solid transparent;
-    padding-bottom: 9px;
+    padding-bottom: 6px;
 
   }
 }

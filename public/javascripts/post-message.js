@@ -15,6 +15,7 @@ $(document).ready(function() {
       location: `Point(${coord.lng} ${coord.lat})`
     });
     var $form = $(this);
+    console.log('DATEA', data);
     socket.emit('post message', data);
     socket.on('post message response', function (response) {
 
