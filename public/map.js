@@ -320,11 +320,13 @@ console.log('initMap declaration...');
   }
 ];
 
+var map;
 var coord;
 var centralPosnLatLng;
 var mapCenterCoord;
 var VISIBILITY_RADIUS = 400;
 var followPosn = true;
+var cachedMessages = [];
 
 $( document ).ready( function() {
 
@@ -360,7 +362,7 @@ $( document ).ready( function() {
 
     var myLatlng = {lat: 49.2827, lng: -123.1207};
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
       zoom: 16,
       minZoom: 14,
       maxZoom: 18,
