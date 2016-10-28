@@ -12,6 +12,7 @@ socket.on('nearby full messages', function(rows) {
   cachedMessages = [];
 
   rows.map(function(markerInfo) {
+    console.log(markerInfo);
 
     var marker = new google.maps.Marker({
       position: markerInfo.coordinates,
@@ -41,6 +42,8 @@ socket.on('nearby full messages', function(rows) {
         $('#view-message-modal').modal({
           show: 'true'
         });
+
+        socket.emit('message viewed', markerInfo.id);
       }
 
     });

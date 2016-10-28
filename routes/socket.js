@@ -29,6 +29,21 @@ io.on('connection', (socket) => {
       })
   });
 
+  socket.on('message viewed', (messageId) => {
+    console.log('message viewed: message ID: ', messageId);
+    // MAKE CHANGES TO DB
+  });
+
+  socket.on('message liked', (messageId) => {
+    console.log('message liked: message ID: ', messageId);
+    // MAKE CHANGES TO DB
+  });
+
+  socket.on('message disliked', (messageId) => {
+    console.log('message disliked: message ID: ', messageId);
+    // MAKE CHANGES TO DB
+  });
+
   socket.on('disconnect', function() {
     console.log('A user disconnected');
   });
