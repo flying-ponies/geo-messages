@@ -21,6 +21,7 @@ io.on('connection', (socket) => {
     newMessage.save()
       .then(() => {
         socket.emit('post message response', 'success');
+        io.emit('new message');
       })
       .catch((error) => {
         console.error(error);

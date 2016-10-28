@@ -1,17 +1,17 @@
+socket.on('new message', function() {
+  socket.emit('get full messages', map.getCenter());
+});
+
 socket.on('nearby full messages', function(rows) {
+  console.log('RENDER MARKERS');
 
   for (i in cachedMessages) {
     cachedMessages[i].setMap(null);
   }
-  // cachedMessages.forEach(function(message) {
-  //   message.setMap(null);
-  // });
+
   cachedMessages = [];
 
   rows.map(function(markerInfo) {
-
-  markerInfo.coordinates.lat = markerInfo.coordinates.lat + Math.random()/1000;
-  markerInfo.coordinates.lng = markerInfo.coordinates.lng + Math.random()/1000;
 
     var marker = new google.maps.Marker({
       position: markerInfo.coordinates,
@@ -45,7 +45,9 @@ socket.on('nearby full messages', function(rows) {
       }
 
     });
+
   });
+
 });
 
 
