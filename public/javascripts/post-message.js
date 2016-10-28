@@ -12,8 +12,7 @@ $(document).ready(function() {
       data[this.name] = this.value;
     });
     data = Object.assign(data, {
-      location: `Point(${coord.lng} ${coord.lat})`,
-      user_id: 2 // Remove this when we add sessions
+      location: `Point(${coord.lng} ${coord.lat})`
     });
     var $form = $(this);
     socket.emit('post message', data);
