@@ -1,45 +1,23 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session')
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const http = require('http');
 
-var app = express()
+const session = require('./lib/session');
+const app = express();
 
+const routes = require('./routes/index');
+const users = require('./routes/users');
 
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
-// socket.io
-var http = require('http');
+/**
+ * Create HTTP server.
+ */
 app.server = http.createServer(app);
-// var io = require('socket.io')(app.server);
-// io.on('connection', function(socket) {
-//   console.log('A user connected');
-//   socket.on('disconnect', function() {
-//     console.log('A user disconnected');
-//   });
-// });
 
-app.use(session({
-  secret: 'th3 qu1ck br0wn f0x jump3d ov3r the l@zy d0g',
-  resave: false,
-  saveUninitialized: true
-}));
-
-app.use(function (req, res, next) {
-
-  console.log( "Current User: ", req.session.currentUser );
-  //check email and password as digest in DB
-
-  //if check fails, re-render with error messages
-
-
-  next();
-});
+app.use(session);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

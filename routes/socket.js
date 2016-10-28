@@ -2,6 +2,16 @@ const app = require('../app');
 const Message = require('../lib/messages');
 
 const io = require('socket.io')(app.server);
+
+const sharedsession = require("express-socket.io-session");
+
+const session = require('../lib/session');
+
+io.use(sharedsession(session, {
+    autoSave:true
+  })
+);
+
 io.on('connection', (socket) => {
   console.log('A user connected');
 
@@ -17,6 +27,11 @@ io.on('connection', (socket) => {
   });
 
   socket.on('post message', (messageObj) => {
+    if (socket.handshake.session.currentUser) {
+      messageObj.user_id = socket.handshake.session.currentUser.id;
+    } else {
+      messageObj.user_id = null;
+    }
     let newMessage = new Message(messageObj);
     newMessage.save()
       .then(() => {
