@@ -31,17 +31,33 @@ io.on('connection', (socket) => {
 
   socket.on('message viewed', (messageId) => {
     console.log('message viewed: message ID: ', messageId);
-    // MAKE CHANGES TO DB
+
   });
 
   socket.on('message liked', (messageId) => {
     console.log('message liked: message ID: ', messageId);
-    // MAKE CHANGES TO DB
+
+    let user = new User({user_id: 1});
+    user.likeMessage( messageId );
+    .then((rows) => {
+      console.log('Liked message', rows);
+    })
+    .catch((error) => {
+      console.error(error)
+    });
   });
 
   socket.on('message disliked', (messageId) => {
     console.log('message disliked: message ID: ', messageId);
-    // MAKE CHANGES TO DB
+
+    let user = new User({user_id: 1});
+    user.dislikeMessage( messageId );
+    .then((rows) => {
+      console.log('Disliked message', rows);
+    })
+    .catch((error) => {
+      console.error(error)
+    });
   });
 
   socket.on('disconnect', function() {
