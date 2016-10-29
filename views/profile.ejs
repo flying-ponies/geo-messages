@@ -4,7 +4,7 @@
   <body>
     <%- include('partials/top_nav') %>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA422vOq0FEOGdXd5k4z7b1-3VSH9GXCec&v=3.exp&libraries=geometry&format=png&maptype=roadmap&style=feature:administrative%7Celement:geometry.fill%7Cvisibility:off&style=feature:administrative.land_parcel%7Celement:labels%7Cvisibility:off&style=feature:administrative.locality%7Celement:labels%7Cvisibility:off&style=feature:poi%7Celement:labels.text%7Cvisibility:off"></script>
-    <script src="/javascripts/render-city-name-on-message-container.js"></script>
+    <!-- <script src="/javascripts/render-city-name-on-message-container.js"></script> -->
     <script src="/javascripts/rating.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
     <script src="/javascripts/profile-page-coord.js"></script>
@@ -37,7 +37,8 @@
                     <%= message.title %>
                   </h4>
                   <div class="info">
-                    <span class="date"><%= message.createdOn %></span>
+                    <% var date = moment(message.created_at).format('MMM DD, YYYY'); %>
+                    <span class="date"><%= date %></span>
                     <span class="views pull-right"><%= message.views %> views</span>
                   </div>
                 </div>
@@ -49,7 +50,7 @@
                     <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                     <span class="lat hidden"><%= message.coordinates.lat %></span>
                     <span class="lng hidden"><%= message.coordinates.lng %></span>
-                    <span class="city"></span>
+                    <span class="city"><%= message.location_name %></span>
                   </span>
                   <span class="likes pull-right">
                     <span class="glyphicon glyphicon-thumbs-up" data-message-id="<%=message.id%>" aria-hidden="true"></span>
@@ -74,7 +75,8 @@
                     <%= message.title %>
                   </h4>
                   <div class="info">
-                    By <%= message.username %> on <%= message.created_at %>
+                    <% var date = moment(message.created_at).format('MMM DD, YYYY'); %>
+                    By <%= message.username %> on <%= date %>
                     <span class="views pull-right"><%= message.views %> views</span>
                   </div>
                 </div>
@@ -86,7 +88,7 @@
                     <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                     <span class="lat hidden"><%= message.coordinates.lat %></span>
                     <span class="lng hidden"><%= message.coordinates.lng %></span>
-                    <span class="city"></span>
+                    <span class="city"><%= message.location_name %></span>
                   </span>
                   <span class="likes pull-right">
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" data-message-id="<%=message.id%>"></span>
