@@ -15,67 +15,72 @@ $(document).ready(function() {
       location: `Point(${coord.lng} ${coord.lat})`
     });
     var $form = $(this);
-    console.log('DATA', data);
-    socket.emit('post message', data);
-    socket.on('post message response', function (markerInfo) {
 
-      if (markerInfo) {
-        $('.new-message-modal').modal('hide');
+    positionToCityName(coord.lat, coord.lng, function(locationName) {
+      data.location_name = locationName;
+      console.log('DATA', data);
+      socket.emit('post message', data);
+      socket.on('post message response', function (markerInfo) {
 
-        var marker = new google.maps.Marker({
-          position: markerInfo.coordinates,
-          map: map,
-          title: 'Click to view message',
-          animation: google.maps.Animation.DROP,
-          icon: messageIcon
-        });
+        if (markerInfo) {
+          $('.new-message-modal').modal('hide');
 
-        cachedMessages.push(marker);
+          var marker = new google.maps.Marker({
+            position: markerInfo.coordinates,
+            map: map,
+            title: 'Click to view message',
+            animation: google.maps.Animation.DROP,
+            icon: messageIcon
+          });
 
-        marker.addListener('click', function() {
+          cachedMessages.push(marker);
 
-          var distance = google.maps.geometry.spherical.computeDistanceBetween( marker.getPosition(), centralPosnLatLng );
+          marker.addListener('click', function() {
 
-          if( distance < VISIBILITY_RADIUS ){
-            $('#view-message-modal .modal-title').html(markerInfo.title);
-            $('#view-message-modal .author').html("by " + markerInfo.username);
-            var date = moment(markerInfo.created_at).format('MMM DD, YYYY');
-            $('#view-message-modal .date').html("on " + date);
-            $('#view-message-modal .views').html(markerInfo.views + ' views');
-            $('#view-message-modal .modal-body .message').html(markerInfo.content);
-            $('#view-message-modal .modal-body .likes .like').html(markerInfo.likes);
-            $('#view-message-modal .modal-body .likes .dislike').html(markerInfo.dislikes);
-            positionToCityName(marker.position.lat(),marker.position.lng(), function(city) {
-              $('#view-message-modal .modal-body .location .city').html(city);
-            });
+            var distance = google.maps.geometry.spherical.computeDistanceBetween( marker.getPosition(), centralPosnLatLng );
 
-            $('#view-message-modal').modal({
-              show: 'true'
-            });
+            if( distance < VISIBILITY_RADIUS ){
+              $('#view-message-modal .modal-title').html(markerInfo.title);
+              $('#view-message-modal .author').html("by " + markerInfo.username);
+              var date = moment(markerInfo.created_at).format('MMM DD, YYYY');
+              $('#view-message-modal .date').html("on " + date);
+              $('#view-message-modal .views').html(markerInfo.views + ' views');
+              $('#view-message-modal .modal-body .message').html(markerInfo.content);
+              $('#view-message-modal .modal-body .likes .like').html(markerInfo.likes);
+              $('#view-message-modal .modal-body .likes .dislike').html(markerInfo.dislikes);
+              positionToCityName(marker.position.lat(),marker.position.lng(), function(city) {
+                $('#view-message-modal .modal-body .location .city').html(city);
+              });
 
-            socket.emit('message viewed', markerInfo.id);
-          }
+              $('#view-message-modal').modal({
+                show: 'true'
+              });
 
-        });
+              socket.emit('message viewed', markerInfo.id);
+            }
 
-        $form.get(0).reset();
+          });
 
-      //   $form.find('.response').removeClass('display-none').html(`
-      //     <div class="alert alert-success fade in">
-      //       <a href="#" class="close" data-dismiss="alert">&times;</a>
-      //       <strong>Success!</strong> Your Geo-Message has been posted successfully.
-      //     </div>
-      //   `);
+          $form.get(0).reset();
 
-      } else {
+        //   $form.find('.response').removeClass('display-none').html(`
+        //     <div class="alert alert-success fade in">
+        //       <a href="#" class="close" data-dismiss="alert">&times;</a>
+        //       <strong>Success!</strong> Your Geo-Message has been posted successfully.
+        //     </div>
+        //   `);
 
-        $form.find('.response').removeClass('display-none').html(`
-          <div class="alert alert-danger fade in">
-              <a href="#" class="close" data-dismiss="alert">&times;</a>
-              <strong>Error!</strong> A problem has occurred while submitting your Geo-Message.
-          </div>
-        `);
-      }
+        } else {
+
+          $form.find('.response').removeClass('display-none').html(`
+            <div class="alert alert-danger fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Error!</strong> A problem has occurred while submitting your Geo-Message.
+            </div>
+          `);
+        }
+      }); // socket.on ('post message response'...
+
     });
 
   });
