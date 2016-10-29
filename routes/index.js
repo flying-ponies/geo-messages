@@ -10,7 +10,11 @@ const User = require('../lib/users');
 
 
 router.get('/login', function(req, res, next) {
-  res.render('login', {currentUser: currentUser = null});
+  res.render('login', {
+    currentUser: null,
+    errors: null,
+    email: ''
+  });
 });
 
 router.post('/login', function(req, res, next) {
@@ -24,7 +28,11 @@ router.post('/login', function(req, res, next) {
 
   }).catch( function(error){
 
-    res.render('login', {currentUser: currentUser = null});
+    res.render('login', {
+      currentUser: null,
+      errors: ['Email or Password is invalid'],
+      email: req.body.email
+    });
 
   });
 });
@@ -36,7 +44,12 @@ router.get('/logout', function(req, res, next){
 });
 
 router.get('/signup', function(req, res, next) {
-  res.render('signup', {currentUser: currentUser = null, errors: errors = null});
+  res.render('signup', {
+    currentUser: null,
+    errors: null,
+    username: '',
+    email: ''
+  });
 });
 
 router.post('/signup', function(req, res, next) {
@@ -57,7 +70,12 @@ router.post('/signup', function(req, res, next) {
     })
     .catch(error => {
       console.error(error);
-      res.render('signup', {currentUser: null, errors: newUser.errors});
+      res.render('signup', {
+        currentUser: null,
+        errors: newUser.errors,
+        username: req.body.username,
+        email: req.body.email
+      });
     });
 
 });
