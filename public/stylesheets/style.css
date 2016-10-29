@@ -305,8 +305,6 @@ form textarea {
   font-weight: normal;
 }
 
-.posn-lock-control-UI .control-text:hover,
-.posn-lock-control-UI .control-text:focus,
 .posn-lock-control-UI .active {
   color: #282933;
 }
