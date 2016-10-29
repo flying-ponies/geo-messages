@@ -21,10 +21,10 @@ io.on('connection', (socket) => {
     newMessage.save()
       .then(() => {
         socket.broadcast.emit('new message');
-        Message.findById(newMessage.fields.id)
-          .then((rows) => {
+        return Message.findById(newMessage.fields.id)
+      })
+      .then((rows) => {
             socket.emit('post message response', rows[0]);
-          });
       })
       .catch((error) => {
         console.error(error);
