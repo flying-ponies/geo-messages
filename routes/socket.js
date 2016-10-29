@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
         return Message.findById(newMessage.fields.id)
       })
       .then((rows) => {
-            socket.emit('post message response', rows[0]);
+        socket.emit('post message response', rows[0]);
       })
       .catch((error) => {
         console.error(error);

@@ -2,6 +2,7 @@ function positionToCityName(lat, lng, callback) {
   var latlng = new google.maps.LatLng(lat, lng);
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode({'latLng': latlng}, function(results, status) {
+    console.log("GEOCODE STATUS: ", status);
     if (status == google.maps.GeocoderStatus.OK) {
       if (results[1]) {
             var properName;
