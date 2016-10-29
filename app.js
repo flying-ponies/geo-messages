@@ -39,6 +39,14 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next){
+  if( !req.session.currentUser  && (req.path != "/signup" && req.path != "/login")){
+    res.redirect('/login');
+    return;
+  }
+  next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
 
