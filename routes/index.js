@@ -51,11 +51,12 @@ router.post('/signup', function(req, res, next) {
   newUser.save()
     .then(info => {
       console.log(info);
-      res.redirect('/', {currentUser: currentUser = req.session.currentUser});
+      req.session.currentUser = newUser.fields;
+      res.redirect('/');
     })
     .catch(error => {
       console.error(error);
-      res.render('signup', {currentUser: currentUser = null, errors: newUser.errors});
+      res.render('signup', {currentUser: null, errors: newUser.errors});
     });
 
 });
