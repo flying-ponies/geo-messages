@@ -57,6 +57,7 @@ io.on('connection', (socket) => {
     user.likeMessage( messageId )
       .then((rows) => {
         console.log('Liked message', rows);
+        socket.emit('message rating updated');
       })
       .catch((error) => {
         console.error(error)
@@ -70,6 +71,7 @@ io.on('connection', (socket) => {
     user.dislikeMessage( messageId )
       .then((rows) => {
         console.log('Disliked message', rows);
+        socket.emit('message rating updated');
       })
       .catch((error) => {
         console.error(error)
