@@ -14,15 +14,50 @@ function registerRatingEventHooks(){
 
   }
 
-  socket.on('message rating updated', function(updateThumbs){
+  socket.on('message liked', function(){
     var messages = $("message-container");
     messages.forEach( message ){
       if( updateThumbs.messageId === message.find("span.glyphicon.glyphicon-thumbs-up").dataset.messageId ){
-        message.find("span.likes").val( updateThumbs.up );
-        message.find("span.dislikes").val( updateThumbs.down );
+        var likes = message.find("span.likes");
+        var dislikes = message.find("span.dislikes");
+        likes.val( likes.val() + 1 );
+        dislikes.val( dislikes.val() - 1 );
       }
     }
   });
+
+  socket.on('message disliked', function(){
+    var messages = $("message-container");
+    messages.forEach( message ){
+      if( updateThumbs.messageId === message.find("span.glyphicon.glyphicon-thumbs-up").dataset.messageId ){
+        var likes = message.find("span.likes");
+        var dislikes = message.find("span.dislikes");
+        likes.val( likes.val() - 1 );
+        dislikes.val( dislikes.val() + 1 );
+      }
+    }
+  });
+
+  socket.on('message liked new', function(){
+    var messages = $("message-container");
+    messages.forEach( message ){
+      if( updateThumbs.messageId === message.find("span.glyphicon.glyphicon-thumbs-up").dataset.messageId ){
+        var likes = message.find("span.likes");
+        likes.val( likes.val() + 1 );
+      }
+    }
+  });
+
+  socket.on('message disliked new', function(){
+    var messages = $("message-container");
+    messages.forEach( message ){
+      if( updateThumbs.messageId === message.find("span.glyphicon.glyphicon-thumbs-up").dataset.messageId ){
+        var dislikes = message.find("span.dislikes");
+        dislikes.val( dislikes.val() + 1 );
+      }
+    }
+  });
+
 }
 
 
