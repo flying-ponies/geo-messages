@@ -20,12 +20,15 @@ io.on('connection', (socket) => {
     let newMessage = new Message(messageObj);
     newMessage.save()
       .then(() => {
-        socket.emit('post message response', 'success');
-        io.emit('new message');
+        socket.broadcast.emit('new message');
+        Message.findById(newMessage.fields.id)
+          .then((rows) => {
+            socket.emit('post message response', rows[0]);
+          });
       })
       .catch((error) => {
         console.error(error);
-        socket.emit('post message response', 'fail');
+        socket.emit('post message response', null);
       })
   });
 
