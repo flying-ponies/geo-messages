@@ -12,12 +12,12 @@ socket.on('nearby full messages', function(rows) {
   cachedMessages = [];
 
   rows.map(function(markerInfo) {
-    console.log(markerInfo);
 
     var marker = new google.maps.Marker({
       position: markerInfo.coordinates,
       map: map,
-      title: 'Click to view message'
+      title: 'Click to view message',
+      icon: messageIcon
     });
 
     cachedMessages.push(marker);

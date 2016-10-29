@@ -6,6 +6,7 @@ var mapCenterCoord;
 var VISIBILITY_RADIUS = 400;
 var followPosn = true;
 var cachedMessages = [];
+var currentPosnMarker;
 
 $( document ).ready( function() {
 
@@ -54,12 +55,17 @@ $( document ).ready( function() {
       styles: mapStyleArr
     });
 
+    currentPosnMarker = new google.maps.Marker({
+      map: map,
+      title: 'Current Postion',
+      icon: currentLocationIcon
+    });
+
     var options, id, originalCoord, originalMapCenterCoord = {};
     var mapCircle = new InvertedCircle({
           map: map,
           radius: 400,
-          editable: true,
-          stroke_weight: 1,
+          stroke_weight: 0.5,
           always_fit_to_map: false,
           resize_updown: '',
           resize_leftright: '',
@@ -83,16 +89,59 @@ $( document ).ready( function() {
         spherical.
         computeDistanceBetween( map.getCenter(), originalMapCenterCoord );
       if( distanceScrolled > VISIBILITY_RADIUS ){
-        console.log( "Distance Scrolled triggered" );
         originalMapCenterCoord =  map.getCenter();
         socket.emit('get full messages', map.getCenter());
       }
     });
 
+    // DEMO ONLY CONTROLS
+    $(document).on('keypress', function(event){
+      var up = '∑';
+      var down = 'ß';
+      var left = 'å';
+      var right = '∂';
+      var step = .00025;
+      if (event.key === up) {
+        var pos = {coords:
+          {
+            latitude: coord.lat + step,
+            longitude: coord.lng
+          }
+        };
+      } else if (event.key === down) {
+        var pos = {coords:
+          {
+            latitude: coord.lat - step,
+            longitude: coord.lng
+          }
+        };
+      } else if (event.key === left) {
+        var pos = {coords:
+          {
+            latitude: coord.lat,
+            longitude: coord.lng - step
+          }
+        };
+      } else if (event.key === right) {
+        var pos = {coords:
+          {
+            latitude: coord.lat,
+            longitude: coord.lng + step
+          }
+        };
+      }
+      if (event.key === up || event.key === down || event.key === left || event.key === right) {
+        success(pos);
+      }
+    });
+    // END OF DEMO ONLY CONTROLS
+
     function success(pos){
 
       coord = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       centralPosnLatLng = new google.maps.LatLng( coord.lat, coord.lng );
+
+      currentPosnMarker.setPosition(centralPosnLatLng);
 
       if (followPosn) {
         map.panTo(centralPosnLatLng);
@@ -111,7 +160,6 @@ $( document ).ready( function() {
         spherical.
         computeDistanceBetween(centralPosnLatLng, originalCoord );
       if( distanceTraveled > VISIBILITY_RADIUS && followPosn ){
-        console.log( "Distance Traveled triggered" );
         originalCoord =  new google.maps.LatLng( centralPosnLatLng.lat(), centralPosnLatLng.lng() );
         socket.emit('get full messages', map.getCenter());
       }
@@ -142,19 +190,19 @@ $( document ).ready( function() {
     //   }, 3000);
     // });
 
-    var GeoMarker = new GeolocationMarker(map);
-    GeoMarker.setCircleOptions(
-      new google.maps.Circle({
-              strokeColor: '#DD0000',
-              strokeOpacity: 0.0,
-              strokeWeight: 2,
-              fillColor: '#DD0000',
-              fillOpacity: 0.0,
-              map: map,
-              center: GeoMarker.center,
-              radius: 40
-      })
-    );
+    // var GeoMarker = new GeolocationMarker(map);
+    // GeoMarker.setCircleOptions(
+    //   new google.maps.Circle({
+    //           strokeColor: '#DD0000',
+    //           strokeOpacity: 0.0,
+    //           strokeWeight: 2,
+    //           fillColor: '#DD0000',
+    //           fillOpacity: 0.0,
+    //           map: map,
+    //           center: GeoMarker.center,
+    //           radius: 40
+    //   })
+    // );
 
   }
   initMap();
