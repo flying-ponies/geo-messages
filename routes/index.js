@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
 
 
 // TEMP
@@ -68,7 +69,7 @@ router.post('/signup', function(req, res, next) {
 
 router.get('/profile', function(req, res, next) {
   let newUser = new User(req.session.currentUser);
-  let templateVars = { currentUser: req.session.currentUser };
+  let templateVars = { currentUser: req.session.currentUser, moment: moment };
 
   newUser.getUserMessages()
     .then((messages) => {

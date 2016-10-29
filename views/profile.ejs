@@ -37,7 +37,8 @@
                     <%= message.title %>
                   </h4>
                   <div class="info">
-                    <span class="date"><%= message.createdOn %></span>
+                    <% var date = moment(message.created_at).format('MMM DD, YYYY'); %>
+                    <span class="date"><%= date %></span>
                     <span class="views pull-right"><%= message.views %> views</span>
                   </div>
                 </div>
@@ -74,7 +75,8 @@
                     <%= message.title %>
                   </h4>
                   <div class="info">
-                    By <%= message.username %> on <%= message.created_at %>
+                    <% var date = moment(message.created_at).format('MMM DD, YYYY'); %>
+                    By <%= message.username %> on <%= date %>
                     <span class="views pull-right"><%= message.views %> views</span>
                   </div>
                 </div>
