@@ -58,6 +58,9 @@ a:hover {
 }
 
 // BASE
+html {
+  height: 100%;
+}
 body {
   font-family: $font_main;
   background-color: $color_bg_dark;
@@ -68,6 +71,7 @@ body {
   text-align: left;
   font-size: $base-font-size;
   line-height: $base-line-height;
+  min-height: 100%;
   // font-weight: light;
 }
 img {
@@ -88,6 +92,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: $brand-color-light;
   border-radius: 5px;
   padding: 20px;
+  min-height: 250px;
   .row {
     margin-left: -20px;
     margin-right: -20px;
@@ -361,6 +366,13 @@ form {
 
 h1.loading {
   color: white;
+}
+
+.tab-content {
+  .lead {
+    margin-top: 15px;
+    font-size: 1.25 * $base-font-size;
+  }
 }
 
 

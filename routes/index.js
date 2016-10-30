@@ -2,9 +2,6 @@ var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 
-
-// TEMP
-
 const Message = require('../lib/messages');
 const User = require('../lib/users');
 
@@ -88,6 +85,7 @@ router.get('/profile', function(req, res, next) {
     })
     .then((messages) => {
       templateVars.readMessages = messages;
+
       res.render('profile', templateVars);
     })
     .catch((error) => {
