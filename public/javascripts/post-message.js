@@ -47,23 +47,27 @@ $(document).ready(function() {
             var distance = google.maps.geometry.spherical.computeDistanceBetween( marker.getPosition(), centralPosnLatLng );
 
             if( distance < VISIBILITY_RADIUS ){
-              $('#view-message-modal .modal-title').html(markerInfo.title);
-              $('#view-message-modal .author').html("by " + markerInfo.username);
-              var date = moment(markerInfo.created_at).format('MMM DD, YYYY');
-              $('#view-message-modal .date').html("on " + date);
-              $('#view-message-modal .views').html(markerInfo.views + ' views');
-              $('#view-message-modal .modal-body .message').html(markerInfo.content);
-              $('#view-message-modal .modal-body .likes .like').html(markerInfo.likes);
-              $('#view-message-modal .modal-body .likes .dislike').html(markerInfo.dislikes);
-              positionToCityName(marker.position.lat(),marker.position.lng(), function(city) {
-                $('#view-message-modal .modal-body .location .city').html(city);
-              });
-
-              $('#view-message-modal').modal({
-                show: 'true'
-              });
-
               socket.emit('message viewed', markerInfo.id);
+              socket.on('message viewed response', function (markerInfo) {
+
+              $('#view-message-modal .modal-title').html(markerInfo.title);
+                $('#view-message-modal .author').html("by " + markerInfo.username);
+                var date = moment(markerInfo.created_at).format('MMM DD, YYYY');
+                $('#view-message-modal .date').html("on " + date);
+                $('#view-message-modal .views').html(markerInfo.views + ' views');
+                $('#view-message-modal .modal-body .message').html(markerInfo.content);
+                $('#view-message-modal .modal-body .likes .like').html(markerInfo.likes);
+                $('#view-message-modal .modal-body .likes .dislike').html(markerInfo.dislikes);
+                positionToCityName(marker.position.lat(),marker.position.lng(), function(city) {
+                  $('#view-message-modal .modal-body .location .city').html(city);
+                });
+
+                $('#view-message-modal').modal({
+                  show: 'true'
+                });
+
+              });
+
             }
 
           });
