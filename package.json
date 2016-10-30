@@ -5,6 +5,9 @@
     "start": "node ./bin/www",
     "knex": "./node_modules/.bin/knex"
   },
+  "engines": {
+    "node": "6.9.1"
+  },
   "author": "Lighthouse Labs",
   "contributors": [
     "Devin Murnane",

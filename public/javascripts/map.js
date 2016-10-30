@@ -108,6 +108,7 @@ $(document).ready( function() {
           mapTypeControl: false,
           scaleControl: false,
           zoomControl: false,
+          keyboardShortcuts: false,
           styles: mapStyleArr
         });
 
