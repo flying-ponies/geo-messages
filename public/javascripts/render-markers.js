@@ -21,7 +21,7 @@ socket.on('nearby full messages', function(rows) {
   }
 
   Object.keys(newMessages).forEach(function(newMessage) {
-    markerInfo = newMessages[newMessage];
+    var markerInfo = newMessages[newMessage];
 
     var MarkerRenderOptions = {
       position: markerInfo.coordinates,
