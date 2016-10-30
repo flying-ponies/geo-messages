@@ -23,23 +23,17 @@ socket.on('nearby full messages', function(rows) {
   Object.keys(newMessages).forEach(function(newMessage) {
     markerInfo = newMessages[newMessage];
 
-    var MarkerRenderOptions;
-    if (firstMarkerRender) {
-      MarkerRenderOptions = {
-        position: markerInfo.coordinates,
-        map: map,
-        title: 'Click to view message',
-        icon: messageIcon
-      }
-    } else {
-      MarkerRenderOptions = {
-        position: markerInfo.coordinates,
-        map: map,
-        title: 'Click to view message',
-        animation: google.maps.Animation.DROP,
-        icon: messageIcon
-      }
+    var MarkerRenderOptions = {
+      position: markerInfo.coordinates,
+      map: map,
+      title: 'Click to view message',
+      icon: messageIcon
     }
+
+    if (!firstMarkerRender) {
+      MarkerRenderOptions.animation = google.maps.Animation.DROP;
+    }
+
     var marker = new google.maps.Marker(MarkerRenderOptions);
 
     newMessages[newMessage] = marker;
