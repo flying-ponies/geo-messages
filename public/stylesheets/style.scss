@@ -10,7 +10,7 @@ $color_primary: #212121;
 $color_secondary: #4A4A4A;
 // $color_accent: #F9BF2A;
 $color_bg_light: $brand-color-light;
-$color_bg_dark: $brand-color-dark-mid;
+$color_bg_dark: $brand-color-mid;
 $font_primary: white;
 $font_secondary: $brand-color-dark;
 
@@ -23,6 +23,8 @@ $bottom_padding: 25px;
 
 $base-font-size: 15px;
 $base-line-height: 1.5 * $base-font-size;
+
+@import 'loader';
 
 /*
  * Globals
@@ -91,6 +93,16 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: -20px;
   }
 }
+.vertical-center {
+  min-height: calc(100% - #{$top_padding + $bottom_padding});  /* Fallback for browsers do NOT support vh unit */
+  min-height: calc(100vh - #{$top_padding + $bottom_padding}); /* These two lines are counted as one :-)       */
+  padding: 0px;
+  margin: 0px;
+  margin-top: -15px;
+  display: flex;
+  align-items: center;
+  background-color: inherit;
+}
 
 #map {
   position: absolute;
@@ -98,6 +110,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   height: calc(100% - #{$top_padding + $bottom_padding});
   width: 100%;
+  z-index: 100;
 }
 
 .username {
@@ -164,6 +177,7 @@ footer {
   font-family: $font_headers;
   text-align: center;
   height: 50px;
+  min-width:320px;
 }
 
 .masthead {
@@ -330,7 +344,7 @@ form {
     padding: 5px 5px 3px 5px;
   }
   h6 {
-    margin: 5px 0px;
+    margin: 3px 0px;
     margin-left: 5px;
     font-weight: normal;
   }
@@ -343,6 +357,10 @@ form {
   .display-none {
     display: none;
   }
+}
+
+h1.loading {
+  color: white;
 }
 
 

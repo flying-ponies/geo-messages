@@ -22,7 +22,6 @@ function PosnLockControl(controlDiv, map) {
 
   // Setup the event listeners
   $(controlUI).on('click', function() {
-    console.log("CAKSD",$(controlText).hasClass('active'));
 
     if ($(controlText).hasClass('active')){
       followPosn = false;
@@ -156,6 +155,13 @@ $(document).ready( function() {
         map.setCenter( coord );
         socket.emit('get full messages', map.getCenter());
         originalCoord = centralPosnLatLng;
+
+        // DELETE LOADING SPINNER
+        google.maps.event.addDomListener(map, 'tilesloaded', function() {
+          console.log("LAODIGN");
+          $('.jumbotron.vertical-center').remove();
+        });
+
       } // if (firstCall)
 
       firstCall = false;

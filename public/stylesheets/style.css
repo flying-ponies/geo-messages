@@ -1,4 +1,137 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
+.sk-cube-grid {
+  width: 135px;
+  height: 135px;
+  margin: 10px auto;
+}
+
+.sk-cube-grid .sk-cube {
+  width: calc(33% - 3px);
+  height: calc(33% - 3px);
+  margin: 1.5px;
+  background-color: #282933;
+  float: left;
+  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+  animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+
+.sk-cube-grid .sk-cube1 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.sk-cube-grid .sk-cube2 {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.sk-cube-grid .sk-cube3 {
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.sk-cube-grid .sk-cube4 {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.sk-cube-grid .sk-cube5 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.sk-cube-grid .sk-cube6 {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.sk-cube-grid .sk-cube7 {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.sk-cube-grid .sk-cube8 {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.sk-cube-grid .sk-cube9 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
+    -webkit-transform: scale3D(0, 0, 1);
+    transform: scale3D(0, 0, 1);
+  }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
+    -webkit-transform: scale3D(0, 0, 1);
+    transform: scale3D(0, 0, 1);
+  }
+}
+
+.loader {
+  font-size: 26px;
+}
+
+.loader--text {
+  top: 200%;
+  left: 0;
+  right: 0;
+  width: 4em;
+  margin: auto;
+}
+
+.loader--text:after {
+  content: "Loading   ";
+  font-weight: bold;
+  animation-name: loading-text;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes loader {
+  15% {
+    transform: translateX(0);
+  }
+  45% {
+    transform: translateX(230px);
+  }
+  65% {
+    transform: translateX(230px);
+  }
+  95% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes loading-text {
+  0% {
+    content: "Loading   ";
+  }
+  25% {
+    content: "Loading.  ";
+  }
+  50% {
+    content: "Loading.. ";
+  }
+  75% {
+    content: "Loading...";
+  }
+}
+
 /*
  * Globals
  */
@@ -30,7 +163,7 @@ a:hover {
 
 body {
   font-family: "Open Sans", sans-serif;
-  background-color: #586181;
+  background-color: #7281a1;
   color: #282933;
   padding-top: 65px;
   padding-bottom: 40px;
@@ -65,12 +198,26 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: -20px;
 }
 
+.vertical-center {
+  min-height: calc(100% - 75px);
+  /* Fallback for browsers do NOT support vh unit */
+  min-height: calc(100vh - 75px);
+  /* These two lines are counted as one :-)       */
+  padding: 0px;
+  margin: 0px;
+  margin-top: -15px;
+  display: flex;
+  align-items: center;
+  background-color: inherit;
+}
+
 #map {
   position: absolute;
   top: 50px;
   left: 0;
   height: calc(100% - 75px);
   width: 100%;
+  z-index: 100;
 }
 
 .username {
@@ -132,6 +279,7 @@ footer p {
   font-family: "Open Sans", sans-serif;
   text-align: center;
   height: 50px;
+  min-width: 320px;
 }
 
 .masthead {
@@ -300,7 +448,7 @@ form textarea {
 }
 
 .posn-lock-control-UI h6 {
-  margin: 5px 0px;
+  margin: 3px 0px;
   margin-left: 5px;
   font-weight: normal;
 }
@@ -311,4 +459,8 @@ form textarea {
 
 .new-message-modal .display-none {
   display: none;
+}
+
+h1.loading {
+  color: white;
 }
