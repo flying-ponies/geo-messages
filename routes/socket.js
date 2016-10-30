@@ -67,9 +67,19 @@ io.on('connection', (socket) => {
     };
     let readMessage = new ReadMessage( readMessageObj );
     readMessage.save()
-      .then(() => console.log('Message viewed'))
+      .then((res) => {
+        return Message.findById(messageId);
+      }).then((rows) => {
+        socket.emit('message viewed response', rows[0]);
+      })
       .catch((error) => {
-        console.error(error)
+        if(readMessage.errors[0] === 'message has be viewed before' && readMessage.errors.length === 1) {
+          Message.findById(messageId).then((rows) => {
+            socket.emit('message viewed response', rows[0]);
+          });
+        } else {
+          console.error(error)
+        }
       });
 
   });

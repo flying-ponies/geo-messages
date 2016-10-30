@@ -158,7 +158,6 @@ $(document).ready( function() {
 
         // DELETE LOADING SPINNER
         google.maps.event.addDomListener(map, 'tilesloaded', function() {
-          console.log("LAODIGN");
           $('.jumbotron.vertical-center').remove();
         });
 
