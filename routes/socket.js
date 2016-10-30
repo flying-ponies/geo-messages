@@ -1,6 +1,7 @@
 const app = require('../app');
 const Message = require('../lib/messages');
 const User = require('../lib/users');
+const ReadMessage = require('../lib/read-messages');
 
 const io = require('socket.io')(app.server);
 
@@ -33,14 +34,24 @@ io.on('connection', (socket) => {
     } else {
       messageObj.user_id = null;
     }
+    var rows;
     let newMessage = new Message(messageObj);
     newMessage.save()
       .then(() => {
         socket.broadcast.emit('new message');
         return Message.findById(newMessage.fields.id)
       })
-      .then((rows) => {
+      .then((rowsA) => {
+        rows = rowsA;
+        let readMessageObj = {
+          user_id: socket.handshake.session.currentUser.id,
+          message_id: rows[0].id
+        };
+        let readMessage = new ReadMessage( readMessageObj );
+        return readMessage.save();
+      }).then(() => {
         socket.emit('post message response', rows[0]);
+        console.log('Message viewed')
       })
       .catch((error) => {
         console.error(error);
@@ -50,7 +61,16 @@ io.on('connection', (socket) => {
 
   socket.on('message viewed', (messageId) => {
     console.log('message viewed: message ID: ', messageId);
-    // SOME CODE HERE
+    let readMessageObj = {
+      user_id: socket.handshake.session.currentUser.id,
+      message_id: messageId
+    };
+    let readMessage = new ReadMessage( readMessageObj );
+    readMessage.save()
+      .then(() => console.log('Message viewed'))
+      .catch((error) => {
+        console.error(error)
+      });
 
   });
 
