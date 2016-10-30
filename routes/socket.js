@@ -34,15 +34,13 @@ io.on('connection', (socket) => {
     } else {
       messageObj.user_id = null;
     }
-    var rows;
     let newMessage = new Message(messageObj);
     newMessage.save()
       .then(() => {
-        socket.broadcast.emit('new message');
+        io.emit('new message');
         return Message.findById(newMessage.fields.id)
       })
-      .then((rowsA) => {
-        rows = rowsA;
+      .then((rows) => {
         let readMessageObj = {
           user_id: socket.handshake.session.currentUser.id,
           message_id: rows[0].id
@@ -50,7 +48,7 @@ io.on('connection', (socket) => {
         let readMessage = new ReadMessage( readMessageObj );
         return readMessage.save();
       }).then(() => {
-        socket.emit('post message response', rows[0]);
+        socket.emit('post message response', true);
         console.log('Message viewed')
       })
       .catch((error) => {

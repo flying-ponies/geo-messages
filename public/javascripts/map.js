@@ -4,7 +4,7 @@ var coord;
 var centralPosnLatLng;
 var mapCenterCoord;
 var VISIBILITY_RADIUS = 400;
-var cachedMessages = [];
+var cachedMessages = {};
 var followPosn = true;
 
 function PosnLockControl(controlDiv, map) {

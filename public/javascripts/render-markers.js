@@ -5,24 +5,33 @@ socket.on('new message', function() {
 socket.on('nearby full messages', function(rows) {
   console.log('Rendering markers');
 
-  for (i in cachedMessages) {
-    cachedMessages[i].setMap(null);
-  }
-
-  cachedMessages = [];
+  var incomingMessages = {};
 
   rows.map(function(markerInfo) {
+    incomingMessages[markerInfo.id] =  markerInfo;
+  });
+
+  var newMessages = {};
+  for (incomingMessage in incomingMessages){
+    if(!cachedMessages.hasOwnProperty(incomingMessage)) {
+      newMessages[incomingMessage] = incomingMessages[incomingMessage];
+    }
+  }
+
+  Object.keys(newMessages).forEach(function(newMessage) {
+    markerInfo = newMessages[newMessage];
 
     var marker = new google.maps.Marker({
       position: markerInfo.coordinates,
       map: map,
       title: 'Click to view message',
+      animation: google.maps.Animation.DROP,
       icon: messageIcon
     });
 
-    cachedMessages.push(marker);
+    newMessages[newMessage] = marker;
 
-    marker.addListener('click', function() {
+    marker.addListener('click', function () {
 
       var distance = google.maps.geometry.spherical.computeDistanceBetween( marker.getPosition(), centralPosnLatLng );
 
@@ -49,13 +58,15 @@ socket.on('nearby full messages', function(rows) {
             show: 'true'
           });
 
-        });
+        }); //socket.on
 
-      }
+      } // if
 
-    });
+    }); // marker.addlistener
 
   });
+
+  cachedMessages = Object.assign(cachedMessages, newMessages);
 
 });
 

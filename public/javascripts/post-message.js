@@ -27,53 +27,53 @@ $(document).ready(function() {
       data.location_name = locationName;
       console.log('DATA', data);
       socket.emit('post message', data);
-      socket.on('post message response', function (markerInfo) {
+      socket.on('post message response', function (response) {
 
-        if (markerInfo) {
+        if (response) {
           $('.new-message-modal').modal('hide');
 
-          var marker = new google.maps.Marker({
-            position: markerInfo.coordinates,
-            map: map,
-            title: 'Click to view message',
-            animation: google.maps.Animation.DROP,
-            icon: messageIcon
-          });
+          // var marker = new google.maps.Marker({
+          //   position: markerInfo.coordinates,
+          //   map: map,
+          //   title: 'Click to view message',
+          //   animation: google.maps.Animation.DROP,
+          //   icon: messageIcon
+          // });
 
-          cachedMessages.push(marker);
+          // cachedMessages.push(marker);
 
-          marker.addListener('click', function() {
+          // marker.addListener('click', function() {
 
-            var distance = google.maps.geometry.spherical.computeDistanceBetween( marker.getPosition(), centralPosnLatLng );
+          //   var distance = google.maps.geometry.spherical.computeDistanceBetween( marker.getPosition(), centralPosnLatLng );
 
-            if( distance < VISIBILITY_RADIUS ){
-              socket.emit('message viewed', markerInfo.id);
-              socket.on('message viewed response', function (markerInfo) {
+          //   if( distance < VISIBILITY_RADIUS ){
+          //     socket.emit('message viewed', markerInfo.id);
+          //     socket.on('message viewed response', function (markerInfo) {
 
-              $('#view-message-modal .modal-title').html(markerInfo.title);
-                $('#view-message-modal .author').html("by " + markerInfo.username);
-                var date = moment(markerInfo.created_at).format('MMM DD, YYYY');
-                $('#view-message-modal .date').html("on " + date);
-                $('#view-message-modal .views').html(markerInfo.views + ' views');
-                $('#view-message-modal .modal-body .message').html(markerInfo.content);
-                $('#view-message-modal .modal-body .likes .like').html(markerInfo.likes);
-                $('#view-message-modal .modal-body .likes .dislike').html(markerInfo.dislikes);
-                $('#view-message-modal .modal-body .location .city').html(markerInfo.location_name);
+          //     $('#view-message-modal .modal-title').html(markerInfo.title);
+          //       $('#view-message-modal .author').html("by " + markerInfo.username);
+          //       var date = moment(markerInfo.created_at).format('MMM DD, YYYY');
+          //       $('#view-message-modal .date').html("on " + date);
+          //       $('#view-message-modal .views').html(markerInfo.views + ' views');
+          //       $('#view-message-modal .modal-body .message').html(markerInfo.content);
+          //       $('#view-message-modal .modal-body .likes .like').html(markerInfo.likes);
+          //       $('#view-message-modal .modal-body .likes .dislike').html(markerInfo.dislikes);
+          //       $('#view-message-modal .modal-body .location .city').html(markerInfo.location_name);
 
-                $('#view-message-modal .modal-body .likes .glyphicon.glyphicon-thumbs-up').attr(
-                  'data-message-id', markerInfo.id );
-                $('#view-message-modal .modal-body .likes .glyphicon.glyphicon-thumbs-down').attr(
-                  'data-message-id', markerInfo.id );
+          //       $('#view-message-modal .modal-body .likes .glyphicon.glyphicon-thumbs-up').attr(
+          //         'data-message-id', markerInfo.id );
+          //       $('#view-message-modal .modal-body .likes .glyphicon.glyphicon-thumbs-down').attr(
+          //         'data-message-id', markerInfo.id );
 
-                $('#view-message-modal').modal({
-                  show: 'true'
-                });
+          //       $('#view-message-modal').modal({
+          //         show: 'true'
+          //       });
 
-              });
+          //     });
 
-            }
+          //   }
 
-          });
+          // });
 
           $form.get(0).reset();
 
