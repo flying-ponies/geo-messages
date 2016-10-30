@@ -50,6 +50,7 @@ io.on('connection', (socket) => {
 
   socket.on('message viewed', (messageId) => {
     console.log('message viewed: message ID: ', messageId);
+    // SOME CODE HERE
 
   });
 

@@ -28,79 +28,92 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade active in" role="tabpanel" id="your-messages" aria-labelledby="your-messages-tab">
+            <% if (yourMessages.length === 0) { %>
 
-            <% yourMessages.forEach(function(message) { %>
+              <div class="lead">You have not posted any Geo-Messages yet.</div>
 
-              <div class="message-container">
-                <div class="header">
-                  <h4 class="message-title">
-                    <%= message.title %>
-                  </h4>
-                  <div class="info">
-                    <% var date = moment(message.created_at).format('MMM DD, YYYY'); %>
-                    <span class="date"><%= date %></span>
-                    <span class="views pull-right"><%= message.views %> views</span>
+            <% } else { %>
+
+              <% yourMessages.forEach(function(message) { %>
+
+                <div class="message-container">
+                  <div class="header">
+                    <h4 class="message-title">
+                      <%= message.title %>
+                    </h4>
+                    <div class="info">
+                      <% var date = moment(message.created_at).format('MMM DD, YYYY'); %>
+                      <span class="date"><%= date %></span>
+                      <span class="views pull-right"><%= message.views %> views</span>
+                    </div>
                   </div>
-                </div>
-                <p class="message">
-                  <%= message.content %>
-                </p>
-                <div class="footer">
-                  <span class="location">
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                    <span class="lat hidden"><%= message.coordinates.lat %></span>
-                    <span class="lng hidden"><%= message.coordinates.lng %></span>
-                    <span class="city"><%= message.location_name %></span>
-                  </span>
-                  <span class="likes pull-right">
-                    <span class="glyphicon glyphicon-thumbs-up" data-message-id="<%=message.id%>" aria-hidden="true"></span>
-                    <span class="like"><%= message.likes %></span>
-                    <span>/</span>
-                    <span class="glyphicon glyphicon-thumbs-down" data-message-id="<%=message.id%>" aria-hidden="true"></span>
-                    <span class="dislike"><%= message.dislikes %></span>
-                  </span>
-                </div>
-              </div>
+                  <p class="message">
+                    <%= message.content %>
+                  </p>
+                  <div class="footer">
+                    <span class="location">
+                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                      <span class="lat hidden"><%= message.coordinates.lat %></span>
+                      <span class="lng hidden"><%= message.coordinates.lng %></span>
+                      <span class="city"><%= message.location_name %></span>
+                    </span>
+                    <span class="likes pull-right">
+                      <span class="glyphicon glyphicon-thumbs-up" data-message-id="<%=message.id%>" aria-hidden="true"></span>
+                      <span class="like"><%= message.likes %></span>
+                      <span>/</span>
+                      <span class="glyphicon glyphicon-thumbs-down" data-message-id="<%=message.id%>" aria-hidden="true"></span>
+                      <span class="dislike"><%= message.dislikes %></span>
+                    </span>
+                  </div>
+                </div><!-- message-container -->
 
-            <% }); %>
+              <% }); %>
+            <% } // else %>
 
           </div>
           <div class="tab-pane fade" role="tabpanel" id="read-messages" aria-labelledby="read-messages-tab">
 
-            <% readMessages.forEach(function(message) { %>
+            <% if (readMessages.length === 0) { %>
 
-              <div class="message-container">
-                <div class="header">
-                  <h4 class="message-title">
-                    <%= message.title %>
-                  </h4>
-                  <div class="info">
-                    <% var date = moment(message.created_at).format('MMM DD, YYYY'); %>
-                    By <%= message.username %> on <%= date %>
-                    <span class="views pull-right"><%= message.views %> views</span>
+              <div class="lead">You have not read any Geo-Messages yet.</div>
+
+            <% } else { %>
+
+              <% readMessages.forEach(function(message) { %>
+
+                <div class="message-container">
+                  <div class="header">
+                    <h4 class="message-title">
+                      <%= message.title %>
+                    </h4>
+                    <div class="info">
+                      <% var date = moment(message.created_at).format('MMM DD, YYYY'); %>
+                      By <%= message.username %> on <%= date %>
+                      <span class="views pull-right"><%= message.views %> views</span>
+                    </div>
                   </div>
-                </div>
-                <p class="message">
-                  <%= message.content %>
-                </p>
-                <div class="footer">
-                  <span class="location">
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                    <span class="lat hidden"><%= message.coordinates.lat %></span>
-                    <span class="lng hidden"><%= message.coordinates.lng %></span>
-                    <span class="city"><%= message.location_name %></span>
-                  </span>
-                  <span class="likes pull-right">
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" data-message-id="<%=message.id%>"></span>
-                    <span class="like"><%= message.likes %></span>
-                    <span>/</span>
-                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" data-message-id="<%=message.id%>"></span>
-                    <span class="dislike"><%= message.dislikes %></span>
-                  </span>
-                </div>
-              </div>
+                  <p class="message">
+                    <%= message.content %>
+                  </p>
+                  <div class="footer">
+                    <span class="location">
+                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                      <span class="lat hidden"><%= message.coordinates.lat %></span>
+                      <span class="lng hidden"><%= message.coordinates.lng %></span>
+                      <span class="city"><%= message.location_name %></span>
+                    </span>
+                    <span class="likes pull-right">
+                      <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" data-message-id="<%=message.id%>"></span>
+                      <span class="like"><%= message.likes %></span>
+                      <span>/</span>
+                      <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" data-message-id="<%=message.id%>"></span>
+                      <span class="dislike"><%= message.dislikes %></span>
+                    </span>
+                  </div>
+                </div><!-- message-container -->
 
-            <% }); %>
+              <% }); %>
+            <% } // else %>
 
           </div>
         </div>

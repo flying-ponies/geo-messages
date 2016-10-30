@@ -161,6 +161,10 @@ a:hover {
   border: 0px;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   background-color: #7281a1;
@@ -171,6 +175,7 @@ body {
   text-align: left;
   font-size: 15px;
   line-height: 22.5px;
+  min-height: 100%;
 }
 
 img {
@@ -191,6 +196,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #e7e9f4;
   border-radius: 5px;
   padding: 20px;
+  min-height: 250px;
 }
 
 .text-box .row {
@@ -463,4 +469,9 @@ form textarea {
 
 h1.loading {
   color: white;
+}
+
+.tab-content .lead {
+  margin-top: 15px;
+  font-size: 18.75px;
 }
