@@ -58,9 +58,16 @@ io.on('connection', (socket) => {
 
     let user = new User( socket.handshake.session.currentUser );
     user.likeMessage( messageId )
-      .then((rows) => {
-        console.log('Liked message', rows);
-        socket.emit('message rating updated');
+      .then((retObject) => {
+        console.log('Liked message', retObject);
+        if( retObject.current.liked > retObject.previous.liked ){
+          if( retObject.current.disliked < retObject.previous.disliked ){
+            socket.emit('message liked success', messageId);
+          }
+          else {
+            socket.emit('message liked new success', messageId);
+          }
+        }
       })
       .catch((error) => {
         console.error(error)
@@ -72,9 +79,16 @@ io.on('connection', (socket) => {
 
     let user = new User( socket.handshake.session.currentUser );
     user.dislikeMessage( messageId )
-      .then((rows) => {
-        console.log('Disliked message', rows);
-        socket.emit('message rating updated');
+      .then((retObject) => {
+        console.log('Disliked message', retObject);
+        if( retObject.current.disliked > retObject.previous.disliked ){
+          if( retObject.current.liked < retObject.previous.liked ){
+            socket.emit('message disliked success', messageId);
+          }
+          else {
+            socket.emit('message disliked new success', messageId);
+          }
+        }
       })
       .catch((error) => {
         console.error(error)

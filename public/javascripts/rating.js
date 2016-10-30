@@ -3,61 +3,62 @@ function registerRatingEventHooks(){
 
   $("span.glyphicon.glyphicon-thumbs-up").click( clickedThumbsUp );
   function clickedThumbsUp(){
-    console.log( "Thumbs up!" );
     socket.emit( "message liked", this.dataset.messageId );
   }
 
   $("span.glyphicon.glyphicon-thumbs-down").click( clickedThumbsDown );
   function clickedThumbsDown( messageID ){
-    console.log( "Thumbs down!" );
     socket.emit( "message disliked", this.dataset.messageId );
 
   }
 
-  socket.on('message liked', function(){
-    var messages = $("message-container");
-    messages.forEach( message ){
-      if( updateThumbs.messageId === message.find("span.glyphicon.glyphicon-thumbs-up").dataset.messageId ){
-        var likes = message.find("span.likes");
-        var dislikes = message.find("span.dislikes");
-        likes.val( likes.val() + 1 );
-        dislikes.val( dislikes.val() - 1 );
+  socket.on('message liked success', function( messageId ){
+    var messages = $("div.message-container");
+    messages.each( function( index ){
+      if( Number( messageId ) ===
+          Number( $( this ).find("span.glyphicon.glyphicon-thumbs-up").data().messageId )){
+        var likes = $( this ).find("span.like");
+        var dislikes = $( this ).find("span.dislike");
+        likes.text( Number(likes.text()) + 1 );
+        dislikes.text( Number(dislikes.text()) - 1 );
       }
-    }
+    });
   });
 
-  socket.on('message disliked', function(){
-    var messages = $("message-container");
-    messages.forEach( message ){
-      if( updateThumbs.messageId === message.find("span.glyphicon.glyphicon-thumbs-up").dataset.messageId ){
-        var likes = message.find("span.likes");
-        var dislikes = message.find("span.dislikes");
-        likes.val( likes.val() - 1 );
-        dislikes.val( dislikes.val() + 1 );
+  socket.on('message disliked success', function( messageId ){
+    var messages = $("div.message-container");
+    messages.each( function( index ){
+      if( Number( messageId ) ===
+          Number( $( this ).find("span.glyphicon.glyphicon-thumbs-up").data().messageId )){
+        var likes = $( this ).find("span.like");
+        var dislikes = $( this ).find("span.dislike");
+        likes.text( Number(likes.text()) - 1 );
+        dislikes.text( Number(dislikes.text()) + 1 );
       }
-    }
+    });
   });
 
-  socket.on('message liked new', function(){
-    var messages = $("message-container");
-    messages.forEach( message ){
-      if( updateThumbs.messageId === message.find("span.glyphicon.glyphicon-thumbs-up").dataset.messageId ){
-        var likes = message.find("span.likes");
-        likes.val( likes.val() + 1 );
+  socket.on('message liked new success', function( messageId ){
+    var messages = $("div.message-container");
+    messages.each( function( index ){
+      if( Number( messageId ) ===
+          Number( $( this ).find("span.glyphicon.glyphicon-thumbs-up").data().messageId )){
+        var likes = $( this ).find("span.like");
+        likes.text( Number(likes.text()) + 1 );
       }
-    }
+    });
   });
 
-  socket.on('message disliked new', function(){
-    var messages = $("message-container");
-    messages.forEach( message ){
-      if( updateThumbs.messageId === message.find("span.glyphicon.glyphicon-thumbs-up").dataset.messageId ){
-        var dislikes = message.find("span.dislikes");
-        dislikes.val( dislikes.val() + 1 );
+  socket.on('message disliked new success', function( messageId ){
+    var messages = $("div.message-container");
+    messages.each( function( index ){
+      if( Number( messageId ) ===
+          Number( $( this ).find("span.glyphicon.glyphicon-thumbs-up").data().messageId )){
+        var dislikes = $( this ).find("span.dislike");
+        dislikes.text( Number(dislikes.text()) + 1 );
       }
-    }
+    });
   });
-
 }
 
 
