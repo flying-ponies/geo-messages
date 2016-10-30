@@ -2,6 +2,8 @@ socket.on('new message', function() {
   socket.emit('get full messages', map.getCenter());
 });
 
+var firstMarkerRender = true;
+
 socket.on('nearby full messages', function(rows) {
   console.log('Rendering markers');
 
@@ -21,13 +23,24 @@ socket.on('nearby full messages', function(rows) {
   Object.keys(newMessages).forEach(function(newMessage) {
     markerInfo = newMessages[newMessage];
 
-    var marker = new google.maps.Marker({
-      position: markerInfo.coordinates,
-      map: map,
-      title: 'Click to view message',
-      animation: google.maps.Animation.DROP,
-      icon: messageIcon
-    });
+    var MarkerRenderOptions;
+    if (firstMarkerRender) {
+      firstMarkerRenderOptions = {
+        position: markerInfo.coordinates,
+        map: map,
+        title: 'Click to view message',
+        icon: messageIcon
+      }
+    } else {
+      MarkerRenderOptions = {
+        position: markerInfo.coordinates,
+        map: map,
+        title: 'Click to view message',
+        animation: google.maps.Animation.DROP,
+        icon: messageIcon
+      }
+    }
+    var marker = new google.maps.Marker(MarkerRenderOptions);
 
     newMessages[newMessage] = marker;
 
@@ -67,6 +80,7 @@ socket.on('nearby full messages', function(rows) {
   });
 
   cachedMessages = Object.assign(cachedMessages, newMessages);
+  firstMarkerRender = false;
 
 });
 
