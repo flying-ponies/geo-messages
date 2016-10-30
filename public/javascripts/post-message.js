@@ -58,9 +58,12 @@ $(document).ready(function() {
                 $('#view-message-modal .modal-body .message').html(markerInfo.content);
                 $('#view-message-modal .modal-body .likes .like').html(markerInfo.likes);
                 $('#view-message-modal .modal-body .likes .dislike').html(markerInfo.dislikes);
-                positionToCityName(marker.position.lat(),marker.position.lng(), function(city) {
-                  $('#view-message-modal .modal-body .location .city').html(city);
-                });
+                $('#view-message-modal .modal-body .location .city').html(markerInfo.location_name);
+
+                $('#view-message-modal .modal-body .likes .glyphicon.glyphicon-thumbs-up').attr(
+                  'data-message-id', markerInfo.id );
+                $('#view-message-modal .modal-body .likes .glyphicon.glyphicon-thumbs-down').attr(
+                  'data-message-id', markerInfo.id );
 
                 $('#view-message-modal').modal({
                   show: 'true'
