@@ -189,5 +189,4 @@ $(document).ready( function() {
 
   }
   initMap();
-  registerRatingEventHooks();
 });

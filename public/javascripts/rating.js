@@ -3,16 +3,18 @@ function registerRatingEventHooks(){
 
   $("span.glyphicon.glyphicon-thumbs-up").click( clickedThumbsUp );
   function clickedThumbsUp(){
+    console.log( "Thumbs up! id:", this.dataset.messageId );
     socket.emit( "message liked", this.dataset.messageId );
   }
 
   $("span.glyphicon.glyphicon-thumbs-down").click( clickedThumbsDown );
-  function clickedThumbsDown( messageID ){
+  function clickedThumbsDown(){
+    console.log( "Thumbs down! id:", this.dataset.messageId );
     socket.emit( "message disliked", this.dataset.messageId );
-
   }
 
   socket.on('message liked success', function( messageId ){
+    console.log("message liked success");
     var messages = $("div.message-container");
     messages.each( function( index ){
       if( Number( messageId ) ===
@@ -26,6 +28,7 @@ function registerRatingEventHooks(){
   });
 
   socket.on('message disliked success', function( messageId ){
+    console.log("message disliked success");
     var messages = $("div.message-container");
     messages.each( function( index ){
       if( Number( messageId ) ===

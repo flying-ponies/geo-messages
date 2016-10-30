@@ -37,6 +37,12 @@ socket.on('nearby full messages', function(rows) {
         $('#view-message-modal .modal-body .likes .dislike').html(markerInfo.dislikes);
         $('#view-message-modal .modal-body .location .city').html(markerInfo.location_name);
 
+        $('#view-message-modal .modal-body .likes .glyphicon.glyphicon-thumbs-up').attr(
+          'data-message-id', markerInfo.id );
+        $('#view-message-modal .modal-body .likes .glyphicon.glyphicon-thumbs-down').attr(
+          'data-message-id', markerInfo.id );
+
+
         $('#view-message-modal').modal({
           show: 'true'
         });
