@@ -1,4 +1,11 @@
 $(document).ready(function() {
+  $('#navbar .new-message-button').on('click', function (event) {
+    event.preventDefault();
+  });
+
+  $('.new-message-modal').on('shown.bs.modal', function () {
+    $('#message-title').focus()
+  });
 
   $('.new-message-modal').on('hidden.bs.modal', function() {
     $('.new-message-modal form').removeClass('display-none').get(0).reset();

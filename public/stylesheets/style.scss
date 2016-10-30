@@ -219,7 +219,7 @@ footer {
 }
 .masthead-nav > .active > a,
 .masthead-nav > .active > a:hover,
-.masthead-nav > .active > a:focus {
+.masthead-nav > .active > a:focus, {
   color: $font_primary;
   border-bottom-color: $font_primary;
 }
