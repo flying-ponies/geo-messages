@@ -53,8 +53,6 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
-  console.log(req.body);
-
   let newUser = new User({
     username: req.body.username,
     email: req.body.email,
@@ -64,7 +62,6 @@ router.post('/signup', function(req, res, next) {
 
   newUser.save()
     .then(info => {
-      console.log(info);
       req.session.currentUser = newUser.fields;
       res.redirect('/');
     })
@@ -79,11 +76,6 @@ router.post('/signup', function(req, res, next) {
     });
 
 });
-
-// router.post('/message', function(req, res, next) {
-//   console.log(req.body);
-//   res.json(req.body);
-// });
 
 router.get('/profile', function(req, res, next) {
   let newUser = new User(req.session.currentUser);
