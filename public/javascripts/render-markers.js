@@ -25,7 +25,7 @@ socket.on('nearby full messages', function(rows) {
 
     var MarkerRenderOptions;
     if (firstMarkerRender) {
-      firstMarkerRenderOptions = {
+      MarkerRenderOptions = {
         position: markerInfo.coordinates,
         map: map,
         title: 'Click to view message',
@@ -71,13 +71,13 @@ socket.on('nearby full messages', function(rows) {
             show: 'true'
           });
 
-        }); //socket.on
+        }); // socket.on('message viewed response', function (markerInfo) {
 
-      } // if
+      } // if( distance < VISIBILITY_RADIUS ){
 
-    }); // marker.addlistener
+    }); // marker.addListener('click', function () {
 
-  });
+  }); // Object.keys(newMessages).forEach(function(newMessage) {
 
   cachedMessages = Object.assign(cachedMessages, newMessages);
   firstMarkerRender = false;
