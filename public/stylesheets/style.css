@@ -475,3 +475,7 @@ h1.loading {
   margin-top: 15px;
   font-size: 18.75px;
 }
+
+.likes .glyphicon {
+  cursor: pointer;
+}
