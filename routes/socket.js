@@ -134,6 +134,15 @@ io.on('connection', (socket) => {
       });
   });
 
+  socket.on('retrieve read messages', () => {
+    let newUser = new User( socket.handshake.session.currentUser );
+
+    newUser.readMessages()
+      .then((messages) => {
+        socket.emit('read messages', messages);
+      });
+  });
+
   socket.on('disconnect', function() {
     console.log('A user disconnected');
   });

@@ -1,23 +1,23 @@
 $(document).ready( function() {
-  socket.emit('retrieve your messages');
-  socket.on('your messages', function(yourMessages) {
-    $('#your-messages').empty();
-    if (yourMessages.length === 0) {
+  socket.emit('retrieve read messages');
+  socket.on('read messages', function(readMessages) {
+    $('#read-messages').empty();
+    if (readMessages.length === 0) {
 
-      $('#your-messages').append(`<div class="lead">You have not posted any Geo-Messages yet.</div>`);
+      $('#read-messages').append(`<div class="lead">You have not read any Geo-Messages yet.</div>`);
 
     } else {
 
-      yourMessages.forEach(function(message) {
+      readMessages.forEach(function(message) {
         var date = moment(message.created_at).format('MMM DD, YYYY');
-        $('#your-messages').append(`
+        $('#read-messages').append(`
           <div class="message-container">
             <div class="header">
               <h4 class="message-title">
                 ${message.title}
               </h4>
               <div class="info">
-                <span class="date">${date}</span>
+                By ${message.username} on ${date}
                 <span class="views pull-right">${message.views} views</span>
               </div>
             </div>
@@ -27,15 +27,15 @@ $(document).ready( function() {
             <div class="footer">
               <span class="location">
                 <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                <span class="lat hidden">${message.coordinates.lat}</span>
-                <span class="lng hidden">${message.coordinates.lng}</span>
+                <span class="lat hidden"><%= message.coordinates.lat %></span>
+                <span class="lng hidden"><%= message.coordinates.lng %></span>
                 <span class="city">${message.location_name}</span>
               </span>
               <span class="likes pull-right">
-                <span class="glyphicon glyphicon-thumbs-up" data-message-id="${message.id}" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" data-message-id="${message.id}"></span>
                 <span class="like">${message.likes}</span>
                 <span>/</span>
-                <span class="glyphicon glyphicon-thumbs-down" data-message-id="${message.id}" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" data-message-id="${message.id}"></span>
                 <span class="dislike">${message.dislikes}</span>
               </span>
             </div>
@@ -43,5 +43,5 @@ $(document).ready( function() {
         `);
       });
     } // else
-  }); // socket.on('your messages', function(messages)
+  }); // socket.on('read messages', function(messages)
 });
