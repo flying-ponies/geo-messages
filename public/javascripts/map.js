@@ -3,7 +3,7 @@ var map;
 var coord;
 var centralPosnLatLng;
 var mapCenterCoord;
-var VISIBILITY_RADIUS = 400;
+var VISIBILITY_RADIUS = 100;
 var cachedMessages = {};
 var followPosn = true;
 
@@ -113,7 +113,7 @@ $(document).ready( function() {
 
         mapCircle = new InvertedCircle({
           map: map,
-          radius: 400,
+          radius: VISIBILITY_RADIUS,
           stroke_weight: 0.5,
           always_fit_to_map: false,
           resize_updown: '',

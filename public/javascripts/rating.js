@@ -17,8 +17,12 @@ function registerRatingEventHooks(){
     console.log("message liked success");
     var messages = $("div.message-container");
     messages.each( function( index ){
+
       if( Number( messageId ) ===
-          Number( $( this ).find("span.glyphicon.glyphicon-thumbs-up").data().messageId )){
+          Number( $('span.glyphicon.glyphicon-thumbs-up').attr('data-message-id') )){
+
+        console.log("liked matched");
+
         var likes = $( this ).find("span.like");
         var dislikes = $( this ).find("span.dislike");
         likes.text( Number(likes.text()) + 1 );
@@ -31,8 +35,13 @@ function registerRatingEventHooks(){
     console.log("message disliked success");
     var messages = $("div.message-container");
     messages.each( function( index ){
+
+
       if( Number( messageId ) ===
-          Number( $( this ).find("span.glyphicon.glyphicon-thumbs-up").data().messageId )){
+          Number( $('span.glyphicon.glyphicon-thumbs-up').attr('data-message-id') )){
+
+        console.log("disliked matched");
+
         var likes = $( this ).find("span.like");
         var dislikes = $( this ).find("span.dislike");
         likes.text( Number(likes.text()) - 1 );
