@@ -98,6 +98,7 @@ $(document).ready( function() {
       centralPosnLatLng = new google.maps.LatLng( coord.lat, coord.lng );
 
       if( firstCall ) {
+
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 16,
           minZoom: 14,
@@ -158,10 +159,14 @@ $(document).ready( function() {
 
         // DELETE LOADING SPINNER
         google.maps.event.addDomListener(map, 'tilesloaded', function() {
-          $('.jumbotron.vertical-center').remove();
+          $('.jumbotron.vertical-center .loading').remove();
+          $('.jumbotron.vertical-center .map-error').removeClass('hide');
         });
 
       } // if (firstCall)
+
+      // HIDES GEO LOCATION UNAVAIALBLE MESSAGE
+      $('.jumbotron.vertical-center').addClass('hide')
 
       firstCall = false;
 
@@ -184,10 +189,12 @@ $(document).ready( function() {
       console.log("success, current coord: ", coord );
 
       mapCircle.setCenter( centralPosnLatLng );
-    }
+    } // function success(pos)
 
     function error(err){
       console.log("Error in geolocation: ", err);
+      $('.jumbotron.vertical-center').removeClass('hide')
+      $('.jumbotron.vertical-center .loading').html('<div class="error lead">Geolocations service not available.<div>');
     }
 
     var id = navigator.geolocation.watchPosition(success, error, options);
