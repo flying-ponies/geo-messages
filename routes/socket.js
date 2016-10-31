@@ -2,6 +2,7 @@ const app = require('../app');
 const Message = require('../lib/messages');
 const User = require('../lib/users');
 const ReadMessage = require('../lib/read-messages');
+var moment = require('moment');
 
 const io = require('socket.io')(app.server);
 
@@ -121,6 +122,15 @@ io.on('connection', (socket) => {
       })
       .catch((error) => {
         console.error(error)
+      });
+  });
+
+  socket.on('retrieve your messages', () => {
+    let newUser = new User( socket.handshake.session.currentUser );
+
+    newUser.getUserMessages()
+      .then((messages) => {
+        socket.emit('your messages', messages);
       });
   });
 
