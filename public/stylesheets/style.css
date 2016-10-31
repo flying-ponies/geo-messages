@@ -374,12 +374,12 @@ footer p {
   margin-bottom: 0px;
 }
 
-form label {
-  float: left;
-}
-
 form textarea {
   resize: vertical;
+}
+
+#recipients-container {
+  display: none;
 }
 
 .nav-tabs {
