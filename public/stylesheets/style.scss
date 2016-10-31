@@ -107,6 +107,21 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   background-color: inherit;
+  .error {
+    text-align: center;
+  }
+  .map-error {
+    z-index: 200;
+    text-align: center;
+    span {
+      background-color: $color_bg_light;
+      color: $font_secondary;
+      border-radius: 3px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.3);
+      padding: 10px;
+
+    }
+  }
 }
 
 #map {
@@ -115,6 +130,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   height: calc(100% - #{$top_padding + $bottom_padding});
   width: 100%;
+  bottom: $bottom_padding;
   z-index: 100;
 }
 
