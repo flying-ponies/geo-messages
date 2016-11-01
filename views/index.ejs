@@ -18,6 +18,7 @@
     <script src="/javascripts/map-style.js"></script>
     <script src="/javascripts/marker-icons.js"></script>
     <script src="/javascripts/map.js"></script>
+    <script src="/javascripts/private-message.js"></script>
     <!-- <script> initMap(); </script> -->
     <!-- <script type="text/javascript" async defer -->
     <!-- src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA422vOq0FEOGdXd5k4z7b1-3VSH9GXCec&callback=initMap"> -->
@@ -27,9 +28,11 @@
     </script>
 
     <div class="jumbotron vertical-center">
-      <div class='container'>
+      <div class='container loading'>
         <%- include('partials/loader') %>
-        <!-- <h1 class='text-center loading'>LOADING...</h1> -->
+      </div>
+      <div class='container map-error hide'>
+        <span>Geolocations service not available.</span>
       </div>
     </div>
 

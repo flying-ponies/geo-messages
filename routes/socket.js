@@ -18,8 +18,13 @@ io.on('connection', (socket) => {
   console.log('A user connected');
 
   socket.on('get full messages', (coord) => {
+    if (!socket.handshake.session.currentUser) {
+      return null;
+    }
+
+    let currentUser = new User(socket.handshake.session.currentUser);
     let pos = `Point(${coord.lng} ${coord.lat})`;
-    Message.findInRange(pos, 10000)
+    currentUser.findInRange(pos, 10000)
       .then((rows) => {
         socket.emit('nearby full messages', rows);
       })
@@ -37,23 +42,38 @@ io.on('connection', (socket) => {
     let newMessage = new Message(messageObj);
     newMessage.save()
       .then(() => {
-        io.emit('new message');
-        return Message.findById(newMessage.fields.id)
+        console.log('New Message:', newMessage);
+        if (newMessage.fields.private) {
+          console.log('Private Message Made');
+          if (!Array.isArray(messageObj.recipients)) {
+            messageObj.recipients = [messageObj.recipients];
+          }
+
+          messageObj.recipients.push(socket.handshake.session.currentUser.email);
+          console.log('Adding recipients:', messageObj.recipients);
+          return newMessage.addRecipients(messageObj.recipients);
+        } else {
+          console.log('Public message made');
+          return new Promise((resolve) => {
+            resolve();
+          });
+        }
       })
-      .then((rows) => {
+      .then(() => {
         let readMessageObj = {
           user_id: socket.handshake.session.currentUser.id,
-          message_id: rows[0].id
+          message_id: newMessage.fields.id
         };
-        let readMessage = new ReadMessage( readMessageObj );
+        let readMessage = new ReadMessage(readMessageObj);
         return readMessage.save();
       }).then(() => {
-        socket.emit('post message response', true);
+        io.emit('new message');
+        socket.emit('post message response', null);
         console.log('Message viewed')
       })
       .catch((error) => {
         console.error(error);
-        socket.emit('post message response', null);
+        socket.emit('post message response', newMessage.errors);
       })
   });
 
@@ -121,6 +141,24 @@ io.on('connection', (socket) => {
       })
       .catch((error) => {
         console.error(error)
+      });
+  });
+
+  socket.on('retrieve your messages', (page) => {
+    let newUser = new User( socket.handshake.session.currentUser );
+
+    newUser.getUserMessages(page)
+      .then((results) => {
+        socket.emit('your messages', results);
+      });
+  });
+
+  socket.on('retrieve read messages', (page) => {
+    let newUser = new User( socket.handshake.session.currentUser );
+
+    newUser.readMessages(page)
+      .then((results) => {
+        socket.emit('read messages', results);
       });
   });
 

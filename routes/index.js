@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var moment = require('moment');
 
 const Message = require('../lib/messages');
 const User = require('../lib/users');
@@ -74,24 +73,17 @@ router.post('/signup', function(req, res, next) {
 
 });
 
+router.post('/users/search', function(req, res, next) {
+  const searchTerm = req.body.searchTerm;
+  User.search(searchTerm).then((usernames) => {
+    res.json(usernames);
+  });
+});
+
 router.get('/profile', function(req, res, next) {
   let newUser = new User(req.session.currentUser);
-  let templateVars = { currentUser: req.session.currentUser, moment: moment };
-
-  newUser.getUserMessages()
-    .then((messages) => {
-      templateVars.yourMessages = messages;
-      return newUser.readMessages();
-    })
-    .then((messages) => {
-      templateVars.readMessages = messages;
-
-      res.render('profile', templateVars);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.render('profile', templateVars);
-    })
+  let templateVars = { currentUser: req.session.currentUser};
+  res.render('profile', templateVars);
 });
 
 /* GET home page. */

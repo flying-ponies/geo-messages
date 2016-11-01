@@ -14,7 +14,6 @@ $color_bg_dark: $brand-color-mid;
 $font_primary: white;
 $font_secondary: $brand-color-dark;
 
-// $font_main: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
 $font_main: 'Open Sans', sans-serif;
 $font_headers: 'Open Sans', sans-serif;
 
@@ -25,6 +24,7 @@ $base-font-size: 15px;
 $base-line-height: 1.5 * $base-font-size;
 
 @import 'loader';
+@import 'page-buttons';
 
 /*
  * Globals
@@ -86,6 +86,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .lead {
   margin: 0px;
+  margin-top: 20px;
 }
 
 .text-box {
@@ -107,6 +108,21 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   background-color: inherit;
+  .error {
+    text-align: center;
+  }
+  .map-error {
+    z-index: 200;
+    text-align: center;
+    span {
+      background-color: $color_bg_light;
+      color: $font_secondary;
+      border-radius: 3px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.3);
+      padding: 10px;
+
+    }
+  }
 }
 
 #map {
@@ -115,6 +131,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   height: calc(100% - #{$top_padding + $bottom_padding});
   width: 100%;
+  bottom: $bottom_padding;
   z-index: 100;
 }
 
@@ -270,13 +287,13 @@ footer {
 }
 
 form {
-  label {
-    float: left;
-  }
   textarea {
     resize: vertical;
   }
+}
 
+#recipients-container {
+  display: none;
 }
 
 // TABS
@@ -314,6 +331,7 @@ form {
   }
 }
 
+// PROFILE PAGE
 .message-container {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -332,8 +350,10 @@ form {
 
 .message-container:last-child {
   border-bottom: none;
+  padding-bottom: 0px;
 }
 
+// CUSTOM GOOGLE MAPS BUTTON
 .posn-lock-control-UI {
   background-color: $color_bg_light;
   border: 2px solid $color_bg_light;
@@ -370,7 +390,6 @@ h1.loading {
 
 .tab-content {
   .lead {
-    margin-top: 15px;
     font-size: 1.25 * $base-font-size;
   }
 }
@@ -381,4 +400,11 @@ h1.loading {
   }
 }
 
+.typeahead.dropdown-menu {
+  .active > a,
+  .active > a:focus,
+  .active > a:hover{
+    background-color: $brand-color-light-mid;
+  }
 
+}

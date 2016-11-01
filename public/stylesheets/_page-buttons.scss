@@ -1,0 +1,35 @@
+nav.page-buttons {
+  text-align: center;
+  .pagination {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    li > a {
+      background-color: $color_bg_light;
+      border-color: $brand-color-light-mid;
+      color: $font_secondary;
+    }
+    li > a:hover,
+    li > a:focus {
+      background-color: $brand-color-light-mid;
+      color: $font_primary;
+    }
+    li.active > a {
+      background-color: $brand-color-dark-mid;
+      border-color: $brand-color-dark-mid;
+      color: $font_primary;
+    }
+    li.active > a:hover,
+    li.active > a:focus {
+      border-color: $brand-color-dark-mid;
+    }
+    li.disabled > a {
+      color: lighten($brand-color-mid, 8%);
+      cursor: default;
+    }
+    li.disabled > a:hover,
+    li.disabled > a:focus {
+      background: $color_bg_light;
+      border-color: $brand-color-light-mid;
+    }
+  }
+}

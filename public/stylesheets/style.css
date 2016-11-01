@@ -132,6 +132,49 @@
   }
 }
 
+nav.page-buttons {
+  text-align: center;
+}
+
+nav.page-buttons .pagination {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+nav.page-buttons .pagination li > a {
+  background-color: #e7e9f4;
+  border-color: #b1bcd2;
+  color: #282933;
+}
+
+nav.page-buttons .pagination li > a:hover,
+nav.page-buttons .pagination li > a:focus {
+  background-color: #b1bcd2;
+  color: white;
+}
+
+nav.page-buttons .pagination li.active > a {
+  background-color: #586181;
+  border-color: #586181;
+  color: white;
+}
+
+nav.page-buttons .pagination li.active > a:hover,
+nav.page-buttons .pagination li.active > a:focus {
+  border-color: #586181;
+}
+
+nav.page-buttons .pagination li.disabled > a {
+  color: #8a97b1;
+  cursor: default;
+}
+
+nav.page-buttons .pagination li.disabled > a:hover,
+nav.page-buttons .pagination li.disabled > a:focus {
+  background: #e7e9f4;
+  border-color: #b1bcd2;
+}
+
 /*
  * Globals
  */
@@ -190,6 +233,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .lead {
   margin: 0px;
+  margin-top: 20px;
 }
 
 .text-box {
@@ -217,12 +261,30 @@ h1, h2, h3, h4, h5, h6 {
   background-color: inherit;
 }
 
+.vertical-center .error {
+  text-align: center;
+}
+
+.vertical-center .map-error {
+  z-index: 200;
+  text-align: center;
+}
+
+.vertical-center .map-error span {
+  background-color: #e7e9f4;
+  color: #282933;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+
 #map {
   position: absolute;
   top: 50px;
   left: 0;
   height: calc(100% - 75px);
   width: 100%;
+  bottom: 25px;
   z-index: 100;
 }
 
@@ -374,12 +436,12 @@ footer p {
   margin-bottom: 0px;
 }
 
-form label {
-  float: left;
-}
-
 form textarea {
   resize: vertical;
+}
+
+#recipients-container {
+  display: none;
 }
 
 .nav-tabs {
@@ -435,6 +497,7 @@ form textarea {
 
 .message-container:last-child {
   border-bottom: none;
+  padding-bottom: 0px;
 }
 
 .posn-lock-control-UI {
@@ -472,10 +535,15 @@ h1.loading {
 }
 
 .tab-content .lead {
-  margin-top: 15px;
   font-size: 18.75px;
 }
 
 .likes .glyphicon {
   cursor: pointer;
+}
+
+.typeahead.dropdown-menu .active > a,
+.typeahead.dropdown-menu .active > a:focus,
+.typeahead.dropdown-menu .active > a:hover {
+  background-color: #b1bcd2;
 }

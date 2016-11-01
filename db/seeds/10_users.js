@@ -4,16 +4,19 @@ function generatePassHash(password) {
   return bcrypt.hashSync(password, salt);
 }
 
-exports.seed = function(knex, Promise) {
+exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
   return knex('read_messages').del()
-    .then(function() {
+    .then(() => {
+      return knex('message_recipients').del();
+    })
+    .then(() => {
       return knex('messages').del();
     })
-    .then(function() {
+    .then(() => {
       return knex('users').del();
     })
-    .then(function () {
+    .then(() => {
       return Promise.all([
         // Inserts seed entries
         knex('users').insert({
