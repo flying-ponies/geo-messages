@@ -11,9 +11,8 @@ function clickedThumbsDown(){
 function registerRatingEventHooks(){
   console.log( "Registering Event Handlers" );
 
-  $("span.glyphicon.glyphicon-thumbs-up").click( clickedThumbsUp );
-
-  $("span.glyphicon.glyphicon-thumbs-down").click( clickedThumbsDown );
+  $("#myTabContent").on("click", "span.glyphicon.glyphicon-thumbs-up", clickedThumbsUp );
+  $("#myTabContent").on("click", "span.glyphicon.glyphicon-thumbs-down", clickedThumbsDown );
 
   socket.on('message liked success', function( messageId ){
     console.log("message liked success");
