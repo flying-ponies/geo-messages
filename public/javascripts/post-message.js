@@ -30,7 +30,7 @@ $(document).ready(function() {
       socket.on('post message response', function (response) {
 
         if (response) {
-          socket.emit('retrieve your messages');
+          socket.emit('retrieve your messages', $('#your-messages').attr("current-page"));
           $('.new-message-modal').modal('hide');
           $form.get(0).reset();
         } else {

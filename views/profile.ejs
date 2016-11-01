@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
     <script src="/javascripts/profile-page-coord.js"></script>
     <script src="/javascripts/position-to-city-name.js"></script>
+    <script src="/javascripts/jquery.bootpag.js"></script>
     <script src="/javascripts/retrieve-your-messages.js"></script>
     <script src="/javascripts/retrieve-read-messages.js"></script>
 
@@ -30,11 +31,15 @@
 
         </ul>
         <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade active in" role="tabpanel" id="your-messages" aria-labelledby="your-messages-tab">
-
+          <div class="tab-pane fade active in" role="tabpanel" id="your-messages" aria-labelledby="your-messages-tab" current-page=1>
+            <nav class='page-buttons row' aria-label="Page navigation"></nav>
+            <div class="messages-container"></div>
+            <nav class='page-buttons row' aria-label="Page navigation"></nav>
           </div>
-          <div class="tab-pane fade" role="tabpanel" id="read-messages" aria-labelledby="read-messages-tab">
-
+          <div class="tab-pane fade" role="tabpanel" id="read-messages" aria-labelledby="read-messages-tab" current-page=1>
+            <nav class='page-buttons row' aria-label="Page navigation"></nav>
+            <div class="messages-container"></div>
+            <nav class='page-buttons row' aria-label="Page navigation"></nav>
           </div>
         </div>
       </div>

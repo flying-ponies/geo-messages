@@ -25,6 +25,7 @@ $base-font-size: 15px;
 $base-line-height: 1.5 * $base-font-size;
 
 @import 'loader';
+@import 'page-buttons';
 
 /*
  * Globals
@@ -330,6 +331,7 @@ form {
   }
 }
 
+// PROFILE PAGE
 .message-container {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -348,8 +350,10 @@ form {
 
 .message-container:last-child {
   border-bottom: none;
+  padding-bottom: 0px;
 }
 
+// CUSTOM GOOGLE MAPS BUTTON
 .posn-lock-control-UI {
   background-color: $color_bg_light;
   border: 2px solid $color_bg_light;
@@ -386,7 +390,6 @@ h1.loading {
 
 .tab-content {
   .lead {
-    margin-top: 15px;
     font-size: 1.25 * $base-font-size;
   }
 }

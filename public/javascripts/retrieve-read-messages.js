@@ -1,16 +1,43 @@
 $(document).ready( function() {
-  socket.emit('retrieve read messages');
-  socket.on('read messages', function(readMessages) {
-    $('#read-messages').empty();
+  var readMessagesPage = $('#read-messages').attr("current-page");
+
+  socket.emit('retrieve read messages', readMessagesPage);
+  socket.on('read messages', function(results) {
+    var readMessages = results.messages;
+    $('#read-messages .messages-container').empty();
+    $('#read-messages nav.page-buttons').empty().off();
     if (readMessages.length === 0) {
 
-      $('#read-messages').append(`<div class="lead">You have not read any Geo-Messages yet.</div>`);
+      $('#read-messages .messages-container').append(`<div class="lead">You have not read any Geo-Messages yet.</div>`);
 
     } else {
 
+      $('#read-messages nav.page-buttons').bootpag({
+        total: results.totalPages,
+        page: readMessagesPage,
+        maxVisible: 5,
+        leaps: true,
+        firstLastUse: true,
+        first: '←',
+        last: '→',
+        wrapClass: 'pagination',
+        activeClass: 'active',
+        disabledClass: 'disabled',
+        nextClass: 'next',
+        prevClass: 'prev',
+        lastClass: 'last',
+        firstClass: 'first'
+      }).on("page", function(event, num){
+        event.preventDefault();
+        socket.emit('retrieve read messages', num);
+        $('#read-messages').attr("current-page", num)
+        readMessagesPage = num;
+      });
+      $('#read-messages nav.page-buttons ul.pagination').addClass('pagination-sm');
+
       readMessages.forEach(function(message) {
         var date = moment(message.created_at).format('MMM DD, YYYY');
-        $('#read-messages').append(`
+        $('#read-messages .messages-container').append(`
           <div class="message-container">
             <div class="header">
               <h4 class="message-title">

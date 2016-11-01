@@ -124,21 +124,21 @@ io.on('connection', (socket) => {
       });
   });
 
-  socket.on('retrieve your messages', () => {
+  socket.on('retrieve your messages', (page) => {
     let newUser = new User( socket.handshake.session.currentUser );
 
-    newUser.getUserMessages()
-      .then((messages) => {
-        socket.emit('your messages', messages);
+    newUser.getUserMessages(page)
+      .then((results) => {
+        socket.emit('your messages', results);
       });
   });
 
-  socket.on('retrieve read messages', () => {
+  socket.on('retrieve read messages', (page) => {
     let newUser = new User( socket.handshake.session.currentUser );
 
-    newUser.readMessages()
-      .then((messages) => {
-        socket.emit('read messages', messages);
+    newUser.readMessages(page)
+      .then((results) => {
+        socket.emit('read messages', results);
       });
   });
 

@@ -1,16 +1,43 @@
 $(document).ready( function() {
-  socket.emit('retrieve your messages');
-  socket.on('your messages', function(yourMessages) {
-    $('#your-messages').empty();
+  var yourMessagesPage = $('#your-messages').attr("current-page");
+
+  socket.emit('retrieve your messages', yourMessagesPage);
+  socket.on('your messages', function(results) {
+    var yourMessages = results.messages;
+    $('#your-messages .messages-container').empty();
+    $('#your-messages nav.page-buttons').empty().off();
     if (yourMessages.length === 0) {
 
-      $('#your-messages').append(`<div class="lead">You have not posted any Geo-Messages yet.</div>`);
+      $('#your-messages .messages-container').append(`<div class="lead">You have not posted any Geo-Messages yet.</div>`);
 
     } else {
 
+      $('#your-messages nav.page-buttons').bootpag({
+        total: results.totalPages,
+        page: yourMessagesPage,
+        maxVisible: 5,
+        leaps: true,
+        firstLastUse: true,
+        first: '←',
+        last: '→',
+        wrapClass: 'pagination',
+        activeClass: 'active',
+        disabledClass: 'disabled',
+        nextClass: 'next',
+        prevClass: 'prev',
+        lastClass: 'last',
+        firstClass: 'first'
+      }).on("page", function(event, num){
+        event.preventDefault();
+        socket.emit('retrieve your messages', num);
+        $('#your-messages').attr("current-page", num)
+        yourMessagesPage = num;
+      });
+      $('#your-messages nav.page-buttons ul.pagination').addClass('pagination-sm');
+
       yourMessages.forEach(function(message) {
         var date = moment(message.created_at).format('MMM DD, YYYY');
-        $('#your-messages').append(`
+        $('#your-messages .messages-container').append(`
           <div class="message-container">
             <div class="header">
               <h4 class="message-title">
@@ -40,7 +67,7 @@ $(document).ready( function() {
               </span>
             </div>
           </div><!-- message-container -->
-        `);
+        `); // $('#your-messages').append
       });
     } // else
   }); // socket.on('your messages', function(messages)
