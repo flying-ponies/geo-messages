@@ -38,14 +38,20 @@ io.on('connection', (socket) => {
     newMessage.save()
       .then(() => {
         io.emit('new message');
-        return Message.findById(newMessage.fields.id)
+        if (newMessage.private) {
+          return newMessage.addRecipients(messageObj.recipients);
+        } else {
+          return new Promise((resolve) => {
+            resolve();
+          });
+        }
       })
-      .then((rows) => {
+      .then(() => {
         let readMessageObj = {
           user_id: socket.handshake.session.currentUser.id,
-          message_id: rows[0].id
+          message_id: newMessage.fields.id
         };
-        let readMessage = new ReadMessage( readMessageObj );
+        let readMessage = new ReadMessage(readMessageObj);
         return readMessage.save();
       }).then(() => {
         socket.emit('post message response', true);

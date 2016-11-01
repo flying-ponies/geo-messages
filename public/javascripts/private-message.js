@@ -14,7 +14,7 @@ $(function() {
       .addClass('form-control')
       .attr('type', 'text')
       .attr('id', 'recipient-' + recipientNum.toString())
-      .attr('name', 'recipients[' + (recipientNum - 1).toString() + ']')
+      .attr('name', 'recipients')
       .attr('placeholder', 'Recipient ' + recipientNum.toString() + ' email')
       .appendTo(container);
 
