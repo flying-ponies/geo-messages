@@ -14,7 +14,6 @@ $color_bg_dark: $brand-color-mid;
 $font_primary: white;
 $font_secondary: $brand-color-dark;
 
-// $font_main: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
 $font_main: 'Open Sans', sans-serif;
 $font_headers: 'Open Sans', sans-serif;
 
@@ -288,13 +287,13 @@ footer {
 }
 
 form {
-  label {
-    float: left;
-  }
   textarea {
     resize: vertical;
   }
+}
 
+#recipients-container {
+  display: none;
 }
 
 // TABS
@@ -400,5 +399,3 @@ h1.loading {
     cursor: pointer;
   }
 }
-
-

@@ -16,7 +16,14 @@ $(document).ready(function() {
     event.preventDefault();
     var data = {};
     $.each($(this).serializeArray(), function() {
-      data[this.name] = this.value;
+      if (data.hasOwnProperty(this.name)) {
+        if (!Array.isArray(data[this.name])) {
+          data[this.name] = [data[this.name]];
+        }
+        data[this.name].push(this.value);
+      } else {
+        data[this.name] = this.value;
+      }
     });
     data = Object.assign(data, {
       location: `Point(${coord.lng} ${coord.lat})`
