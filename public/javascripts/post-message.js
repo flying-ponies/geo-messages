@@ -36,9 +36,9 @@ $(document).ready(function() {
       console.log('DATA', data);
       socket.emit('post message', data);
 
-      socket.on('post message response', function (response) {
+      socket.on('post message response', function (errors) {
 
-        if (response) {
+        if (!errors) {
           if (window.location.pathname === '/profile') {
             socket.emit('retrieve your messages', $('#your-messages').attr("current-page"));
           }
@@ -48,11 +48,16 @@ $(document).ready(function() {
         } else {
 
           $form.find('.response').removeClass('display-none').html(`
-            <div class="alert alert-danger fade in">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong>Error!</strong> A problem has occurred while submitting your Geo-Message.
+            <div class="alert alert-danger fade in small">
+              <a href="#" class="close" data-dismiss="alert">&times;</a>
+              <strong>The following errors prevented the Geo-Message to be posted:</strong>
+              <ul>
+              </ul>
             </div>
           `);
+          errors.forEach(function(error) {
+            $form.find('.response ul').append('<li>' + error + '</li>');
+          });
         }
       }); // socket.on ('post message response'...
 

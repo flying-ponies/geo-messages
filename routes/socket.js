@@ -68,12 +68,12 @@ io.on('connection', (socket) => {
         return readMessage.save();
       }).then(() => {
         io.emit('new message');
-        socket.emit('post message response', true);
+        socket.emit('post message response', null);
         console.log('Message viewed')
       })
       .catch((error) => {
         console.error(error);
-        socket.emit('post message response', null);
+        socket.emit('post message response', newMessage.errors);
       })
   });
 
