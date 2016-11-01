@@ -18,8 +18,13 @@ io.on('connection', (socket) => {
   console.log('A user connected');
 
   socket.on('get full messages', (coord) => {
+    if (!socket.handshake.session.currentUser) {
+      return null;
+    }
+
+    let currentUser = new User(socket.handshake.session.currentUser);
     let pos = `Point(${coord.lng} ${coord.lat})`;
-    Message.findInRange(pos, 10000)
+    currentUser.findInRange(pos, 10000)
       .then((rows) => {
         socket.emit('nearby full messages', rows);
       })
@@ -37,10 +42,18 @@ io.on('connection', (socket) => {
     let newMessage = new Message(messageObj);
     newMessage.save()
       .then(() => {
-        io.emit('new message');
-        if (newMessage.private) {
+        console.log('New Message:', newMessage);
+        if (newMessage.fields.private) {
+          console.log('Private Message Made');
+          if (!Array.isArray(messageObj.recipients)) {
+            messageObj.recipients = [messageObj.recipients];
+          }
+
+          messageObj.recipients.push(socket.handshake.session.currentUser.email);
+          console.log('Adding recipients:', messageObj.recipients);
           return newMessage.addRecipients(messageObj.recipients);
         } else {
+          console.log('Public message made');
           return new Promise((resolve) => {
             resolve();
           });
@@ -54,6 +67,7 @@ io.on('connection', (socket) => {
         let readMessage = new ReadMessage(readMessageObj);
         return readMessage.save();
       }).then(() => {
+        io.emit('new message');
         socket.emit('post message response', true);
         console.log('Message viewed')
       })
