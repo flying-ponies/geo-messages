@@ -10,6 +10,7 @@ $(document).ready(function() {
   $('.new-message-modal').on('hidden.bs.modal', function() {
     $('.new-message-modal form').removeClass('display-none').get(0).reset();
     $('.new-message-modal .response').addClass('display-none')
+    $('#recipients-container').hide();
   });
 
   $('.new-message-modal form').on('submit', function(event) {
@@ -34,10 +35,14 @@ $(document).ready(function() {
       data.location_name = locationName;
       console.log('DATA', data);
       socket.emit('post message', data);
+
       socket.on('post message response', function (response) {
 
         if (response) {
-          socket.emit('retrieve your messages', $('#your-messages').attr("current-page"));
+          if (window.location.pathname === '/profile') {
+            socket.emit('retrieve your messages', $('#your-messages').attr("current-page"));
+          }
+
           $('.new-message-modal').modal('hide');
           $form.get(0).reset();
         } else {
