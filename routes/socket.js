@@ -2,7 +2,6 @@ const app = require('../app');
 const Message = require('../lib/messages');
 const User = require('../lib/users');
 const ReadMessage = require('../lib/read-messages');
-var moment = require('moment');
 
 const io = require('socket.io')(app.server);
 
