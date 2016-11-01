@@ -127,4 +127,34 @@ io.on('connection', (socket) => {
   socket.on('disconnect', function() {
     console.log('A user disconnected');
   });
+
+  socket.on('clumped messages', (messageIds) => {
+
+    var query = ' "messages"."id" in (';
+    for( var messageId, i=0; i < messageIds.length; i++ ){
+      messageId = messageIds[i];
+
+      console.log("Clumped MessageIDs: ", messageId);
+
+      if(i != messageIds.length - 1){
+        query = query + String( messageId ) + ", ";
+      }
+      else {
+        query = query + String( messageId ) + ")";
+      }
+
+    }
+    Message.getMessages( query )
+      .then((rows) => {
+        console.log( "rows", rows );
+        socket.emit( 'clumped messages returned', rows );
+      })
+      .catch((error) => {
+        console.error("query:", query);
+        console.error(error);
+
+      });
+  });
 });
+
+

@@ -1,25 +1,30 @@
+function clickedThumbsUp(){
+  console.log( "Thumbs up! id:", this.dataset.messageId );
+  socket.emit( "message liked", this.dataset.messageId );
+}
+
+function clickedThumbsDown(){
+  console.log( "Thumbs down! id:", this.dataset.messageId );
+  socket.emit( "message disliked", this.dataset.messageId );
+}
+
 function registerRatingEventHooks(){
   console.log( "Registering Event Handlers" );
 
   $("span.glyphicon.glyphicon-thumbs-up").click( clickedThumbsUp );
-  function clickedThumbsUp(){
-    console.log( "Thumbs up! id:", this.dataset.messageId );
-    socket.emit( "message liked", this.dataset.messageId );
-  }
 
   $("span.glyphicon.glyphicon-thumbs-down").click( clickedThumbsDown );
-  function clickedThumbsDown(){
-    console.log( "Thumbs down! id:", this.dataset.messageId );
-    socket.emit( "message disliked", this.dataset.messageId );
-  }
 
   socket.on('message liked success', function( messageId ){
-    console.log("message liked success");
+    console.log("message liked success (messageId):", messageId );
     var messages = $("div.message-container");
-    messages.each( function( index ){
+    messages.each( function( index, element ){
+
+      console.log( "compare messageId: ", $( element ).find('span.glyphicon.glyphicon-thumbs-up').attr('data-message-id'));//Number( $('span.glyphicon.glyphicon-thumbs-up').attr('data-message-id')) );
 
       if( Number( messageId ) ===
-          Number( $('span.glyphicon.glyphicon-thumbs-up').attr('data-message-id') )){
+          Number( $( element ).find('span.glyphicon.glyphicon-thumbs-up').attr('data-message-id')))
+      {
 
         console.log("liked matched");
 
@@ -34,11 +39,11 @@ function registerRatingEventHooks(){
   socket.on('message disliked success', function( messageId ){
     console.log("message disliked success");
     var messages = $("div.message-container");
-    messages.each( function( index ){
+    messages.each( function( index, element ){
 
 
       if( Number( messageId ) ===
-          Number( $('span.glyphicon.glyphicon-thumbs-up').attr('data-message-id') )){
+          Number( $( element ).find('span.glyphicon.glyphicon-thumbs-up').attr('data-message-id') )){
 
         console.log("disliked matched");
 

@@ -4,7 +4,10 @@ var coord;
 var centralPosnLatLng;
 var mapCenterCoord;
 var VISIBILITY_RADIUS = 100;
+var MESSAGE_TOO_CLOSE = 20;
+var tooCloseMessages = {};
 var cachedMessages = {};
+var cachedMessageIdsAndMarkers = {};
 var followPosn = true;
 
 function PosnLockControl(controlDiv, map) {
@@ -99,7 +102,7 @@ $(document).ready( function() {
 
       if( firstCall ) {
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 16,
+          zoom: 17,
           minZoom: 14,
           maxZoom: 18,
           center: coord,
