@@ -73,6 +73,13 @@ router.post('/signup', function(req, res, next) {
 
 });
 
+router.post('/users/search', function(req, res, next) {
+  const searchTerm = req.body.searchTerm;
+  User.search(searchTerm).then((usernames) => {
+    res.json(usernames);
+  });
+});
+
 router.get('/profile', function(req, res, next) {
   let newUser = new User(req.session.currentUser);
   let templateVars = { currentUser: req.session.currentUser};

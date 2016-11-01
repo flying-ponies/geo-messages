@@ -37,4 +37,26 @@ $(function() {
     $('#recipients-container').toggle(this.checked);
   });
 
+  // AUTOFILL SEARCH
+  $('#recipients-container').delegate('input[name="recipients"]', 'focus', function() {
+    var $form = $(this)
+    $(this).typeahead({
+      highlighter: function(item) {
+        var query = $form.val();
+        return ('<strong>' + query + '</strong>' + item.replace(query,''))
+      },
+      source: function (query, process) {
+        return $.ajax({
+          url: location.protocol + '//' + location.host + '/users/search',
+          type: 'POST',
+          data: {searchTerm: query},
+          dataType: 'json',
+          success: function(usernames) {
+              return typeof usernames == 'undefined' ? false : process(usernames);
+          }
+        });
+      }
+    });
+  });
+
 });

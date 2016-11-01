@@ -541,3 +541,9 @@ h1.loading {
 .likes .glyphicon {
   cursor: pointer;
 }
+
+.typeahead.dropdown-menu .active > a,
+.typeahead.dropdown-menu .active > a:focus,
+.typeahead.dropdown-menu .active > a:hover {
+  background-color: #b1bcd2;
+}

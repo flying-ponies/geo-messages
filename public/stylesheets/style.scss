@@ -399,3 +399,12 @@ h1.loading {
     cursor: pointer;
   }
 }
+
+.typeahead.dropdown-menu {
+  .active > a,
+  .active > a:focus,
+  .active > a:hover{
+    background-color: $brand-color-light-mid;
+  }
+
+}
