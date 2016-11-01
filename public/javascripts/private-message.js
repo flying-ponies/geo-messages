@@ -16,6 +16,7 @@ $(function() {
       .attr('id', 'recipient-' + recipientNum.toString())
       .attr('name', 'recipients')
       .attr('placeholder', 'Recipient ' + recipientNum.toString() + ' email')
+      .attr('autocomplete', 'off')
       .appendTo(container);
 
     container.insertBefore($('#add-recipient-btn'));
