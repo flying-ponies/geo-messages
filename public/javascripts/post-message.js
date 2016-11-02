@@ -66,6 +66,7 @@ $(document).ready(function() {
     $('.new-message-modal form').removeClass('display-none').get(0).reset();
     $('.new-message-modal .response').addClass('display-none')
     $('#recipients-container').hide();
+    $('.new-message-modal form').off();
   });
 
 });
