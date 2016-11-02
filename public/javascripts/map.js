@@ -128,7 +128,8 @@ $(document).ready( function() {
         currentPosnMarker = new google.maps.Marker({
           map: map,
           title: 'Current Postion',
-          icon: currentLocationIcon
+          icon: currentLocationIcon,
+          zIndex: 1
         });
 
         // Clicking on currentPosnMarker opens modal
