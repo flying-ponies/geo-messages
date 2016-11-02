@@ -11,17 +11,16 @@ var currentLocationIcon = {
 };
 
 function messageIconWithColor (count) {
-  var colors =['#cc0000', '#ff0000', '#ff6666', '#ffcccc', 'white'];
-  var maxLevel = 10;
+  var colors =['#D70000', '#E14040', '#E66060', '#EB8080', '#F09F9F', '#F5BFBF' ,'#FADFDF'];
+  var maxLevel = 7;
   var level;
   if (count > maxLevel) {
-    level = maxLevel
+    level = maxLevel;
   } else {
-    level = count
+    level = count;
   }
-
-  var color = colors[Math.floor(level / maxLevel * (colors.length -1))];
-  var sizeIncrease = level / maxLevel * 0.025 * 0.75
+  var color = colors[Math.floor(level / maxLevel * (colors.length - 1))];
+  var sizeIncrease = level / maxLevel * 0.025 * 0.80;
 
   return {
     // SVG PATH FROM BOOTSTRAP GLYPHICON MAP-MARKER
@@ -29,7 +28,7 @@ function messageIconWithColor (count) {
     fillColor: color,
     fillOpacity: 0.8,
     scale: 0.025 + sizeIncrease,
-    strokeColor: 'darkred',
+    strokeColor: '#7A0000',
     strokeWeight: 0.75,
     rotation: 180,
     anchor: new google.maps.Point(650, 200)
