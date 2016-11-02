@@ -150,8 +150,6 @@ socket.on('nearby full messages', function(rows) {
           cachedMessages[indexA].marker.set('icon', messageIconWithColor(cachedMessages[indexA].length));
 
           cachedMessages[indexA].sort(function(a,b){
-            // Turn your strings into dates, and then subtract them
-            // to get a value that is either negative, positive, or zero.
             return new Date(b.markerInfo.created_at) - new Date(a.markerInfo.created_at);
           });
 
@@ -166,7 +164,6 @@ socket.on('nearby full messages', function(rows) {
               cachedMessages[indexA].forEach(function(cachedMessage) {
                 socket.emit('message viewed', cachedMessage.markerInfo.id);
               });
-
 
             } // if( distance < VISIBILITY_RADIUS ){
 
