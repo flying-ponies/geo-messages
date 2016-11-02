@@ -67,6 +67,8 @@ $(function() {
     // If editing, save the message
     if (editing) {
       editing = false;
+      $(this).children().first().removeClass('glyphicon-floppy-disk');
+      $(this).children().first().addClass('glyphicon-pencil');
       $(this).html($(this).html().replace('Save', 'Edit'));
       $content.attr('contenteditable', 'false');
       $content.removeClass('editable');
@@ -80,6 +82,10 @@ $(function() {
     // If not editing, start editing
     else {
       editing = true;
+      if ($(this).children().first().hasClass('glyphicon-pencil')) {
+        $(this).children().first().removeClass('glyphicon-pencil')
+        $(this).children().first().addClass('glyphicon-floppy-disk')
+      }
       $(this).html($(this).html().replace('Edit', 'Save'));
       $content.attr('contenteditable', 'true');
       $content.addClass('editable');
