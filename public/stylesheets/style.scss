@@ -35,7 +35,7 @@ $base-line-height: 1.5 * $base-font-size;
 a,
 a:focus,
 a:hover {
-  color: $font_primary;
+  color: $font_secondary;
 }
 
 // BUTTONS
@@ -46,6 +46,31 @@ a:hover {
   text-shadow: none; /* Prevent inheritance from `body` */
   background-color: lighten($brand-color-dark, 15%);
   border: 0px;
+  a,
+  a:focus,
+  a:hover {
+    color: $font_primary;
+  }
+}
+
+.btn-primary,
+.btn-primary:focus {
+  color: $font_secondary;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: $color_bg_light;
+  border-color: $brand-color-light-mid;
+
+  &:hover {
+    background-color: $brand-color-light-mid;
+    color: $font_primary;
+    border-color: $brand-color-light-mid;
+  }
+
+  a,
+  a:focus,
+  a:hover {
+    color: $font_primary;
+  }
 }
 
 .btn-secondary,
@@ -55,6 +80,11 @@ a:hover {
   text-shadow: none; /* Prevent inheritance from `body` */
   background-color: lighten($brand-color-dark, 15%);
   border: 0px;
+  a,
+  a:focus,
+  a:hover {
+    color: $font_primary;
+  }
 }
 
 // BASE
@@ -208,6 +238,7 @@ footer {
 }
 
 .masthead-brand {
+  color: $font_primary;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -412,7 +443,6 @@ h1.loading {
 .editable {
   background-color: #fff;
   border: 1px solid #ccc;
-  padding: 0 0.5em;
   border-radius: 3px;
   &:focus {
     outline: none;

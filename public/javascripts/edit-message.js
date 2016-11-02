@@ -37,6 +37,7 @@ $(function() {
 
   var editing = false;
   $('#edit-content').on('click', function(event) {
+    event.preventDefault();
     if (editing) {
       editing = false;
       $(this).html($(this).html().replace('Save', 'Edit'));
@@ -50,7 +51,6 @@ $(function() {
       socket.emit('update message content', data);
     } else {
       editing = true;
-      event.preventDefault();
       $(this).html($(this).html().replace('Edit', 'Save'));
       $content.attr('contenteditable', 'true');
       $content.addClass('editable');

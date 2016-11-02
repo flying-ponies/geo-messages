@@ -35,13 +35,21 @@ $(document).ready( function() {
       });
       $('#your-messages nav.page-buttons ul.pagination').addClass('pagination-sm');
 
+      function limitContent(content) {
+        if (content.length <= 200) {
+          return content;
+        }
+
+        return content.replace(/^(.{200}[^\s]*).*/, '$1') + '&hellip;';
+      }
+
       yourMessages.forEach(function(message) {
         var date = moment(message.created_at).format('MMM DD, YYYY');
         $('#your-messages .messages-container').append(`
           <div class="message-container">
             <div class="header">
               <h4 class="message-title">
-                ${message.title}
+                <a href="/messages/${message.id}">${message.title}</a>
               </h4>
               <div class="info">
                 <span class="date">${date}</span>
@@ -49,8 +57,9 @@ $(document).ready( function() {
               </div>
             </div>
             <p class="message">
-              ${message.content}
+              ${limitContent(message.content)}
             </p>
+            <p><a class="btn btn-primary btn-sm" href="/messages/${message.id}">View</a></p>
             <div class="footer">
               <span class="location">
                 <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>

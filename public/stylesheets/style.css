@@ -181,7 +181,7 @@ nav.page-buttons .pagination li.disabled > a:focus {
 a,
 a:focus,
 a:hover {
-  color: white;
+  color: #282933;
 }
 
 .btn-default,
@@ -194,6 +194,43 @@ a:hover {
   border: 0px;
 }
 
+.btn-default a,
+.btn-default a:focus,
+.btn-default a:hover,
+.btn-default:hover a,
+.btn-default:hover a:focus,
+.btn-default:hover a:hover,
+.btn-default:focus a,
+.btn-default:focus a:focus,
+.btn-default:focus a:hover {
+  color: white;
+}
+
+.btn-primary,
+.btn-primary:focus {
+  color: #282933;
+  text-shadow: none;
+  /* Prevent inheritance from `body` */
+  background-color: #e7e9f4;
+  border-color: #b1bcd2;
+}
+
+.btn-primary:hover,
+.btn-primary:focus:hover {
+  background-color: #b1bcd2;
+  color: white;
+  border-color: #b1bcd2;
+}
+
+.btn-primary a,
+.btn-primary a:focus,
+.btn-primary a:hover,
+.btn-primary:focus a,
+.btn-primary:focus a:focus,
+.btn-primary:focus a:hover {
+  color: white;
+}
+
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
@@ -202,6 +239,18 @@ a:hover {
   /* Prevent inheritance from `body` */
   background-color: #4a4b5e;
   border: 0px;
+}
+
+.btn-secondary a,
+.btn-secondary a:focus,
+.btn-secondary a:hover,
+.btn-secondary:hover a,
+.btn-secondary:hover a:focus,
+.btn-secondary:hover a:hover,
+.btn-secondary:focus a,
+.btn-secondary:focus a:focus,
+.btn-secondary:focus a:hover {
+  color: white;
 }
 
 html {
@@ -356,6 +405,7 @@ footer p {
 }
 
 .masthead-brand {
+  color: white;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -551,7 +601,6 @@ h1.loading {
 .editable {
   background-color: #fff;
   border: 1px solid #ccc;
-  padding: 0 0.5em;
   border-radius: 3px;
 }
 
