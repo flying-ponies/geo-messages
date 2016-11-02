@@ -116,6 +116,10 @@ io.on('connection', (socket) => {
           else {
             socket.emit('message liked new success', messageId);
           }
+        } else {
+          return user.updateLikes( messageId ).then(() => {
+            socket.emit('message unliked success', messageId);
+          });
         }
       })
       .catch((error) => {
@@ -137,6 +141,10 @@ io.on('connection', (socket) => {
           else {
             socket.emit('message disliked new success', messageId);
           }
+        } else {
+          return user.updateLikes( messageId ).then(() => {
+            socket.emit('message undisliked success', messageId);
+          });
         }
       })
       .catch((error) => {
