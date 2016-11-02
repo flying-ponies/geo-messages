@@ -159,7 +159,6 @@ socket.on('nearby full messages', function(rows) {
 
             if( distance < VISIBILITY_RADIUS ){
               $('#view-message-modal .message-container').empty()
-              console.log('EPMTYEREHRE');
 
               cachedMessages[indexA].forEach(function(cachedMessage) {
                 socket.emit('message viewed', cachedMessage.markerInfo.id);
