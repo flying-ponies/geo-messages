@@ -13,6 +13,8 @@ function registerRatingEventHooks(){
 
   $("#myTabContent").on("click", "span.glyphicon.glyphicon-thumbs-up", clickedThumbsUp );
   $("#myTabContent").on("click", "span.glyphicon.glyphicon-thumbs-down", clickedThumbsDown );
+  $("#view-message-modal").on("click", "span.glyphicon.glyphicon-thumbs-up", clickedThumbsUp );
+  $("#view-message-modal").on("click", "span.glyphicon.glyphicon-thumbs-down", clickedThumbsDown );
 
   socket.on('message liked success', function( messageId ){
     console.log("message liked success");
