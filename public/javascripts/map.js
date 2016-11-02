@@ -131,11 +131,12 @@ $(document).ready( function() {
           icon: currentLocationIcon
         });
 
-        currentPosnMarker.addListener('click', function() {
-          $('.new-message-modal').modal({
-            show: 'true'
-          });
-        });
+        // Clicking on currentPosnMarker opens modal
+        // currentPosnMarker.addListener('click', function() {
+        //   $('.new-message-modal').modal({
+        //     show: 'true'
+        //   });
+        // });
 
         // POSITION LOCK DIV ELEMENT
         posnLockControlDiv = document.createElement('div');
