@@ -196,13 +196,13 @@ io.on('connection', (socket) => {
     if (!socket.handshake.session.currentUser) {
       return;
     }
-
     Message.find(messageID).then((row) => {
       let msg = new Message(row);
       if (msg.fields.user_id === socket.handshake.session.currentUser.id) {
         msg.destroy()
         .then(() => {
           socket.emit('delete message response', null);
+          io.emit('delete marker', messageID);
         })
         .catch((error) => {
           socket.emit('delete message response', 'Could not delete');

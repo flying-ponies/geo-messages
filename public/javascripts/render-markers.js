@@ -1,3 +1,39 @@
+function newListenerToMessagePerPostion(indexA) {
+  google.maps.event.clearInstanceListeners(cachedMessages[indexA].marker)
+
+  var privateCount = 0;
+  cachedMessages[indexA].forEach(function(message) {
+    if (message.markerInfo.private) {
+      privateCount += 1;
+    }
+  });
+  if (!privateCount) {
+    cachedMessages[indexA].marker.set('icon', messageIcon(cachedMessages[indexA].length));
+  } else {
+    cachedMessages[indexA].marker.set('icon', messageIconPrivate(cachedMessages[indexA].length));
+  }
+
+  cachedMessages[indexA].sort(function(a,b){
+    return new Date(b.markerInfo.created_at) - new Date(a.markerInfo.created_at);
+  });
+
+  cachedMessages[indexA].marker.addListener('click', function () {
+
+    var distance = google.maps.geometry.spherical.computeDistanceBetween( cachedMessages[indexA].marker.getPosition(), centralPosnLatLng );
+
+    if( distance < VISIBILITY_RADIUS ){
+      $('#view-message-modal .message-append').empty()
+      $('#view-message-modal .message-append').addClass('multiple');
+
+      cachedMessages[indexA].forEach(function(cachedMessage) {
+        socket.emit('message viewed', cachedMessage.markerInfo.id);
+      });
+
+    } // if( distance < VISIBILITY_RADIUS ){
+
+  }); // marker.addListener('click', function () {
+} // function newListenerToMessagePerPostion (indexA)
+
 socket.on('new message', function() {
   socket.emit('get full messages', map.getCenter());
 });
@@ -42,6 +78,22 @@ socket.on('message viewed response', function (markerInfo) {
   });
 
 }); // socket.on('message viewed response', function (markerInfo) {
+
+socket.on('delete marker', function(messageId) {
+  cachedMessages.forEach(function(cachedMessagesPerPosition, i) {
+    cachedMessagesPerPosition.forEach(function(cachedMessage, j) {
+      if (cachedMessages[i][j].markerInfo.id === messageId) {
+        if (cachedMessages[i].length === 1) {
+          cachedMessages[i].marker.setMap(null);
+          cachedMessages.splice(i, 1);
+        } else {
+          cachedMessages[i].splice(j, 1);
+          newListenerToMessagePerPostion(i);
+        }
+      }
+    });
+  });
+}); // socket.on('delete marker', function()
 
 var firstMarkerRender = true;
 
@@ -141,40 +193,8 @@ socket.on('nearby full messages', function(rows) {
             cachedMessages[indexA].push(cachedMessageB);
           });
           cachedMessages.splice(indexB, 1);
-          google.maps.event.clearInstanceListeners(cachedMessages[indexA].marker)
 
-          var privateCount = 0;
-          cachedMessages[indexA].forEach(function(message) {
-            if (message.markerInfo.private) {
-              privateCount += 1;
-            }
-          });
-          var publicCount = cachedMessages[indexA].length - privateCount;
-          if (publicCount >= privateCount) {
-            cachedMessages[indexA].marker.set('icon', messageIcon(cachedMessages[indexA].length));
-          } else {
-            cachedMessages[indexA].marker.set('icon', messageIconPrivate(cachedMessages[indexA].length));
-          }
-
-          cachedMessages[indexA].sort(function(a,b){
-            return new Date(b.markerInfo.created_at) - new Date(a.markerInfo.created_at);
-          });
-
-          cachedMessages[indexA].marker.addListener('click', function () {
-
-            var distance = google.maps.geometry.spherical.computeDistanceBetween( cachedMessages[indexA].marker.getPosition(), centralPosnLatLng );
-
-            if( distance < VISIBILITY_RADIUS ){
-              $('#view-message-modal .message-append').empty()
-              $('#view-message-modal .message-append').addClass('multiple');
-
-              cachedMessages[indexA].forEach(function(cachedMessage) {
-                socket.emit('message viewed', cachedMessage.markerInfo.id);
-              });
-
-            } // if( distance < VISIBILITY_RADIUS ){
-
-          }); // marker.addListener('click', function () {
+          newListenerToMessagePerPostion(indexA)
 
         } else {
           indexB += 1;
@@ -182,7 +202,7 @@ socket.on('nearby full messages', function(rows) {
       } // while(indexB < cachedMessages.length)
 
     }) // cachedMessages.forEach(function(cachedMessagesPerPositionA, indexA)
-  }, 500); //setTimeout
+  }, 400); //setTimeout
 
   firstMarkerRender = false;
 
