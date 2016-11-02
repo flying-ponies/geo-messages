@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('.new-message-modal form').on('submit', function(event) {
+  $('.new-message-modal .post-message').on('submit', function(event) {
     event.preventDefault();
   });
 
