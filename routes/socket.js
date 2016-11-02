@@ -162,6 +162,18 @@ io.on('connection', (socket) => {
       });
   });
 
+  socket.on('update message content', (data) => {
+    let msg = new Message(data);
+    msg.update({content: data.content})
+      .then(() => {
+        socket.emit('update message content response', null);
+      })
+      .catch((error) => {
+        socket.emit('update message content response', 'Could not update');
+        console.error(error);
+      });
+  });
+
   socket.on('disconnect', function() {
     console.log('A user disconnected');
   });
@@ -194,5 +206,3 @@ io.on('connection', (socket) => {
       });
   });
 });
-
-

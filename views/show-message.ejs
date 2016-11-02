@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/top_nav') %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA422vOq0FEOGdXd5k4z7b1-3VSH9GXCec&v=3.exp&libraries=geometry&format=png&maptype=roadmap&style=feature:administrative%7Celement:geometry.fill%7Cvisibility:off&style=feature:administrative.land_parcel%7Celement:labels%7Cvisibility:off&style=feature:administrative.locality%7Celement:labels%7Cvisibility:off&style=feature:poi%7Celement:labels.text%7Cvisibility:off"></script>
+    <script src="/javascripts/rating.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+    <script src="/javascripts/profile-page-coord.js"></script>
+    <script src="/javascripts/position-to-city-name.js"></script>
+    <script src="/javascripts/private-message.js"></script>
+    <script src="/javascripts/edit-message.js"></script>
+
+    <div class="container">
+      <div class="text-box">
+        <div>
+          <h3 class="username"><%= currentUser.username %></h3>
+          <p class="email small"><%= currentUser.email %></p>
+        </div>
+
+        <div class="tab-content" id="myTabContent">
+          <% if (!message) { %>
+            <p class="lead">Message not found.</p>
+          <% } else { %>
+            <div class="messages-container">
+              <div class="message-container">
+                <div class="header">
+                  <h4 class="message-title"><%= message.title %></h4>
+                  <div class="info">
+                    <span class="date" data-date="<%= message.created_at %>"></span>
+                    <span class="views pull-right"><%= message.views %> views</span>
+                  </div>
+                </div>
+                <p class="message"><%= message.content %></p>
+                <p><a class="btn btn-default" id="edit-content" href="#"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a>
+                <div class="footer">
+                  <span class="location">
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    <span class="lat hidden"><%= message.coordinates.lat %></span>
+                    <span class="lng hidden">-<%= message.coordinates.lng %></span>
+                    <span class="city"><%= message.location_name %></span>
+                  </span>
+                  <span class="likes pull-right">
+                    <span class="glyphicon glyphicon-thumbs-up" data-message-id="<%= message.id %>" aria-hidden="true"></span>
+                    <span class="like"><%= message.likes %></span>
+                    <span>/</span>
+                    <span class="glyphicon glyphicon-thumbs-down" data-message-id="<%= message.id %>" aria-hidden="true"></span>
+                    <span class="dislike"><%= message.dislikes %></span>
+                  </span>
+                </div><!-- /.footer -->
+              </div><!-- /.message-container -->
+            </div><!-- /.messages-container -->
+          <% } %>
+        </div>
+      </div>
+    </div> <!-- /container -->
+
+    <%- include('partials/footer') %>
+  </body>
+</html>

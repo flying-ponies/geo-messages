@@ -86,6 +86,26 @@ router.get('/profile', function(req, res, next) {
   res.render('profile', templateVars);
 });
 
+router.get('/messages/:id', function(req, res) {
+  let templateVars = {
+    currentUser: req.session.currentUser,
+    message: null
+  };
+
+  Message.findById(req.params.id).then((rows) => {
+    if (rows && rows.length) {
+      let displayMessage = new Message(rows[0]).fields;
+      if (displayMessage.username === templateVars.currentUser.username) {
+        templateVars.message = displayMessage;
+      }
+    }
+    res.render('show-message', templateVars);
+  }).catch((error) => {
+    console.error(error);
+    res.render('show-message', templateVars)
+  })
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if( req.session.currentUser ){
@@ -94,7 +114,6 @@ router.get('/', function(req, res, next) {
   else {
     res.redirect('/login');
   }
-
 });
 
 module.exports = router;

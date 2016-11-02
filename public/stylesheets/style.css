@@ -547,3 +547,14 @@ h1.loading {
 .typeahead.dropdown-menu .active > a:hover {
   background-color: #b1bcd2;
 }
+
+.editable {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0 0.5em;
+  border-radius: 3px;
+}
+
+.editable:focus {
+  outline: none;
+}
