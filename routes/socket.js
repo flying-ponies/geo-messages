@@ -214,6 +214,34 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('get message recipients', (messageID) => {
+    Message.find(messageID).then((row) => {
+      let msg = new Message(row);
+      if (msg.fields.user_id === socket.handshake.session.currentUser.id) {
+        msg.getRecipients().then((recipients) => {
+          socket.emit('get message recipients response', recipients);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      }
+    });
+  });
+
+  socket.on('add recipient', (data) => {
+    Message.find(data.messageID).then((row) => {
+      let msg = new Message(row);
+      if (msg.fields.user_id === socket.handshake.session.currentUser.id) {
+        msg.addRecipients([data.username]).then(() => {
+          socket.emit('add recipient response', data.username);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      }
+    });
+  })
+
   socket.on('disconnect', function() {
     console.log('A user disconnected');
   });
