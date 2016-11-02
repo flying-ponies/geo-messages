@@ -115,7 +115,7 @@ socket.on('nearby full messages', function(rows) {
   });
 
   setTimeout(function() {
-    // CLUMP CACHED MESSAGES THAT ARE CLOSE TO EACH OTHER
+    // CLUMP CACHED MESSAGES THAT ARE CLOSE TOO EACH OTHER
     cachedMessages.forEach(function(cachedMessagesPerPositionA, indexA) {
 
       coordA = new google.maps.LatLng(
