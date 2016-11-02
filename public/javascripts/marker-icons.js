@@ -11,19 +11,24 @@ var currentLocationIcon = {
 };
 
 function messageIconWithColor (count) {
-  var brightestCount = 10;
   var colors =['#cc0000', '#ff0000', '#ff6666', '#ffcccc', 'white'];
-  var brightness = Math.floor(count / brightestCount * (colors.length -1));
-  if (brightness > colors.length - 1) {
-    brightness = colors.lenth - 1;
+  var maxLevel = 10;
+  var level;
+  if (count > maxLevel) {
+    level = maxLevel
+  } else {
+    level = count
   }
+
+  var color = colors[Math.floor(level / maxLevel * (colors.length -1))];
+  var sizeIncrease = level / maxLevel * 0.025 * 0.75
 
   return {
     // SVG PATH FROM BOOTSTRAP GLYPHICON MAP-MARKER
     path: "M648 1169q117 0 216 -60t156.5 -161t57.5 -218q0 -115 -70 -258q-69 -109 -158 -225.5t-143 -179.5l-54 -62q-9 8 -25.5 24.5t-63.5 67.5t-91 103t-98.5 128t-95.5 148q-60 132 -60 249q0 88 34 169.5t91.5 142t137 96.5t166.5 36zM652.5 974q-91.5 0 -156.5 -65 t-65 -157t65 -156.5t156.5 -64.5t156.5 64.5t65 156.5t-65 157t-156.5 65z",
-    fillColor: colors[brightness],
+    fillColor: color,
     fillOpacity: 0.8,
-    scale:0.025,
+    scale: 0.025 + sizeIncrease,
     strokeColor: 'darkred',
     strokeWeight: 0.75,
     rotation: 180,

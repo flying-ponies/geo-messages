@@ -4,7 +4,7 @@ var coord;
 var centralPosnLatLng;
 var mapCenterCoord;
 var VISIBILITY_RADIUS = 100;
-var MESSAGE_TOO_CLOSE = 6;
+var MESSAGE_TOO_CLOSE = 10;
 // var tooCloseMessages = {};
 var cachedMessages = [];
 // var cachedMessageIdsAndMarkers = {};
