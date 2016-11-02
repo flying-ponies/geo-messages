@@ -36,7 +36,7 @@ function messageIcon (count) {
 }
 
 function messageIconPrivate (count) {
-  var colors =['#38C600', '#6AD440', '#83DB60', '#9BE380', '#B4EA9F', '#CDF1BF' ,'#E6F8DF'];
+  var colors =['#FFC300', '#FFD240', '#FFDA60', '#FFE180', '#FFE99F', '#FFF0BF' ,'#FFF8DF'];
   var maxLevel = 7;
   var level;
   if (count > maxLevel) {
@@ -53,7 +53,7 @@ function messageIconPrivate (count) {
     fillColor: color,
     fillOpacity: 0.8,
     scale: 0.025 + sizeIncrease,
-    strokeColor: '#278B00',
+    strokeColor: '#725700',
     strokeWeight: 0.75,
     rotation: 180,
     anchor: new google.maps.Point(650, 200)
