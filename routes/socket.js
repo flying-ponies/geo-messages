@@ -163,15 +163,47 @@ io.on('connection', (socket) => {
   });
 
   socket.on('update message content', (data) => {
-    let msg = new Message(data);
-    msg.update({content: data.content})
-      .then(() => {
-        socket.emit('update message content response', null);
-      })
-      .catch((error) => {
+    if (!socket.handshake.session.currentUser) {
+      return;
+    }
+
+    Message.find(data.id).then((row) => {
+      let msg = new Message(row);
+      if (msg.fields.user_id === socket.handshake.session.currentUser.id) {
+        msg.update({content: data.content})
+        .then(() => {
+          socket.emit('update message content response', null);
+        })
+        .catch((error) => {
+          socket.emit('update message content response', 'Could not update');
+          console.error(error);
+        });
+      } else {
         socket.emit('update message content response', 'Could not update');
-        console.error(error);
-      });
+      }
+    });
+  });
+
+  socket.on('delete message', (messageID) => {
+    if (!socket.handshake.session.currentUser) {
+      return;
+    }
+
+    Message.find(messageID).then((row) => {
+      let msg = new Message(row);
+      if (msg.fields.user_id === socket.handshake.session.currentUser.id) {
+        msg.destroy()
+        .then(() => {
+          socket.emit('delete message response', null);
+        })
+        .catch((error) => {
+          socket.emit('delete message response', 'Could not delete');
+          console.error(error);
+        });
+      } else {
+        socket.emit('delete message response', 'Could not delete');
+      }
+    });
   });
 
   socket.on('disconnect', function() {

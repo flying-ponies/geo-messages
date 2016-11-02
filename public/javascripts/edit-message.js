@@ -1,4 +1,5 @@
 $(function() {
+  // Response to update message content
   socket.on('update message content response', function(error) {
 
     $('.alert').remove();
@@ -30,14 +31,40 @@ $(function() {
     }
   });
 
+  // Response to delete message
+  socket.on('delete message response', function(error) {
+    $('.alert').remove();
+
+    if (error) {
+      $('<div>')
+        .addClass('alert alert-danger fade in small')
+        .append(
+          $('<a>')
+            .addClass('close')
+            .attr('data-dismiss', 'alert')
+            .html('&times;')
+          )
+        .append(
+          $('<strong>').text(error)
+        ).prependTo('.message-container');
+    } else {
+      // Message deleted, go to profile page
+      window.location.href = '/profile';
+    }
+  });
+
+  // Set the date with moment.js
   var date = moment($('.date').data('date')).format('MMM DD, YYYY');
   $('.date').text(date);
 
-  var $content = $('p.message');
 
+  var $content = $('p.message');
   var editing = false;
+
   $('#edit-content').on('click', function(event) {
     event.preventDefault();
+
+    // If editing, save the message
     if (editing) {
       editing = false;
       $(this).html($(this).html().replace('Save', 'Edit'));
@@ -49,12 +76,20 @@ $(function() {
         content: $content.text()
       };
       socket.emit('update message content', data);
-    } else {
+    }
+    // If not editing, start editing
+    else {
       editing = true;
       $(this).html($(this).html().replace('Edit', 'Save'));
       $content.attr('contenteditable', 'true');
       $content.addClass('editable');
       $content.focus();
     }
+  });
+
+  $('#delete-message').on('click', function(event) {
+    event.preventDefault();
+    var id = $('span.glyphicon.glyphicon-thumbs-up').data('messageId');
+    socket.emit('delete message', id);
   });
 });
