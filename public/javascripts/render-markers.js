@@ -2,113 +2,99 @@ socket.on('new message', function() {
   socket.emit('get full messages', map.getCenter());
 });
 
-var firstMarkerRender = true;
+socket.on('message viewed response', function (markerInfo) {
+  var date = moment(markerInfo.created_at).format('MMM DD, YYYY')
+  $('#view-message-modal .message-append').append(`
+      <div class="message-in-append">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h2 class="modal-title">${markerInfo.title}</h2>
+          <div class="info">
+              <span class="author">by ${markerInfo.username}</span>
+              <span class="date">${date}</span>
+              <span class="views pull-right">${markerInfo.views} views</span>
+          </div>
+        </div>
 
-function fillMessage(markerInfo, extraSelectString){
-
-  $('#view-message-modal #' + extraSelectString + ' .modal-title').html(markerInfo.title);
-  $('#view-message-modal #' + extraSelectString + ' .author').html("by " + markerInfo.username);
-  var date = moment(markerInfo.created_at).format('MMM DD, YYYY');
-  $('#view-message-modal #' + extraSelectString + ' .date').html(" on " + date);
-  $('#view-message-modal #' + extraSelectString + ' .views').html(markerInfo.views + ' views');
-  $('#view-message-modal #' + extraSelectString + ' .modal-body .message').html(markerInfo.content);
-  $('#view-message-modal #' + extraSelectString + ' .modal-body .likes .like').html(markerInfo.likes);
-  $('#view-message-modal #' + extraSelectString + ' .modal-body .likes .dislike').html(markerInfo.dislikes);
-  $('#view-message-modal #' + extraSelectString + '  .modal-body .location .city').html(markerInfo.location_name);
-
-
-  $('#view-message-modal #' + extraSelectString + ' .modal-body .likes .glyphicon.glyphicon-thumbs-up').attr( 'data-message-id', markerInfo.id );
-  $('#view-message-modal #' + extraSelectString + ' .modal-body .likes .glyphicon.glyphicon-thumbs-down').attr( 'data-message-id', markerInfo.id );
-
-  console.log("message id:", markerInfo.id );
+        <div class="modal-body">
+          <p class="message">${markerInfo.content}</p>
+          <div class="footer">
+            <span class="location">
+              <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+              <span class="city">${markerInfo.location_name}</span>
+            </span>
+            <span class="likes pull-right">
+              <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" data-message-id="${markerInfo.id}"></span>
+              <span class="like">${markerInfo.likes}</span>
+              <span>/</span>
+              <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" data-message-id="${markerInfo.id}"></span>
+              <span class="dislike">${markerInfo.dislikes}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    `);
 
   $('#view-message-modal').modal({
     show: 'true'
   });
-}
+
+}); // socket.on('message viewed response', function (markerInfo) {
+
+var firstMarkerRender = true;
 
 socket.on('nearby full messages', function(rows) {
   console.log('Rendering markers');
 
-  var incomingMessages = {};
+  var incomingMessages = [];
 
   rows.map(function(markerInfo) {
-    incomingMessages[markerInfo.id] =  markerInfo;
+    incomingMessages.push({markerInfo: markerInfo});
   });
 
-  var newMessages = {};
-  for (incomingMessage in incomingMessages){
-    if(!cachedMessages.hasOwnProperty(incomingMessage)) {
-      newMessages[incomingMessage] = incomingMessages[incomingMessage];
-    }
-  }
-
-
-  tooCloseMessages = {};
-  Object.values(cachedMessageIdsAndMarkers).forEach(function(cachedMessageMarker) {
-    Object.values(cachedMessageIdsAndMarkers).forEach(function(candidateMessageMarker) {
-
-      //console.log( "message: ", cachedMessage.position.lat(), ",", cachedMessage.position.lng() );
-
-      if( candidateMessageMarker != cachedMessageMarker )
-      {
-        var distance = google.maps.geometry.spherical.computeDistanceBetween( cachedMessageMarker.marker.position, candidateMessageMarker.marker.position );
-
-        console.log("distance:", distance, cachedMessageMarker.marker.position.lat(), ",", cachedMessageMarker.marker.position.lng(), candidateMessageMarker.marker.position.lat(), ",", candidateMessageMarker.marker.position.lng());
-
-        if( distance  <= MESSAGE_TOO_CLOSE ){
-          if( tooCloseMessages.hasOwnProperty( cachedMessageMarker.id ) ){
-            tooCloseMessages[cachedMessageMarker.id].push( candidateMessageMarker );
-          }
-          else {
-            tooCloseMessages[cachedMessageMarker.id] = [ candidateMessageMarker ];
-          }
+  var newMessages = [];
+  incomingMessages.forEach(function(incomingMessage) {
+    var unique = true;
+    cachedMessages.forEach(function(cachedMessagesPerPosition) {
+      cachedMessagesPerPosition.forEach(function(cachedMessage) {
+        if (cachedMessage.markerInfo.id === incomingMessage.markerInfo.id) {
+          unique = false;
         }
-      }
+      });
     });
+    if(unique) {
+      newMessages.push(incomingMessage);
+    }
   });
 
-  newMessageIdsAndMarkers = newMessages;
-
-  Object.keys(newMessages).forEach(function(newMessage) {
-    var markerInfo = newMessages[newMessage];
+  newMessages.forEach(function(newMessage, i) {
+    var markerInfo = newMessage.markerInfo;
 
     var MarkerRenderOptions = {
       position: markerInfo.coordinates,
       map: map,
       title: 'Click to view message',
-      icon: messageIcon
+      icon: messageIconWithColor(0)
     }
 
     if (!firstMarkerRender) {
       MarkerRenderOptions.animation = google.maps.Animation.DROP;
     }
 
-    var marker = { marker: new google.maps.Marker(MarkerRenderOptions), id:newMessage };
+    var marker = new google.maps.Marker(MarkerRenderOptions);
 
-    newMessages[newMessage] = marker.marker;
-    newMessageIdsAndMarkers[newMessage] = marker;
+    newMessages[i].marker = marker;
 
-    marker.marker.addListener('click', function () {
+    marker.addListener('click', function () {
 
-      var distance = google.maps.geometry.spherical.computeDistanceBetween( marker.marker.getPosition(), centralPosnLatLng );
+      var distance = google.maps.geometry.spherical.computeDistanceBetween( marker.getPosition(), centralPosnLatLng );
 
       if( distance < VISIBILITY_RADIUS ){
-
         socket.emit('message viewed', markerInfo.id);
-
-        console.log( "markerInfo.id:", markerInfo.id );
-        console.log( "tooCloseMessages:", tooCloseMessages );
-
-        if( tooCloseMessages.hasOwnProperty(markerInfo.id) ){
-          console.log( "Too close message id's: ", tooCloseMessages[markerInfo.id] );
-
-          var clumpedMessages = [];
-          for( var idIndex = 0; idIndex < tooCloseMessages[markerInfo.id].length; idIndex++ ){
-            clumpedMessages.push( tooCloseMessages[markerInfo.id][idIndex].id );
-          }
-          socket.emit('clumped messages', clumpedMessages);
-        }
+        $('#view-message-modal .message-append').empty();
+        $('#view-message-modal .message-append').removeClass('multiple');
 
       } // if( distance < VISIBILITY_RADIUS ){
 
@@ -116,79 +102,79 @@ socket.on('nearby full messages', function(rows) {
 
   }); // Object.keys(newMessages).forEach(function(newMessage) {
 
-  cachedMessages = Object.assign(cachedMessages, newMessages);
-  cachedMessageIdsAndMarkers = Object.assign( cachedMessageIdsAndMarkers,
-                                              newMessageIdsAndMarkers );
+  //  PUSH TO CACHED MESSAGES
+  newMessages.map(function(newMessage) {
+    var newMesagesPerPosition = [];
+    newMesagesPerPosition[0] = {markerInfo: newMessage.markerInfo};
+    newMesagesPerPosition.marker = newMessage.marker;
+    cachedMessages.push(newMesagesPerPosition);
+  });
+
+  setTimeout(function() {
+    // CLUMP CACHED MESSAGES THAT ARE CLOSE TOO EACH OTHER
+    cachedMessages.forEach(function(cachedMessagesPerPositionA, indexA) {
+
+      coordA = new google.maps.LatLng(
+        cachedMessagesPerPositionA[0].markerInfo.coordinates.lat,
+        cachedMessagesPerPositionA[0].markerInfo.coordinates.lng
+      );
+
+      var indexB = 0;
+      while(indexB < cachedMessages.length) {
+
+        coordB = new google.maps.LatLng(
+          cachedMessages[indexB][0].markerInfo.coordinates.lat,
+          cachedMessages[indexB][0].markerInfo.coordinates.lng
+        );
+
+        var distanceAB = google.maps.geometry.spherical.computeDistanceBetween(coordA, coordB);
+
+        if ( distanceAB < MESSAGE_TOO_CLOSE && indexA !== indexB) {
+
+          cachedMessages[indexB].marker.setMap(null);
+
+          cachedMessages[indexB].forEach(function(cachedMessageB) {
+            cachedMessages[indexA].push(cachedMessageB);
+          });
+          cachedMessages.splice(indexB, 1);
+          google.maps.event.clearInstanceListeners(cachedMessages[indexA].marker)
+          // cachedMessages[indexA].marker.set('label', {
+          //   text: cachedMessages[indexA].length,
+          //   color: 'white'
+          // });
+
+          cachedMessages[indexA].marker.set('icon', messageIconWithColor(cachedMessages[indexA].length));
+
+          cachedMessages[indexA].sort(function(a,b){
+            return new Date(b.markerInfo.created_at) - new Date(a.markerInfo.created_at);
+          });
+
+          cachedMessages[indexA].marker.addListener('click', function () {
+
+            var distance = google.maps.geometry.spherical.computeDistanceBetween( cachedMessages[indexA].marker.getPosition(), centralPosnLatLng );
+
+            if( distance < VISIBILITY_RADIUS ){
+              $('#view-message-modal .message-append').empty()
+              $('#view-message-modal .message-append').addClass('multiple');
+
+              cachedMessages[indexA].forEach(function(cachedMessage) {
+                socket.emit('message viewed', cachedMessage.markerInfo.id);
+              });
+
+            } // if( distance < VISIBILITY_RADIUS ){
+
+          }); // marker.addListener('click', function () {
+
+        } else {
+          indexB += 1;
+        }
+      } // while(indexB < cachedMessages.length)
+
+    }) // cachedMessages.forEach(function(cachedMessagesPerPositionA, indexA)
+  }, 500); //setTimeout
+
   firstMarkerRender = false;
 
 });
-
-function removeMessageContainers(){
-  var i = 1;
-  var searchResults = $( '#message-container' + i );
-  var searchResultHits = searchResults.length;
-  while( searchResultHits ){
-    searchResults.remove();
-    i++;
-    searchResults = $( '#message-container' + i );
-    searchResultHits = $( '#message-container' + i ).length;
-  }
-}
-
-socket.on('message viewed response', function (markerInfo) {
-  console.log( "message viewed response, pre fillMessage" );
-  fillMessage( markerInfo, "message-container0" );
-  removeMessageContainers();
-  console.log( "message viewed response, post fillMessage" );
-}); // socket.on('message viewed response', function (markerInfo) {
-
-
-socket.on( 'clumped messages returned', function(otherMessages) {
-  console.log('clumped messages returned: ', otherMessages.length);
-  for( var otherMessage, i=0;  i < otherMessages.length; i++ ){
-    otherMessage = otherMessages[i];
-    console.log("otherMessage");
-
-    if( $("#message-container" + (i+1)).length === 0 ){
-      $(".messages-container") // div:first-child")
-        .append(
-        '<div class="message-container" id="message-container'+ (i+1) +'">' +
-            '<div class="modal-header">' +
-              '<h2 class="modal-title"></h2>' +
-              '<div class="info">' +
-                '<span class="author"></span>' +
-                '<span class="date"></span>' +
-                '<span class="views pull-right"></span>' +
-              '</div>'+
-            '</div>' +
-            '<div class="modal-body">' +
-              '<p class=message></p>' +
-              '<div class="footer">' +
-                '<span class="location">' +
-                  '<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>' +
-                  '<span class="city"></span>' +
-                '</span>' +
-                '<span class="likes pull-right">' +
-                  '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" data-message-id=""></span>' +
-                  '<span class="like"></span>' +
-                  '<span> / </span>' +
-                  '<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" data-message-id=""></span>' +
-                  '<span class="dislike"></span>' +
-                '</span>' +
-              '</div>' +
-            '</div>' +
-        '</div>');
-    }
-
-
-    console.log("preFillMessage");
-    fillMessage( otherMessage, "message-container" + (i+1) );
-    console.log("postFillMessage");
-
-    $("span.glyphicon.glyphicon-thumbs-up").click( clickedThumbsUp );
-    $("span.glyphicon.glyphicon-thumbs-down").click( clickedThumbsDown );
-  }
-});
-
 
 

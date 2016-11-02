@@ -390,6 +390,35 @@ footer p {
   margin-bottom: 0px;
 }
 
+#view-message-modal .message-append .modal-header {
+  border-bottom: 1px solid #b1bcd2;
+}
+
+#view-message-modal .message-append .modal-header .info {
+  text-transform: uppercase;
+  font-size: 11.25px;
+}
+
+#view-message-modal .message-append.multiple .message-in-append .modal-header {
+  border: 0px;
+}
+
+#view-message-modal .message-append.multiple .message-in-append .modal-header .close {
+  display: none;
+}
+
+#view-message-modal .message-append.multiple .message-in-append:first-child .modal-header .close {
+  display: block;
+}
+
+#view-message-modal .message-in-append {
+  border-bottom: 1px solid #b1bcd2;
+}
+
+#view-message-modal .modal-footer {
+  border-top: 0px;
+}
+
 .navbar {
   background-color: #282933;
   border-bottom: 1px solid black;

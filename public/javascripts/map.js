@@ -4,10 +4,10 @@ var coord;
 var centralPosnLatLng;
 var mapCenterCoord;
 var VISIBILITY_RADIUS = 100;
-var MESSAGE_TOO_CLOSE = 20;
-var tooCloseMessages = {};
-var cachedMessages = {};
-var cachedMessageIdsAndMarkers = {};
+var MESSAGE_TOO_CLOSE = 10;
+// var tooCloseMessages = {};
+var cachedMessages = [];
+// var cachedMessageIdsAndMarkers = {};
 var followPosn = true;
 
 function PosnLockControl(controlDiv, map) {

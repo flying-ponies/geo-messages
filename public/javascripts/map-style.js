@@ -8,6 +8,14 @@ mapStyleArr = [
     ]
   },
   {
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#3d4460"
+      }
+    ]
+  },
+  {
     "elementType": "labels.icon",
     "stylers": [
       {

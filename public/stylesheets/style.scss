@@ -212,6 +212,7 @@ footer {
   }
 }
 
+
 // VIEW MESSAGE MODAL
 #view-message-modal {
   .modal-header {
@@ -219,6 +220,38 @@ footer {
       margin-top: 0px;
       margin-bottom: 0px;
     }
+  }
+  .message-append {
+    .modal-header {
+      border-bottom: 1px solid $brand-color-light-mid;
+      .info {
+        text-transform: uppercase;
+        font-size: #{$base-font-size * 0.75};
+      }
+    }
+  }
+  .message-append.multiple {
+    .message-in-append {
+      .modal-header {
+        border: 0px;
+        .close {
+          display: none;
+        }
+      }
+    }
+    .message-in-append:first-child {
+      .modal-header {
+        .close {
+          display: block;
+        }
+      }
+    }
+  }
+  .message-in-append {
+    border-bottom: 1px solid $brand-color-light-mid;
+  }
+  .modal-footer {
+    border-top: 0px;
   }
 }
 
