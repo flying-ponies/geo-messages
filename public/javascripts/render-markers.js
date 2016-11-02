@@ -76,7 +76,11 @@ socket.on('nearby full messages', function(rows) {
       position: markerInfo.coordinates,
       map: map,
       title: 'Click to view message',
-      icon: messageIconWithColor(0)
+      icon: messageIcon(0)
+    }
+
+    if (markerInfo.private) {
+      MarkerRenderOptions.icon = messageIconPrivate(0)
     }
 
     if (!firstMarkerRender) {
@@ -138,12 +142,19 @@ socket.on('nearby full messages', function(rows) {
           });
           cachedMessages.splice(indexB, 1);
           google.maps.event.clearInstanceListeners(cachedMessages[indexA].marker)
-          // cachedMessages[indexA].marker.set('label', {
-          //   text: cachedMessages[indexA].length,
-          //   color: 'white'
-          // });
 
-          cachedMessages[indexA].marker.set('icon', messageIconWithColor(cachedMessages[indexA].length));
+          var privateCount = 0;
+          cachedMessages[indexA].forEach(function(message) {
+            if (message.markerInfo.private) {
+              privateCount += 1;
+            }
+          });
+          var publicCount = cachedMessages[indexA].length - privateCount;
+          if (publicCount >= privateCount) {
+            cachedMessages[indexA].marker.set('icon', messageIcon(cachedMessages[indexA].length));
+          } else {
+            cachedMessages[indexA].marker.set('icon', messageIconPrivate(cachedMessages[indexA].length));
+          }
 
           cachedMessages[indexA].sort(function(a,b){
             return new Date(b.markerInfo.created_at) - new Date(a.markerInfo.created_at);
