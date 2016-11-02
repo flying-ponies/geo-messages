@@ -4,9 +4,8 @@ socket.on('new message', function() {
 
 socket.on('message viewed response', function (markerInfo) {
   var date = moment(markerInfo.created_at).format('MMM DD, YYYY')
-  $('#view-message-modal .message-container').append(`
-      <div class="modal-content">
-
+  $('#view-message-modal .message-append').append(`
+      <div class="message-in-append">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
@@ -34,10 +33,6 @@ socket.on('message viewed response', function (markerInfo) {
               <span class="dislike">${markerInfo.dislikes}</span>
             </span>
           </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Close</button>
         </div>
       </div>
     `);
@@ -98,7 +93,8 @@ socket.on('nearby full messages', function(rows) {
 
       if( distance < VISIBILITY_RADIUS ){
         socket.emit('message viewed', markerInfo.id);
-        $('#view-message-modal .message-container').empty()
+        $('#view-message-modal .message-append').empty();
+        $('#view-message-modal .message-append').removeClass('multiple');
 
       } // if( distance < VISIBILITY_RADIUS ){
 
@@ -158,7 +154,8 @@ socket.on('nearby full messages', function(rows) {
             var distance = google.maps.geometry.spherical.computeDistanceBetween( cachedMessages[indexA].marker.getPosition(), centralPosnLatLng );
 
             if( distance < VISIBILITY_RADIUS ){
-              $('#view-message-modal .message-container').empty()
+              $('#view-message-modal .message-append').empty()
+              $('#view-message-modal .message-append').addClass('multiple');
 
               cachedMessages[indexA].forEach(function(cachedMessage) {
                 socket.emit('message viewed', cachedMessage.markerInfo.id);
