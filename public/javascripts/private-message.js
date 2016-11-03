@@ -39,7 +39,11 @@ $(function() {
   });
 
   // AUTOFILL SEARCH
-  $('#recipients-container').delegate('input[name="recipients"]', 'focus', function() {
+  $('#recipients-container').delegate('input[name="recipients"]', 'focus', autofill);
+
+  $('#new-recipient').on('focus', autofill);
+
+  function autofill() {
     var $form = $(this)
     $(this).typeahead({
       highlighter: function(item) {
@@ -53,11 +57,11 @@ $(function() {
           data: {searchTerm: query},
           dataType: 'json',
           success: function(usernames) {
-              return typeof usernames == 'undefined' ? false : process(usernames);
+            return typeof usernames == 'undefined' ? false : process(usernames);
           }
         });
       }
     });
-  });
+  }
 
 });

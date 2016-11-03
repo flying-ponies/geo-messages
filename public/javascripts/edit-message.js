@@ -53,15 +53,71 @@ $(function() {
     }
   });
 
+
+
+  // Set globals
+  var id = $('span.glyphicon.glyphicon-thumbs-up').data('messageId');
+  var $content = $('p.message');
+  var editing = false;
+
   // Set the date with moment.js
   var date = moment($('.date').data('date')).format('MMM DD, YYYY');
   $('.date').text(date);
 
+  // Ask for the message recipients
+  socket.emit('get message recipients', id);
 
-  var $content = $('p.message');
-  var editing = false;
+  // Get the message recipients
+  socket.on('get message recipients response', function (recipients) {
+    var $container = $('#message-recipients-container');
+    $container.children().remove();
+    var $list = $('<ul>')
+      .addClass('list-group')
+      .appendTo($container);
+    recipients.forEach(function(recipient) {
+      var delBtn = $('<span>').addClass('badge').append(
+        $('<span>')
+          .addClass('glyphicon glyphicon-remove')
+          .attr('aria-hidden', 'true')
+      );
 
-  $('#edit-content').on('click', function(event) {
+      delBtn.on('click', function(event) {
+        socket.emit('remove recipient', {
+          username: recipient.username,
+          messageID: id
+        })
+      });
+
+      $('<li>')
+        .addClass('list-group-item')
+        .text(recipient.username)
+        .append(delBtn)
+        .appendTo($list);
+    });
+  });
+
+  // Add a recipient to a private messageId
+  $('#new-recipient-btn').on('click', function (event) {
+    event.preventDefault();
+
+    var username = $('#new-recipient').val();
+    socket.emit('add recipient', {
+      username: username,
+      messageID: id
+    });
+  });
+
+  socket.on('add recipient response', function (username) {
+    $('#new-recipient').val('');
+    socket.emit('get message recipients', id);
+  });
+
+  socket.on('remove recipient response', function () {
+    socket.emit('get message recipients', id);
+  });
+
+  // Edit content button
+  $('#edit-content').on('click', function (event) {
     event.preventDefault();
 
     // If editing, save the message
@@ -74,7 +130,7 @@ $(function() {
       $content.removeClass('editable');
 
       var data = {
-        id: $('span.glyphicon.glyphicon-thumbs-up').data('messageId'),
+        id: id,
         content: $content.text()
       };
       socket.emit('update message content', data);
@@ -93,9 +149,11 @@ $(function() {
     }
   });
 
+  // Delete messages
   $('#delete-message').on('click', function(event) {
     event.preventDefault();
-    var id = $('span.glyphicon.glyphicon-thumbs-up').data('messageId');
-    socket.emit('delete message', id);
+    if (window.confirm('Delete geo-message forever?')) {
+      socket.emit('delete message', id);
+    }
   });
 });
