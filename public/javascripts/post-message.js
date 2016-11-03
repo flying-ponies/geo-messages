@@ -17,7 +17,6 @@ function setSubmitNewMessageHandler() {
 
     positionToCityName(coord.lat, coord.lng, function(locationName) {
       data.location_name = locationName;
-      console.log('DATA', data);
       socket.emit('post message', data);
 
     }); // positionToCityName(coord.lat, coord.lng, function(locationName)
@@ -37,7 +36,6 @@ $(document).ready(function() {
       $form.get(0).reset();
     } else {
       setSubmitNewMessageHandler();
-      console.log("EROEROE");
       $form.find('.response').removeClass('display-none').html(`
         <div class="alert alert-danger fade in small">
           <a href="#" class="close" data-dismiss="alert">&times;</a>

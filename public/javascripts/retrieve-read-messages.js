@@ -48,9 +48,9 @@ $(document).ready( function() {
                 <span class="views pull-right">${message.views} views</span>
               </div>
             </div>
-            <p class="message">
-              ${message.content}
-            </p>
+            <div class="message">
+              ${message.htmlContent}
+            </div>
             <div class="footer">
               <span class="location">
                 <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>

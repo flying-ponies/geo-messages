@@ -203,6 +203,10 @@ io.on('connection', (socket) => {
 
     newUser.readMessages(page)
       .then((results) => {
+        results.messages = results.messages.map((message) => {
+          message.htmlContent = marked(message.content);
+          return message;
+        });
         socket.emit('read messages', results);
       });
   });
