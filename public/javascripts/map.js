@@ -143,7 +143,7 @@ $(document).ready( function() {
         posnLockControlDiv = document.createElement('div');
         posnLockControl = new PosnLockControl(posnLockControlDiv, map);
         posnLockControlDiv.index = 1;
-        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(posnLockControlDiv);
+        map.controls[google.maps.ControlPosition.RIGHT_TOP].push(posnLockControlDiv);
 
         // UPDATES MAP ON DRAG
         var originalMapCenterCoord = map.getCenter();
