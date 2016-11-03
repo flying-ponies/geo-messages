@@ -98,7 +98,6 @@ socket.on('delete marker', function(messageId) {
 var firstMarkerRender = true;
 
 socket.on('nearby full messages', function(rows) {
-  console.log('Rendering markers');
 
   var incomingMessages = [];
 

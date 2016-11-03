@@ -1,4 +1,3 @@
-console.log('initMap declaration...');
 var map;
 var coord;
 var centralPosnLatLng;
@@ -47,7 +46,6 @@ function PosnLockControl(controlDiv, map) {
 $(document).ready( function() {
 
   function initMap() {
-    console.log( 'initializing the map...' );
 
     var originalCoord;
     var firstCall =  true;
@@ -190,8 +188,6 @@ $(document).ready( function() {
         originalCoord =  new google.maps.LatLng( centralPosnLatLng.lat(), centralPosnLatLng.lng() );
         socket.emit('get full messages', map.getCenter());
       }
-
-      console.log("success, current coord: ", coord );
 
       mapCircle.setCenter( centralPosnLatLng );
     } // function success(pos)
