@@ -283,6 +283,7 @@ io.on('connection', (socket) => {
       if (msg.fields.user_id === socket.handshake.session.currentUser.id) {
         msg.addRecipients([data.username]).then(() => {
           socket.emit('add recipient response', data.username);
+          io.to(data.username).emit('new message');
         })
         .catch((error) => {
           console.error(error);
@@ -298,7 +299,6 @@ io.on('connection', (socket) => {
         msg.removeRecipient(data.username).then(() => {
           socket.emit('remove recipient response');
           io.to(data.username).emit('delete marker', data.messageID);
-
         })
         .catch((error) => {
           console.error(error);
