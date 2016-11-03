@@ -18,7 +18,7 @@ marked.setOptions({
 
 const io = require('socket.io')(app.server);
 
-const sharedsession = require("express-socket.io-session");
+const sharedsession = require('express-socket.io-session');
 
 const session = require('../lib/session');
 

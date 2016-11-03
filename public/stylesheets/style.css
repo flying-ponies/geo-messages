@@ -185,6 +185,10 @@ a:hover {
   text-decoration: underline;
 }
 
+a.dropdown-item {
+  text-decoration: none;
+}
+
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {

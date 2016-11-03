@@ -195,7 +195,7 @@ $(document).ready( function() {
     function error(err){
       console.log("Error in geolocation: ", err);
       $('.jumbotron.vertical-center').removeClass('hide')
-      $('.jumbotron.vertical-center .loading').html('<div class="error lead">Geolocations service not available.<div>');
+      $('.jumbotron.vertical-center .loading').html('<div class="error lead">Geolocation service not available.<div>');
     }
 
     var id = navigator.geolocation.watchPosition(success, error, options);
