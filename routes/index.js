@@ -4,6 +4,18 @@ var router = express.Router();
 const sanitizer = require( 'sanitizer' );
 const Message = require('../lib/messages');
 const User = require('../lib/users');
+const marked = require('marked');
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: true,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
+});
 
 
 router.get('/login', function(req, res, next) {
@@ -105,6 +117,7 @@ router.get('/messages/:id', function(req, res) {
       let displayMessage = new Message(rows[0]).fields;
       if (displayMessage.username === templateVars.currentUser.username) {
         templateVars.message = displayMessage;
+        templateVars.message.htmlContent = marked(templateVars.message.content);
       }
     }
     res.render('show-message', templateVars);

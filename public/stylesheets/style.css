@@ -650,3 +650,7 @@ h1.loading {
   cursor: pointer;
   background-color: #aaa;
 }
+
+#content-editor {
+  display: none;
+}

@@ -3,6 +3,18 @@ const Message = require('../lib/messages');
 const User = require('../lib/users');
 const ReadMessage = require('../lib/read-messages');
 const sanitizer = require( 'sanitizer' );
+const marked = require('marked');
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: true,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
+});
 
 const io = require('socket.io')(app.server);
 
@@ -27,6 +39,10 @@ io.on('connection', (socket) => {
     let pos = `Point(${coord.lng} ${coord.lat})`;
     currentUser.findInRange(pos, 10000)
       .then((rows) => {
+        rows = rows.map((row) => {
+          row.content = marked(row.content);
+          return row;
+        });
         socket.emit('nearby full messages', rows);
       })
       .catch((error) => {
@@ -97,11 +113,19 @@ io.on('connection', (socket) => {
       .then((res) => {
         return Message.findById(messageId);
       }).then((rows) => {
+        rows = rows.map((row) => {
+          row.content = marked(row.content);
+          return row;
+        });
         socket.emit('message viewed response', rows[0]);
       })
       .catch((error) => {
         if(readMessage.errors[0] === 'message has be viewed before' && readMessage.errors.length === 1) {
           Message.findById(messageId).then((rows) => {
+            rows = rows.map((row) => {
+              row.content = marked(row.content);
+              return row;
+            });
             socket.emit('message viewed response', rows[0]);
           });
         } else {

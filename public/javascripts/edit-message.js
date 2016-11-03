@@ -57,8 +57,9 @@ $(function() {
 
   // Set globals
   var id = $('span.glyphicon.glyphicon-thumbs-up').data('messageId');
-  var $content = $('p.message');
+  var $content = $('div.message');
   var editing = false;
+  var $contentEditor = $('#content-editor');
 
   // Set the date with moment.js
   var date = moment($('.date').data('date')).format('MMM DD, YYYY');
@@ -123,15 +124,16 @@ $(function() {
     // If editing, save the message
     if (editing) {
       editing = false;
+      $contentEditor.hide();
       $(this).children().first().removeClass('glyphicon-floppy-disk');
       $(this).children().first().addClass('glyphicon-pencil');
       $(this).html($(this).html().replace('Save', 'Edit'));
-      $content.attr('contenteditable', 'false');
-      $content.removeClass('editable');
+      $content.html($contentEditor.val());
+      $content.show();
 
       var data = {
         id: id,
-        content: $content.text()
+        content: $contentEditor.val()
       };
       socket.emit('update message content', data);
     }
@@ -143,9 +145,9 @@ $(function() {
         $(this).children().first().addClass('glyphicon-floppy-disk')
       }
       $(this).html($(this).html().replace('Edit', 'Save'));
-      $content.attr('contenteditable', 'true');
-      $content.addClass('editable');
-      $content.focus();
+      $content.hide();
+      $contentEditor.show();
+      $contentEditor.focus();
     }
   });
 

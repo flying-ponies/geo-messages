@@ -55,7 +55,7 @@ socket.on('message viewed response', function (markerInfo) {
         </div>
 
         <div class="modal-body">
-          <p class="message">${markerInfo.content}</p>
+          <div class="message">${markerInfo.content}</div>
           <div class="footer">
             <span class="location">
               <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
@@ -206,5 +206,3 @@ socket.on('nearby full messages', function(rows) {
   firstMarkerRender = false;
 
 });
-
-
