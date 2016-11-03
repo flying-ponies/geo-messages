@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+const sanitizer = require( 'sanitizer' );
 const Message = require('../lib/messages');
 const User = require('../lib/users');
 
@@ -15,9 +16,10 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-  // req.session.currentUser = {
 
-  // };
+  req.body.email = sanitizer.sanitize( req.body.email );
+  req.body.password = sanitizer.sanitize( req.body.password );
+
   User.authenticateUser( req.body.email, req.body.password ).then(function(userResults){
 
     req.session.currentUser = userResults;
@@ -53,10 +55,10 @@ router.get('/signup', function(req, res, next) {
 
 router.post('/signup', function(req, res, next) {
   let newUser = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-    passwordConfirmation: req.body.passwordConfirmation
+    username: sanitizer.sanitize( req.body.username ),
+    email: sanitizer.sanitize( req.body.email ),
+    password: sanitizer.sanitize( req.body.password ),
+    passwordConfirmation: sanitizer.sanitize( req.body.passwordConfirmation )
   });
 
   newUser.save()
@@ -70,8 +72,8 @@ router.post('/signup', function(req, res, next) {
         page: 'error',
         currentUser: null,
         errors: newUser.errors,
-        username: req.body.username,
-        email: req.body.email
+        username: sanitizer.sanitize( req.body.username ),
+        email: sanitizer.sanitize( req.body.email )
       });
     });
 
