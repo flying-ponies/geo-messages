@@ -35,7 +35,8 @@ $base-line-height: 1.5 * $base-font-size;
 a,
 a:focus,
 a:hover {
-  color: $font_secondary;
+  color: $brand-color-dark-mid;
+  text-decoration: underline;
 }
 
 // BUTTONS
@@ -46,10 +47,12 @@ a:hover {
   text-shadow: none; /* Prevent inheritance from `body` */
   background-color: lighten($brand-color-dark, 15%);
   border: 0px;
+  text-decoration: none;
   a,
   a:focus,
   a:hover {
     color: $font_primary;
+    text-decoration: none;
   }
 }
 
@@ -59,6 +62,7 @@ a:hover {
   text-shadow: none; /* Prevent inheritance from `body` */
   background-color: $color_bg_light;
   border-color: $brand-color-light-mid;
+  text-decoration: none;
 
   &:hover {
     background-color: $brand-color-light-mid;
@@ -70,6 +74,7 @@ a:hover {
   a:focus,
   a:hover {
     color: $font_primary;
+    text-decoration: none;
   }
 }
 
@@ -80,10 +85,12 @@ a:hover {
   text-shadow: none; /* Prevent inheritance from `body` */
   background-color: lighten($brand-color-dark, 15%);
   border: 0px;
+  text-decoration: none;
   a,
   a:focus,
   a:hover {
     color: $font_primary;
+    text-decoration: none;
   }
 }
 
@@ -112,6 +119,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $font_headers;
   font-weight: bold;
   margin: 0px;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 .lead {
@@ -269,6 +280,11 @@ footer.navbar-fixed-bottom{
   text-align: center;
   height: 50px;
   min-width:320px;
+  a:hover,
+  a:focus,
+  a {
+    text-decoration: none;
+  }
 }
 
 .masthead {
@@ -390,6 +406,7 @@ form {
   li a {
     color: $brand-color-dark;
     padding: 7px;
+    text-decoration: none;
   }
   li a:focus,
   li a:hover {

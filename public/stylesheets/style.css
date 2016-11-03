@@ -181,7 +181,8 @@ nav.page-buttons .pagination li.disabled > a:focus {
 a,
 a:focus,
 a:hover {
-  color: #282933;
+  color: #586181;
+  text-decoration: underline;
 }
 
 .btn-default,
@@ -192,6 +193,7 @@ a:hover {
   /* Prevent inheritance from `body` */
   background-color: #4a4b5e;
   border: 0px;
+  text-decoration: none;
 }
 
 .btn-default a,
@@ -204,6 +206,7 @@ a:hover {
 .btn-default:focus a:focus,
 .btn-default:focus a:hover {
   color: white;
+  text-decoration: none;
 }
 
 .btn-primary,
@@ -213,6 +216,7 @@ a:hover {
   /* Prevent inheritance from `body` */
   background-color: #e7e9f4;
   border-color: #b1bcd2;
+  text-decoration: none;
 }
 
 .btn-primary:hover,
@@ -229,6 +233,7 @@ a:hover {
 .btn-primary:focus a:focus,
 .btn-primary:focus a:hover {
   color: white;
+  text-decoration: none;
 }
 
 .btn-secondary,
@@ -239,6 +244,7 @@ a:hover {
   /* Prevent inheritance from `body` */
   background-color: #4a4b5e;
   border: 0px;
+  text-decoration: none;
 }
 
 .btn-secondary a,
@@ -251,6 +257,7 @@ a:hover {
 .btn-secondary:focus a:focus,
 .btn-secondary:focus a:hover {
   color: white;
+  text-decoration: none;
 }
 
 html {
@@ -278,6 +285,11 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Open Sans", sans-serif;
   font-weight: bold;
   margin: 0px;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .lead {
@@ -432,6 +444,12 @@ footer.navbar-fixed-bottom a {
   min-width: 320px;
 }
 
+.navbar a:hover,
+.navbar a:focus,
+.navbar a {
+  text-decoration: none;
+}
+
 .masthead {
   margin-right: auto;
   margin-left: auto;
@@ -552,6 +570,7 @@ form textarea {
 .nav-tabs li a {
   color: #282933;
   padding: 7px;
+  text-decoration: none;
 }
 
 .nav-tabs li a:focus,
