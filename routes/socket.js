@@ -2,6 +2,7 @@ const app = require('../app');
 const Message = require('../lib/messages');
 const User = require('../lib/users');
 const ReadMessage = require('../lib/read-messages');
+const sanitizer = require( 'sanitizer' );
 
 const io = require('socket.io')(app.server);
 
@@ -34,6 +35,9 @@ io.on('connection', (socket) => {
   });
 
   socket.on('post message', (messageObj) => {
+
+    messageObj.content = sanitizer.sanitize( messageObj.content );
+
     if (socket.handshake.session.currentUser) {
       messageObj.user_id = socket.handshake.session.currentUser.id;
     } else {
