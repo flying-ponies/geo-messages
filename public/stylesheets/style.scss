@@ -187,8 +187,14 @@ footer {
     text-align: center;
     opacity: .50;
   }
+
 }
 
+footer.navbar-fixed-bottom{
+  a {
+    color: $brand-color-light;
+  }
+}
 // MODAL
 .modal-content {
   color: $font_secondary;
