@@ -7,6 +7,7 @@ const User = require('../lib/users');
 
 router.get('/login', function(req, res, next) {
   res.render('login', {
+    page: 'login',
     currentUser: null,
     errors: null,
     email: ''
@@ -25,6 +26,7 @@ router.post('/login', function(req, res, next) {
   }).catch( function(error){
 
     res.render('login', {
+      page: 'error',
       currentUser: null,
       errors: ['Email or Password is invalid'],
       email: req.body.email
@@ -41,6 +43,7 @@ router.get('/logout', function(req, res, next){
 
 router.get('/signup', function(req, res, next) {
   res.render('signup', {
+    page: 'signup',
     currentUser: null,
     errors: null,
     username: '',
@@ -64,6 +67,7 @@ router.post('/signup', function(req, res, next) {
     .catch(error => {
       console.error(error);
       res.render('signup', {
+        page: 'error',
         currentUser: null,
         errors: newUser.errors,
         username: req.body.username,
@@ -82,7 +86,7 @@ router.post('/users/search', function(req, res, next) {
 
 router.get('/profile', function(req, res, next) {
   let newUser = new User(req.session.currentUser);
-  let templateVars = { currentUser: req.session.currentUser};
+  let templateVars = { currentUser: req.session.currentUser, page: 'profile' };
   res.render('profile', templateVars);
 });
 
@@ -91,6 +95,8 @@ router.get('/messages/:id', function(req, res) {
     currentUser: req.session.currentUser,
     message: null
   };
+
+  templateVars.page = 'message';
 
   Message.findById(req.params.id).then((rows) => {
     if (rows && rows.length) {
@@ -102,14 +108,14 @@ router.get('/messages/:id', function(req, res) {
     res.render('show-message', templateVars);
   }).catch((error) => {
     console.error(error);
-    res.render('show-message', templateVars)
+    res.render('show-message', templateVars);
   })
 });
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if( req.session.currentUser ){
-    res.render('index', { currentUser: req.session.currentUser });
+    res.render('index', { currentUser: req.session.currentUser,  page: 'index' });
   }
   else {
     res.redirect('/login');

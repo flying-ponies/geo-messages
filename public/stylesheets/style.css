@@ -358,6 +358,10 @@ footer p {
   opacity: .50;
 }
 
+footer.navbar-fixed-bottom a {
+  color: #e7e9f4;
+}
+
 .modal-content {
   color: #282933;
   background-color: #e7e9f4;
