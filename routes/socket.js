@@ -217,8 +217,12 @@ io.on('connection', (socket) => {
   socket.on('get message recipients', (messageID) => {
     Message.find(messageID).then((row) => {
       let msg = new Message(row);
-      if (msg.fields.user_id === socket.handshake.session.currentUser.id) {
+      var currentUser = socket.handshake.session.currentUser;
+      if (msg.fields.user_id === currentUser.id) {
         msg.getRecipients().then((recipients) => {
+          recipients = recipients.filter((recipient) => {
+            return recipient.username.toLowerCase() != currentUser.username.toLowerCase();
+          });
           socket.emit('get message recipients response', recipients);
         })
         .catch((error) => {
@@ -240,7 +244,21 @@ io.on('connection', (socket) => {
         });
       }
     });
-  })
+  });
+
+  socket.on('remove recipient', (data) => {
+    Message.find(data.messageID).then((row) => {
+      let msg = new Message(row);
+      if (msg.fields.user_id === socket.handshake.session.currentUser.id) {
+        msg.removeRecipient(data.username).then(() => {
+          socket.emit('remove recipient response');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      }
+    });
+  });
 
   socket.on('disconnect', function() {
     console.log('A user disconnected');

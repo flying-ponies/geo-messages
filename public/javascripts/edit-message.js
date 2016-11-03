@@ -75,9 +75,23 @@ $(function() {
       .addClass('list-group')
       .appendTo($container);
     recipients.forEach(function(recipient) {
+      var delBtn = $('<span>').addClass('badge').append(
+        $('<span>')
+          .addClass('glyphicon glyphicon-remove')
+          .attr('aria-hidden', 'true')
+      );
+
+      delBtn.on('click', function(event) {
+        socket.emit('remove recipient', {
+          username: recipient.username,
+          messageID: id
+        })
+      });
+
       $('<li>')
         .addClass('list-group-item')
         .text(recipient.username)
+        .append(delBtn)
         .appendTo($list);
     });
   });
@@ -95,6 +109,10 @@ $(function() {
 
   socket.on('add recipient response', function (username) {
     $('#new-recipient').val('');
+    socket.emit('get message recipients', id);
+  });
+
+  socket.on('remove recipient response', function () {
     socket.emit('get message recipients', id);
   });
 
