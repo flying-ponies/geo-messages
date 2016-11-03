@@ -15,7 +15,7 @@ $(function() {
       .attr('type', 'text')
       .attr('id', 'recipient-' + recipientNum.toString())
       .attr('name', 'recipients')
-      .attr('placeholder', 'Recipient ' + recipientNum.toString() + ' email')
+      .attr('placeholder', 'Recipient ' + recipientNum.toString() + ' Username')
       .attr('autocomplete', 'off')
       .appendTo(container);
 
