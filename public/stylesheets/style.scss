@@ -482,3 +482,12 @@ h1.loading {
     outline: none;
   }
 }
+
+.list-group {
+  margin: 10px 0;
+}
+
+.list-group-item .badge:hover {
+  cursor: pointer;
+  background-color: #aaa;
+}
