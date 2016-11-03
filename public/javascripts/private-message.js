@@ -31,6 +31,12 @@ $(function() {
     }
   }
 
+  $('.new-message-modal').on('hidden.bs.modal', function() {
+    while (recipientNum > 1) {
+      removeLastRecipient();
+    }
+  });
+
   $('#add-recipient-btn').on('click', addNewRecipient);
   $('#remove-recipient-btn').on('click', removeLastRecipient);
 
@@ -47,8 +53,8 @@ $(function() {
     var $form = $(this)
     $(this).typeahead({
       highlighter: function(item) {
-        var query = $form.val();
-        return ('<strong>' + query + '</strong>' + item.replace(query,''))
+        var length = $form.val().length;
+        return ('<strong>' + item.slice(0, length) + '</strong>' + item.slice(length));
       },
       source: function (query, process) {
         return $.ajax({

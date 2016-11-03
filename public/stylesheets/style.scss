@@ -39,6 +39,16 @@ a:hover {
   text-decoration: underline;
 }
 
+a.dropdown-item {
+  text-decoration: none;
+}
+
+.alert {
+  a {
+    text-decoration: none;
+  }
+}
+
 // BUTTONS
 .btn-default,
 .btn-default:hover,

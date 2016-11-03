@@ -29,7 +29,7 @@ $(document).ready(function() {
     var $form = $('.new-message-modal form');
     if (!errors) {
       if (window.location.pathname === '/profile') {
-        socket.emit('retrieve your messages', $('#your-messages').attr("current-page"));
+        socket.emit('retrieve your messages', $('#your-messages').attr('current-page'));
       }
       var $form = $('.new-message-modal form');
       $('.new-message-modal').modal('hide');
@@ -39,7 +39,7 @@ $(document).ready(function() {
       $form.find('.response').removeClass('display-none').html(`
         <div class="alert alert-danger fade in small">
           <a href="#" class="close" data-dismiss="alert">&times;</a>
-          <strong>The following errors prevented the Geo-Message to be posted:</strong>
+          <strong>The following errors prevented the Geo-Message from being posted:</strong>
           <ul>
           </ul>
         </div>
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
   $('.new-message-modal').on('hidden.bs.modal', function() {
     $('.new-message-modal form').removeClass('display-none').get(0).reset();
-    $('.new-message-modal .response').addClass('display-none')
+    $('.new-message-modal .response').addClass('display-none');
     $('#recipients-container').hide();
     $('.new-message-modal form').off();
   });
