@@ -80,6 +80,7 @@ socket.on('message viewed response', function (markerInfo) {
 }); // socket.on('message viewed response', function (markerInfo) {
 
 socket.on('delete marker', function(messageId) {
+  console.log("got delete marker request");
   cachedMessages.forEach(function(cachedMessagesPerPosition, i) {
     cachedMessagesPerPosition.forEach(function(cachedMessage, j) {
       if (cachedMessages[i][j].markerInfo.id === messageId) {

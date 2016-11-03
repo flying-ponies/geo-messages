@@ -30,6 +30,10 @@ io.use(sharedsession(session, {
 io.on('connection', (socket) => {
   console.log('A user connected');
 
+  if (socket.handshake.session.currentUser) {
+    socket.join(socket.handshake.session.currentUser.username);
+  }
+
   socket.on('get full messages', (coord) => {
     if (!socket.handshake.session.currentUser) {
       return null;
@@ -293,6 +297,8 @@ io.on('connection', (socket) => {
       if (msg.fields.user_id === socket.handshake.session.currentUser.id) {
         msg.removeRecipient(data.username).then(() => {
           socket.emit('remove recipient response');
+          io.to(data.username).emit('delete marker', data.messageID);
+
         })
         .catch((error) => {
           console.error(error);
