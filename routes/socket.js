@@ -190,6 +190,10 @@ io.on('connection', (socket) => {
 
     newUser.getUserMessages(page)
       .then((results) => {
+        results.messages = results.messages.map((message) => {
+          message.htmlContent = marked(message.content);
+          return message;
+        });
         socket.emit('your messages', results);
       });
   });

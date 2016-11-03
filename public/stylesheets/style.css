@@ -654,3 +654,7 @@ h1.loading {
 #content-editor {
   display: none;
 }
+
+textarea {
+  resize: vertical;
+}

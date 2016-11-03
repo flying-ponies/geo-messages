@@ -56,9 +56,9 @@ $(document).ready( function() {
                 <span class="views pull-right">${message.views} views</span>
               </div>
             </div>
-            <p class="message">
-              ${limitContent(message.content)}
-            </p>
+            <div class="message">
+              ${limitContent(message.htmlContent)}
+            </div>
             <p><a class="btn btn-primary btn-sm" href="/messages/${message.id}">View</a></p>
             <div class="footer">
               <span class="location">
