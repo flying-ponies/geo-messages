@@ -108,6 +108,10 @@ io.on('connection', (socket) => {
 
   socket.on('message viewed', (messageId) => {
     console.log('message viewed: message ID: ', messageId);
+    if (!socket.handshake.session.currentUser) {
+      return;
+    }
+    
     let readMessageObj = {
       user_id: socket.handshake.session.currentUser.id,
       message_id: messageId
